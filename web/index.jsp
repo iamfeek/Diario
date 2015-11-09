@@ -8,9 +8,9 @@
 
 <jsp:attribute name="body_area">
     <%--the content of the site goes here.--%>
-    <div class="container">
         <h1>Welcome</h1>
-    </div>
+    <script>
+        document.getElementById('homeNav').className = 'active';
+    </script>
 </jsp:attribute>
-
 </t:layout>

@@ -1,16 +1,16 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: IamFeeK
-  Date: 9/11/15
-  Time: 09:10
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-  <head>
-    <title>Diario</title>
-  </head>
-  <body>
-    <h1>Welcome to Diario</h1>
-  </body>
-</html>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+
+<t:layout title="Diario">
+
+<jsp:attribute name="head_area">
+    <%--all custom js/css for this page belongs here.--%>
+</jsp:attribute>
+
+<jsp:attribute name="body_area">
+    <%--the content of the site goes here.--%>
+    <div class="container">
+        <h1>Welcome</h1>
+    </div>
+</jsp:attribute>
+
+</t:layout>

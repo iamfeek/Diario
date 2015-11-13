@@ -7,69 +7,126 @@
 
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+
+    <link href="../css/reset.css" rel="stylesheet">
+    <link href="../css/loginModal.css" rel="stylesheet">
+    <script src="../js/modernizr.js"></script> <!-- Modernizr -->
+
     <title>${title}</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
-    <link href="../css/layout.css" rel="stylesheet">
+
     <jsp:invoke fragment="head_area"/>
 </head>
 <body>
-<nav class="navbar navbar-static-top navbar-inverse" role="navigation">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Diario</a>
-        </div>
+<header role="banner">
+    <div id="cd-logo"><a href="#0"><img src="../img/cd-logo.svg" alt="Logo"></a></div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="main-nav-bar">
-            <ul class="nav navbar-nav">
-                <li id="homeNav"><a href="/">Home</a></li>
-            </ul>
+    <nav class="main-nav">
+        <ul>
+            <li><a class="cd-signin" href="#0">Sign in</a></li>
+            <li><a class="cd-signup" href="#0">Sign up</a></li>
+        </ul>
+    </nav>
+</header>
+<div class="cd-user-modal"> <!-- this is the entire modal form, including the background -->
+    <div class="cd-user-modal-container"> <!-- this is the container wrapper -->
+        <ul class="cd-switcher">
+            <li><a href="#0">Sign in</a></li>
+            <li><a href="#0">New account</a></li>
+        </ul>
 
-            <%--init for register and login modal--%>
-            <%--<%@ include file="../../register.jsp" %>--%>
+        <div id="cd-login"> <!-- log in form -->
+            <form class="cd-form">
+                <p class="fieldset">
+                    <label class="image-replace cd-email" for="signin-email">E-mail</label>
+                    <input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="E-mail">
+                    <span class="cd-error-message">Error message here!</span>
+                </p>
 
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a class="btn" data-toggle="modal" data-target="#myModal" style="color: white;">
-                        Login
-                    </a>
-                </li>
-            </ul>
+                <p class="fieldset">
+                    <label class="image-replace cd-password" for="signin-password">Password</label>
+                    <input class="full-width has-padding has-border" id="signin-password" type="text"  placeholder="Password">
+                    <a href="#0" class="hide-password">Hide</a>
+                    <span class="cd-error-message">Error message here!</span>
+                </p>
 
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-</nav>
-<jsp:invoke fragment="body_area"/>
-<!-- Button trigger modal -->
+                <p class="fieldset">
+                    <input type="checkbox" id="remember-me" checked>
+                    <label for="remember-me">Remember me</label>
+                </p>
 
+                <p class="fieldset">
+                    <input class="full-width" type="submit" value="Login">
+                </p>
+            </form>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Login</h4>
-            </div>
-            <div class="modal-body">
-                Login Page Goes here.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
+            <p class="cd-form-bottom-message"><a href="#0">Forgot your password?</a></p>
+            <%--<a href="#0" class="cd-close-form">Close</a>--%>
+        </div> <!-- cd-login -->
+
+        <div id="cd-signup"> <!-- sign up form -->
+            <form class="cd-form">
+                <p class="fieldset">
+                    <label class="image-replace cd-username" for="signup-username">Username</label>
+                    <input class="full-width has-padding has-border" id="signup-username" type="text" placeholder="Username">
+                    <span class="cd-error-message">Error message here!</span>
+                </p>
+
+                <p class="fieldset">
+                    <label class="image-replace cd-email" for="signup-email">E-mail</label>
+                    <input class="full-width has-padding has-border" id="signup-email" type="email" placeholder="E-mail">
+                    <span class="cd-error-message">Error message here!</span>
+                </p>
+
+                <p class="fieldset">
+                    <label class="image-replace cd-password" for="signup-password">Password</label>
+                    <input class="full-width has-padding has-border" id="signup-password" type="text"  placeholder="Password">
+                    <a href="#0" class="hide-password">Hide</a>
+                    <span class="cd-error-message">Error message here!</span>
+                </p>
+
+                <p class="fieldset">
+                    <input type="checkbox" id="accept-terms">
+                    <label for="accept-terms">I agree to the <a href="#0">Terms</a></label>
+                </p>
+
+                <p class="fieldset">
+                    <input class="full-width has-padding" type="submit" value="Create account">
+                </p>
+            </form>
+
+            <!-- <a href="#0" class="cd-close-form">Close</a> -->
+        </div> <!-- cd-signup -->
+
+        <div id="cd-reset-password"> <!-- reset password form -->
+            <p class="cd-form-message">Lost your password? Please enter your email address. You will receive a link to create a new password.</p>
+
+            <form class="cd-form">
+                <p class="fieldset">
+                    <label class="image-replace cd-email" for="reset-email">E-mail</label>
+                    <input class="full-width has-padding has-border" id="reset-email" type="email" placeholder="E-mail">
+                    <span class="cd-error-message">Error message here!</span>
+                </p>
+
+                <p class="fieldset">
+                    <input class="full-width has-padding" type="submit" value="Reset password">
+                </p>
+            </form>
+
+            <p class="cd-form-bottom-message"><a href="#0">Back to log-in</a></p>
+        </div> <!-- cd-reset-password -->
+        <a href="#0" class="cd-close-form">Close</a>
+    </div> <!-- cd-user-modal-container -->
 </div>
+
+<jsp:invoke fragment="body_area"/>
+
 
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+<script src="../js/login.js"></script>
 </body>
 </html>

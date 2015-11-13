@@ -93,12 +93,14 @@ jQuery(document).ready(function($){
 
     //REMOVE THIS - it's just to show error messages
     formLogin.find('input[type="submit"]').on('click', function(event){
+        $("#btnLogin").attr('value', 'Processing...')
+        $("#btnLogin").prop('disabled', true);
         event.preventDefault();
         //formLogin.find('input[type="email"]').toggleClass('has-error').next('span').toggleClass('is-visible');
         $.post("auth",{
             flag: "login",
-            name:"kevin",
-            pass:"Duckburg"
+            name:$("#signin-email").val(),
+            password:$("#signin-password").val(),
         }).done(function(data) {
             console.log("Status: " + data);
         })

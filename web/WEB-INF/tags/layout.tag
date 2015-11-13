@@ -59,7 +59,7 @@
                 </p>
 
                 <p class="fieldset">
-                    <input class="full-width" type="submit" value="Login">
+                    <input class="full-width" type="submit" id="btnLogin" value="Login">
                 </p>
             </form>
 

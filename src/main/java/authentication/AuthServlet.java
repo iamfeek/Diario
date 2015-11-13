@@ -11,12 +11,8 @@ public class AuthServlet extends javax.servlet.http.HttpServlet {
         String flag = request.getParameter("flag");
         if(flag.equals("login")){
             System.out.println("[AuthServlet] Request wants to login in. Sending to handler.");
-            Login.login(response, request.getParameter("name"));
+            Login.login(response, request.getParameter("name"), request.getParameter("password"));
         }
-
-        response.setContentType("text/plain");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("Auth Status Here.");
     }
 
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {

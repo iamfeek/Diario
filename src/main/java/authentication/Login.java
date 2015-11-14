@@ -15,9 +15,6 @@ public class Login {
         response.setContentType("text/plain");
         response.setCharacterEncoding("UTF-8");
 
-
-
-
         if(name.equals("me@iamfeek.com")){
             //creating cookie for session
             Cookie loginCookie = new Cookie("name", name);

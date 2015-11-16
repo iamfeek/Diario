@@ -12,14 +12,19 @@ public class Login {
         System.out.println("[Login] Username: " + name);
         System.out.println("[Login] Password: " + password);
 
-        response.setContentType("text/plain");
-        response.setCharacterEncoding("UTF-8");
+        //setting the response type
+//        response.setContentType("text/plain");
+//        response.setCharacterEncoding("UTF-8");
+
 
         if(name.equals("me@iamfeek.com")){
+            response.sendRedirect("http://google.com");
+            System.out.println("name is legit");
             //creating cookie for session
             Cookie loginCookie = new Cookie("name", name);
             response.addCookie(loginCookie);
-            response.sendRedirect("/");
-        }
+            response.sendRedirect("index");
+        } else
+            System.out.println("name is not legit");
     }
 }

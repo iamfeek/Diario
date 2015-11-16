@@ -4,10 +4,10 @@ import java.sql.*;
 /**
  * Created by IamFeeK on 14/11/2015.
  */
-public class DB {
+public class Db {
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/diario";
+    static final String DB_URL = "jdbc:mysql://127.0.0.1/diario";
 
     //  Database credentials
     static final String USER = "root";

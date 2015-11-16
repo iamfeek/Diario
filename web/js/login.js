@@ -99,7 +99,7 @@ jQuery(document).ready(function($){
         //formLogin.find('input[type="email"]').toggleClass('has-error').next('span').toggleClass('is-visible');
         $.post("auth",{
             flag: "login",
-            name:$("#signin-email").val(),
+            username:$("#signin-email").val(),
             password:$("#signin-password").val(),
         }).done(function(data) {
             console.log("Status: " + data);

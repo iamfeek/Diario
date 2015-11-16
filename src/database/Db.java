@@ -32,6 +32,8 @@ public class Db {
         }
     }
 
+    
+
     public static void main(String[] args) throws SQLException{
         conn = getConnection();
         //STEP 4: Execute a query

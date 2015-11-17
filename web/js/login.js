@@ -94,21 +94,29 @@ jQuery(document).ready(function($){
     //REMOVE THIS - it's just to show error messages
     formLogin.find('input[type="submit"]').on('click', function(event){
         $("#btnLogin").attr('value', 'Processing...')
-        $("#btnLogin").prop('disabled', true);
-        event.preventDefault();
+        //$("#btnLogin").prop('disabled', true);
+        //event.preventDefault();
         //formLogin.find('input[type="email"]').toggleClass('has-error').next('span').toggleClass('is-visible');
-        $.post("auth",{
-            flag: "login",
-            username:$("#signin-email").val(),
-            password:$("#signin-password").val(),
-        }).done(function(data) {
-            console.log("Status: " + data);
-        })
-
+        //$.post("auth",{
+        //    flag: "login",
+        //    username:$("#signin-email").val(),
+        //    password:$("#signin-password").val(),
+        //}).done(function(data) {
+        //    console.log("Status: " + data);
+        //})
     });
     formSignup.find('input[type="submit"]').on('click', function(event){
         event.preventDefault();
-        formSignup.find('input[type="email"]').toggleClass('has-error').next('span').toggleClass('is-visible');
+        alert("HEY")
+        //formSignup.find('input[type="email"]').toggleClass('has-error').next('span').toggleClass('is-visible');
+        $.post("auth",{
+            flag: "register",
+            username:$("#signup-username").val(),
+            email:$("#signup-email").val(),
+            password: $("#signup-password").val(),
+        }).done(function(data) {
+            console.log("Status: " + data);
+        })
     });
 
 
@@ -135,7 +143,6 @@ jQuery(document).ready(function($){
             })
         });
     }
-
 });
 
 

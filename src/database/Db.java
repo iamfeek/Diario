@@ -5,34 +5,24 @@ import java.sql.*;
  * Created by IamFeeK on 14/11/2015.
  */
 public class Db {
-    // JDBC driver name and database URL
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://127.0.0.1/diario";
-
-    //  Database credentials
-    static final String USER = "root";
-    static final String PASS = "root";
-
     static Statement stmt = null;
     static Connection conn = null;
 
     public static Connection getConnection(){
         try{
-            //STEP 2: Register JDBC driver
             Class.forName("com.mysql.jdbc.Driver");
-
-            //STEP 3: Open a connection
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
-        } catch(ClassNotFoundException e){
-            e.printStackTrace();
-        } catch (SQLException e){
-            e.printStackTrace();
-        } finally{
+            Connection conn = null;
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/diario","root", "root");
             return conn;
+        }catch (SQLException e){
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
+        return null;
     }
 
-    
+
 
     public static void main(String[] args) throws SQLException{
         conn = getConnection();

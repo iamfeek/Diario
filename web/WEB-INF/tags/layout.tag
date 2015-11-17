@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@tag description="Simple Template" pageEncoding="UTF-8"%>
+<%@tag description="Main Template" pageEncoding="UTF-8"%>
 
 <%@attribute name="title"%>
 <%@attribute name="head_area" fragment="true" %>
@@ -39,16 +39,17 @@
         </ul>
 
         <div id="cd-login"> <!-- log in form -->
-            <form class="cd-form">
+            <form class="cd-form" action="/auth" method="POST">
+
                 <p class="fieldset">
-                    <label class="image-replace cd-email" for="signin-email">E-mail</label>
-                    <input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="E-mail">
+                    <label class="image-replace cd-username" for="signin-email">Username</label>
+                    <input class="full-width has-padding has-border" name="username" id="signin-email" type="text" placeholder="Username">
                     <span class="cd-error-message">Error message here!</span>
                 </p>
 
                 <p class="fieldset">
                     <label class="image-replace cd-password" for="signin-password">Password</label>
-                    <input class="full-width has-padding has-border" id="signin-password" type="text"  placeholder="Password">
+                    <input class="full-width has-padding has-border" name="password" id="signin-password" type="text"  placeholder="Password">
                     <a href="#0" class="hide-password">Hide</a>
                     <span class="cd-error-message">Error message here!</span>
                 </p>
@@ -57,6 +58,7 @@
                     <input type="checkbox" id="remember-me" checked>
                     <label for="remember-me">Remember me</label>
                 </p>
+                <input name="flag" type="hidden" value="login">
 
                 <p class="fieldset">
                     <input class="full-width" type="submit" id="btnLogin" value="Login">
@@ -69,21 +71,22 @@
 
         <div id="cd-signup"> <!-- sign up form -->
             <form class="cd-form">
+                <input name="flag" type="hidden" value="register">
                 <p class="fieldset">
                     <label class="image-replace cd-username" for="signup-username">Username</label>
-                    <input class="full-width has-padding has-border" id="signup-username" type="text" placeholder="Username">
+                    <input class="full-width has-padding has-border" id="signup-username" name="username" type="text" placeholder="Username">
                     <span class="cd-error-message">Error message here!</span>
                 </p>
 
                 <p class="fieldset">
                     <label class="image-replace cd-email" for="signup-email">E-mail</label>
-                    <input class="full-width has-padding has-border" id="signup-email" type="email" placeholder="E-mail">
+                    <input class="full-width has-padding has-border" id="signup-email" name="email" type="email" placeholder="E-mail">
                     <span class="cd-error-message">Error message here!</span>
                 </p>
 
                 <p class="fieldset">
                     <label class="image-replace cd-password" for="signup-password">Password</label>
-                    <input class="full-width has-padding has-border" id="signup-password" type="text"  placeholder="Password">
+                    <input class="full-width has-padding has-border" id="signup-password" name="password" type="text"  placeholder="Password">
                     <a href="#0" class="hide-password">Hide</a>
                     <span class="cd-error-message">Error message here!</span>
                 </p>

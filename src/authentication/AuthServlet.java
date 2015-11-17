@@ -36,6 +36,8 @@ public class AuthServlet extends javax.servlet.http.HttpServlet {
                         response.sendRedirect("home");
                     }
                 }
+            } else if(flag.equals("logout")){
+
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -10,7 +10,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+
 
     <link href="../css/reset.css" rel="stylesheet">
     <link href="../css/loginModal.css" rel="stylesheet">
@@ -36,22 +38,22 @@
 <header role="banner">
     <div id="cd-logo"><a href="/home"><img src="../img/cd-logo.svg" alt="Logo"></a></div>
 
-    <nav class="main-nav">
-        <ul>
-            <li><a class="cd-signup" href="" id="profile_name">Profile</a></li>
-        </ul>
-    </nav>
+    <div style=" height: 100%; border: 1px solid;width: 500px; text-align: right; float: right;">
+        <a style="color: #fff; font-weight: 100; font-size: 165%; margin-top: 25px;" id="profile_name"></a>
+        <a style="color: #fff;" href="" style="background-color: transparent;">
+            <i class="fa fa-sign-out fa-2x"></i>
+        </a>
+    </div>
     <script>
         var x = getCookie("User");
         var profile = document.getElementById("profile_name");
-        profile.innerHTML = "Welcome, "+x+"!";
+        profile.innerHTML += "Hey, <u>"+x+"</u>!";
     </script>
 </header>
 <jsp:invoke fragment="body_area"/>
 
 
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 <script src="../js/login.js"></script>
 </body>
 </html>

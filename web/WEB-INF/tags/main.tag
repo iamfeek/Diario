@@ -28,6 +28,12 @@
             }
             return "";
         }
+
+        var user = getCookie("User");
+        if(user == ""){
+            window.location.href = "/"
+        }
+
     </script>
 
     <title>${title}</title>
@@ -40,7 +46,7 @@
 
     <div style=" height: 100%; border: 1px solid;width: 500px; text-align: right; float: right;">
         <a style="color: #fff; font-weight: 100; font-size: 165%; margin-top: 25px;" id="profile_name"></a>
-        <a style="color: #fff;" href="" style="background-color: transparent;">
+        <a style="color: #fff;" href="" id="sign-out" style="background-color: transparent;">
             <i class="fa fa-sign-out fa-2x"></i>
         </a>
     </div>
@@ -55,5 +61,16 @@
 
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="../js/login.js"></script>
+<script>
+    $("#sign-out").click(function(){
+        $.post("/auth",
+                {
+                    flag: "logout"
+                },
+                function(data, status){
+                    alert("Data: " + data + "\nStatus: " + status);
+                });
+    });
+</script>
 </body>
 </html>

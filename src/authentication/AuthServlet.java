@@ -37,7 +37,11 @@ public class AuthServlet extends javax.servlet.http.HttpServlet {
                     }
                 }
             } else if(flag.equals("logout")){
-
+                Cookie ck=new Cookie("User","");
+                ck.setMaxAge(0);
+                response.addCookie(ck);
+                response.sendRedirect("/");
+                System.out.println("Logout Request");
             }
         } catch (SQLException e) {
             e.printStackTrace();

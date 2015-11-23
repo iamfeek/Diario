@@ -20,8 +20,8 @@
         }
 
         var user = getCookie("User");
-        if(user != null){
-            window.location.replace("/home");
+        if(user != ""){
+            window.location.href = '/home';
         }
     </script>
     <meta charset="UTF-8">

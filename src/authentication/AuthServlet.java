@@ -14,7 +14,6 @@ import java.sql.SQLException;
  */
 
 
-//this is from Jia Ying Stuf fand things and yepa. My xps13 sucks.
 public class AuthServlet extends javax.servlet.http.HttpServlet {
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         String flag = request.getParameter("flag");

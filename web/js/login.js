@@ -106,8 +106,8 @@ jQuery(document).ready(function($){
                 username:$("#signin-email").val(),
                 password:$("#signin-password").val()
             },
-            success : function(data){
-                alert(data)
+            success: function(){
+                location.reload();
             }
         })
     });

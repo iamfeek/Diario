@@ -39,12 +39,12 @@
 </head>
 <body>
 <header role="banner">
-    <div id="cd-logo"><a href="#0"><img src="../img/cd-logo.svg" alt="Logo"></a></div>
+    <div id="cd-logo"><a href="/"><img src="../img/cd-logo.svg" alt="Logo"></a></div>
 
     <nav class="main-nav">
         <ul>
-            <li><a class="cd-signin" href="#0">Sign in</a></li>
-            <li><a class="cd-signup" href="#0">Sign up</a></li>
+            <li><a class="cd-signin" href="#">Sign in</a></li>
+            <li><a class="cd-signup" href="#">Sign up</a></li>
         </ul>
     </nav>
 </header>
@@ -57,7 +57,6 @@
 
         <div id="cd-login"> <!-- log in form -->
             <form class="cd-form" action="/auth" method="POST">
-
                 <p class="fieldset">
                     <label class="image-replace cd-username" for="signin-email">Username</label>
                     <input class="full-width has-padding has-border" name="username" id="signin-email" type="text" placeholder="Username">

@@ -27,5 +27,17 @@
             <version>2.5</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.nimbusds</groupId>
+            <artifactId>srp6a</artifactId>
+            <version>1.5.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bitbucket.simon_massey</groupId>
+            <artifactId>thinbus-srp6a-js</artifactId>
+            <version>1.4.0</version>
+        </dependency>
     </dependencies>
 </project>

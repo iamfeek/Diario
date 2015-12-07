@@ -12,7 +12,6 @@ jQuery(document).ready(function($){
         forgotPasswordLink = formLogin.find('.cd-form-bottom-message a'),
         backToLoginLink = formForgotPassword.find('.cd-form-bottom-message a'),
         mainNav = $('.main-nav');
-
     //open modal
     mainNav.on('click', function(event){
         $(event.target).is(mainNav) && mainNav.children('ul').toggleClass('is-visible');
@@ -91,19 +90,18 @@ jQuery(document).ready(function($){
         formForgotPassword.addClass('is-selected');
     }
 
-    //REMOVE THIS - it's just to show error messages
     formLogin.find('input[type="submit"]').on('click', function(event){
         $("#btnLogin").attr('value', 'Processing...')
-        //$("#btnLogin").prop('disabled', true);
-        //event.preventDefault();
-        //formLogin.find('input[type="email"]').toggleClass('has-error').next('span').toggleClass('is-visible');
-        //$.post("auth",{
-        //    flag: "login",
-        //    username:$("#signin-email").val(),
-        //    password:$("#signin-password").val(),
-        //}).done(function(data) {
-        //    console.log("Status: " + data);
-        //})
+        $("#btnLogin").prop('disabled', true);
+        event.preventDefault();
+        formLogin.find('input[type="email"]').toggleClass('has-error').next('span').toggleClass('is-visible');
+        $.post("auth",{
+            flag: "login",
+            username:$("#signin-email").val(),
+            password:$("#signin-password").val()
+        }).done(function(data) {
+            console.log("Status: " + data);
+        })
     });
     formSignup.find('input[type="submit"]').on('click', function(event){
         event.preventDefault();
@@ -115,13 +113,11 @@ jQuery(document).ready(function($){
             email:$("#signup-email").val(),
             password: $("#signup-password").val(),
         }).done(function(data) {
-            console.log("Status: " + data);
+            console.log(data);
         })
     });
 
 
-    //IE9 placeholder fallback
-    //credits http://www.hagenburger.net/BLOG/HTML5-Input-Placeholder-Fix-With-jQuery.html
     if(!Modernizr.input.placeholder){
         $('[placeholder]').focus(function() {
             var input = $(this);

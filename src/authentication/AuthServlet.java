@@ -4,9 +4,6 @@ import DAO.User;
 
 import javax.servlet.http.Cookie;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.sql.SQLException;
 
 /**
  * Created by: Syafiq Hanafee
@@ -26,6 +23,9 @@ public class AuthServlet extends javax.servlet.http.HttpServlet {
                     Cookie userCookie = new Cookie("User", toLogin.getUsername());
                     response.addCookie(userCookie);
                     response.sendRedirect("home");
+                } else {
+                    response.setContentType("text/html");
+                    response.getWriter().write("error");
                 }
             } else if(flag.equals("register")){
                 User toRegister = new User(request.getParameter("username"), request.getParameter("password"), request.getParameter("email"));
@@ -45,13 +45,8 @@ public class AuthServlet extends javax.servlet.http.HttpServlet {
                 response.sendRedirect("/");
                 System.out.println("Logout Request");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (InvalidKeySpecException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }

@@ -53,37 +53,43 @@ public class User {
     }
 
     //METHODS
-    public boolean login() throws SQLException, InvalidKeySpecException, NoSuchAlgorithmException {
+    public boolean login() {
         String username = this.getUsername();
         String password = this.getPassword();
-        if (!checkIfUsernameExists(username)) {
-            Connection conn = Db.getConnection();
-            String query = "SELECT password FROM accounts where username = '" + username + "';";
-            System.out.println("Login Query: " + query);
 
-            Statement st = conn.createStatement();
+        Connection conn = Db.getConnection();
+        String query = "SELECT password FROM accounts where username = '" + username + "';";
+        System.out.println("Login Query: " + query);
+//        System.out.println("Retrieved password: " + password);
+
+        Statement st = null;
+        try {
+            st = conn.createStatement();
             ResultSet rs = st.executeQuery(query);
-
 
             String retrievedPassword = null;
             while (rs.next()) {
                 retrievedPassword = rs.getString("password");
+                System.out.println("Retrieved Password: " + retrievedPassword);
+
+                if (PasswordHash.validatePassword(password, retrievedPassword)) {
+                    //legit account
+                    System.out.println("login PASS");
+                    return true;
+                } else {
+                    System.out.println("login FAIL");
+                    return false;
+                }
             }
             conn.close();
-
-            if (PasswordHash.validatePassword(password, retrievedPassword)) {
-                //legit account
-                System.out.println("login PASS");
-                return true;
-            } else {
-                System.out.println("login FAIL");
-                return false;
-            }
-
-//            response.setContentType("text/html");
-//            response.getWriter().write("LEGIT");
-
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
         }
+
         return false;
     }
 
@@ -112,11 +118,11 @@ public class User {
                 if (status == 1) {
                     System.out.println("register PASS");
                     return true;
-                }else {
+                } else {
                     System.out.println("register FAIL");
                     return false;
                 }
-            } else{
+            } else {
                 return false;
             }
 
@@ -129,7 +135,8 @@ public class User {
     static boolean checkIfUsernameExists(String username) throws SQLException {
         Connection conn = Db.getConnection();
         String query = "SELECT username FROM accounts where username = '" + username + "';";
-//        System.out.println("username check query: " + query);
+        System.out.println("username check query: " + query);
+
 
         Statement st = conn.createStatement();
         ResultSet rs = st.executeQuery(query);
@@ -144,7 +151,7 @@ public class User {
         if (retrievedUsername == null) {
 //            System.out.println(username + " PASS");
             return true;
-        } else{
+        } else {
 //            System.out.println(username + " FAIL");
             return false;
         }
@@ -168,7 +175,7 @@ public class User {
         if (retrievedEmail == null) {
             System.out.println("Email: " + email + " PASS");
             return true;
-        } else{
+        } else {
             System.out.println(email + " FAILED");
             return false;
         }

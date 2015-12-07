@@ -21,7 +21,7 @@
 
         var user = getCookie("User");
         if(user != ""){
-            window.location.href = '/home';
+            window.location.href = '/dashboard';
         }
     </script>
     <meta charset="UTF-8">

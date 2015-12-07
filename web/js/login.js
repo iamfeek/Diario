@@ -105,7 +105,6 @@ jQuery(document).ready(function($){
     });
     formSignup.find('input[type="submit"]').on('click', function(event){
         event.preventDefault();
-        alert("HEY")
         //formSignup.find('input[type="email"]').toggleClass('has-error').next('span').toggleClass('is-visible');
         $.post("auth",{
             flag: "register",

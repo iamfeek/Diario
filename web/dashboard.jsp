@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<t:layout title="Diario">
+<t:main title="Diario">
 
 <jsp:attribute name="head_area">
     <%--all custom js/css for this page belongs here.--%>
@@ -60,4 +60,4 @@
         </c:choose>
 
     </jsp:attribute>
-</t:layout>
+</t:main>

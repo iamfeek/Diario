@@ -39,5 +39,16 @@
             <artifactId>twitter4j-core</artifactId>
             <version>4.0.3</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.sachinhandiekar</groupId>
+            <artifactId>jInstagram</artifactId>
+            <version>1.1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.facebook4j</groupId>
+            <artifactId>facebook4j-core</artifactId>
+            <version>2.4.1</version>
+        </dependency>
     </dependencies>
 </project>

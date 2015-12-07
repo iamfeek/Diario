@@ -44,11 +44,11 @@
 
     <servlet>
         <servlet-name>CallbackServlet</servlet-name>
-        <servlet-class>twitter.CallbackServlet</servlet-class>
+        <servlet-class>twitter.TwitterCallbackServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CallbackServlet</servlet-name>
-        <url-pattern>/callback</url-pattern>
+        <url-pattern>/twittercallback</url-pattern>
     </servlet-mapping>
     
     <servlet>
@@ -73,14 +73,53 @@
         <servlet-name>GetTwitterTimelineServlet</servlet-name>
         <servlet-class>twitter.GetTwitterTimelineServlet</servlet-class>
     </servlet>
+   
     <servlet-mapping>
         <servlet-name>GetTwitterTimelineServlet</servlet-name>
         <url-pattern>/twitterTimeline</url-pattern>
     </servlet-mapping>
 
-    <welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
-	</welcome-file-list>
+    <servlet>
+        <servlet-name>FacebookLoginServlet</servlet-name>
+        <servlet-class>facebook.FacebookLoginServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>FacebookLoginServlet</servlet-name>
+        <url-pattern>/facebookLogin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FacebookCallbackServlet</servlet-name>
+        <servlet-class>facebook.FacebookCallbackServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>FacebookCallbackServlet</servlet-name>
+        <url-pattern>/facebookcallback</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AccessTokenServlet</servlet-name>
+        <servlet-class>facebook.AccessTokenServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>AccessTokenServlet</servlet-name>
+        <url-pattern>/facebookaccess</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetFacebookFeedServlet</servlet-name>
+        <servlet-class>facebook.GetFacebookFeedServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetFacebookFeedServlet</servlet-name>
+        <url-pattern>/facebookfeed</url-pattern>
+    </servlet-mapping>
+    <!--<welcome-file-list>-->
+		<!--<welcome-file>index.jsp</welcome-file>-->
+	<!--</welcome-file-list>-->
 
 
     <!--jsessionid will be transmitted on https ONLY-->

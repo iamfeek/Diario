@@ -7,6 +7,7 @@
 
 <html>
 <head>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script>
         function getCookie(cname) {
             var name = cname + "=";
@@ -43,20 +44,22 @@
 
     <nav class="main-nav">
         <ul>
-            <li><a class="cd-signin" href="#">Sign in</a></li>
-            <li><a class="cd-signup" href="#">Sign up</a></li>
+            <li><a class="cd-signin" href="javascript:return false;">Sign in</a></li>
+            <li><a class="cd-signup" href="javascript:return false;">Sign up</a></li>
         </ul>
     </nav>
 </header>
-<div class="cd-user-modal"> <!-- this is the entire modal form, including the background -->
-    <div class="cd-user-modal-container"> <!-- this is the container wrapper -->
+<div class="cd-user-modal">
+    <div class="cd-user-modal-container">
         <ul class="cd-switcher">
-            <li><a href="#0">Sign in</a></li>
-            <li><a href="#0">New account</a></li>
+            <li><a href="">Sign in</a></li>
+            <li><a href="">New account</a></li>
         </ul>
 
-        <div id="cd-login"> <!-- log in form -->
+        <%--Login Form--%>
+        <div id="cd-login">
             <form class="cd-form" action="/auth" method="POST">
+                <input name="flag" type="hidden" value="login">
                 <p class="fieldset">
                     <label class="image-replace cd-username" for="signin-email">Username</label>
                     <input class="full-width has-padding has-border" name="username" id="signin-email" type="text" placeholder="Username">
@@ -83,8 +86,9 @@
 
             <p class="cd-form-bottom-message"><a href="#0">Forgot your password?</a></p>
             <%--<a href="#0" class="cd-close-form">Close</a>--%>
-        </div> <!-- cd-login -->
+        </div>
 
+        <%--Sign up Form--%>
         <div id="cd-signup"> <!-- sign up form -->
             <form class="cd-form">
                 <input name="flag" type="hidden" value="register">
@@ -118,8 +122,9 @@
             </form>
 
             <!-- <a href="#0" class="cd-close-form">Close</a> -->
-        </div> <!-- cd-signup -->
+        </div>
 
+        <%--Reset Password Form--%>
         <div id="cd-reset-password"> <!-- reset password form -->
             <p class="cd-form-message">Lost your password? Please enter your email address. You will receive a link to create a new password.</p>
 
@@ -136,15 +141,16 @@
             </form>
 
             <p class="cd-form-bottom-message"><a href="#0">Back to log-in</a></p>
-        </div> <!-- cd-reset-password -->
-        <a href="#0" class="cd-close-form">Close</a>
-    </div> <!-- cd-user-modal-container -->
+        </div>
+
+        <a href="" class="cd-close-form">Close</a>
+    </div>
 </div>
 
 <jsp:invoke fragment="body_area"/>
 
 
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 <script src="../js/login.js"></script>
 

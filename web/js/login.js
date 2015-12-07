@@ -90,32 +90,58 @@ jQuery(document).ready(function($){
         formForgotPassword.addClass('is-selected');
     }
 
+    //SIGNUP & LOGIN Logic
+
+    //Login Logic
     formLogin.find('input[type="submit"]').on('click', function(event){
-        $("#btnLogin").attr('value', 'Processing...')
-        $("#btnLogin").prop('disabled', true);
+        //$("#btnLogin").attr('value', 'Processing...')
+        //$("#btnLogin").prop('disabled', true);
         event.preventDefault();
         formLogin.find('input[type="email"]').toggleClass('has-error').next('span').toggleClass('is-visible');
-        $.post("auth",{
-            flag: "login",
-            username:$("#signin-email").val(),
-            password:$("#signin-password").val()
-        }).done(function(data) {
-            console.log("Status: " + data);
-        })
-    });
-    formSignup.find('input[type="submit"]').on('click', function(event){
-        event.preventDefault();
-        //formSignup.find('input[type="email"]').toggleClass('has-error').next('span').toggleClass('is-visible');
-        $.post("auth",{
-            flag: "register",
-            username:$("#signup-username").val(),
-            email:$("#signup-email").val(),
-            password: $("#signup-password").val(),
-        }).done(function(data) {
-            console.log(data);
+        $.ajax({
+            url : '/auth',
+            type: 'POST',
+            data: {
+                flag:"login",
+                username:$("#signin-email").val(),
+                password:$("#signin-password").val()
+            },
+            success : function(data){
+                alert(data)
+            }
         })
     });
 
+    //Signup Logic
+    formSignup.find('input[type="submit"]').on('click', function(event){
+        event.preventDefault();
+        $.ajax({
+            url : '/auth',
+            type: 'POST',
+            data: {
+                flag:"register",
+                username:$("#signup-username").val(),
+                email:$("#signup-email").val(),
+                password:$("#signup-password").val()
+            },
+            success : function(data){
+                console.log(data)
+            }
+        })
+    });
+
+    //Logout Logic
+    $("#sign-out").click(function(){
+        $.ajax({
+            url : '/auth',
+            type: 'POST',
+            data: {
+                flag:"logout"
+            }
+        })
+    });
+
+    //END SIGNUP & LOGIN logic
 
     if(!Modernizr.input.placeholder){
         $('[placeholder]').focus(function() {

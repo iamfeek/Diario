@@ -125,7 +125,7 @@ jQuery(document).ready(function($){
                 password:$("#signup-password").val()
             },
             success : function(data){
-                console.log(data)
+                location.reload();
             }
         })
     });

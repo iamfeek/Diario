@@ -22,6 +22,8 @@ jQuery(document).ready(function($){
     //open login-form form
     mainNav.on('click', '.cd-signin', login_selected);
 
+    $('#cd-signup-error').on('click', '.cd-signin', login_selected);
+
     //close modal
     formModal.on('click', function(event){
         if( $(event.target).is(formModal) || $(event.target).is('.cd-close-form') ) {
@@ -72,6 +74,7 @@ jQuery(document).ready(function($){
         formForgotPassword.removeClass('is-selected');
         tabLogin.addClass('selected');
         tabSignup.removeClass('selected');
+        $( "#signin-password-hide" ).trigger("click");
     }
 
     function signup_selected(){
@@ -82,6 +85,7 @@ jQuery(document).ready(function($){
         formForgotPassword.removeClass('is-selected');
         tabLogin.removeClass('selected');
         tabSignup.addClass('selected');
+        $("#signup-password-hide").trigger("click");
     }
 
     function forgot_password_selected(){
@@ -94,8 +98,6 @@ jQuery(document).ready(function($){
 
     //Login Logic
     formLogin.find('input[type="submit"]').on('click', function(event){
-        //$("#btnLogin").attr('value', 'Processing...')
-        //$("#btnLogin").prop('disabled', true);
         event.preventDefault();
         formLogin.find('input[type="email"]').toggleClass('has-error').next('span').toggleClass('is-visible');
         $.ajax({
@@ -106,8 +108,15 @@ jQuery(document).ready(function($){
                 username:$("#signin-email").val(),
                 password:$("#signin-password").val()
             },
-            success: function(){
-                location.reload();
+            statusCode:{
+                200: function(){
+                    location.reload();
+                },
+                400: function(){
+                    $('#cd-login-error').removeClass("hidden");
+                    $('#signin-password').val('');
+                    $('#signin-email').focus();
+                }
             }
         })
     });
@@ -124,8 +133,15 @@ jQuery(document).ready(function($){
                 email:$("#signup-email").val(),
                 password:$("#signup-password").val()
             },
-            success : function(data){
-                location.reload();
+            statusCode:{
+                200: function(){
+                    location.reload()
+                },
+                400: function(){
+                    $('#cd-signup-error').removeClass("hidden");
+                    $('#signup-password').val('');
+                    $('#signup-username').focus();
+                }
             }
         })
     });

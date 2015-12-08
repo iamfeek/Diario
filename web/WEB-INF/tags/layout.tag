@@ -1,27 +1,26 @@
 <!DOCTYPE html>
-<%@tag description="Main Template" pageEncoding="UTF-8"%>
+<%@tag description="Main Template" pageEncoding="UTF-8" %>
 
-<%@attribute name="title"%>
+<%@attribute name="title" %>
 <%@attribute name="head_area" fragment="true" %>
 <%@attribute name="body_area" fragment="true" %>
 
 <html>
 <head>
-
     <script>
         function getCookie(cname) {
             var name = cname + "=";
             var ca = document.cookie.split(';');
-            for(var i=0; i<ca.length; i++) {
+            for (var i = 0; i < ca.length; i++) {
                 var c = ca[i];
-                while (c.charAt(0)==' ') c = c.substring(1);
+                while (c.charAt(0) == ' ') c = c.substring(1);
                 if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
             }
             return "";
         }
 
         var user = getCookie("User");
-        if(user != ""){
+        if (user != "") {
             window.location.href = '/dashboard';
         }
     </script>
@@ -29,6 +28,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
     <link href="../css/reset.css" rel="stylesheet">
     <link href="../css/loginModal.css" rel="stylesheet">
@@ -60,23 +61,34 @@
         <div id="cd-login">
             <form class="cd-form" action="/auth" method="POST">
                 <input name="flag" type="hidden" value="login">
+                <h1 style="text-align: center; font-size: 32px;">Welcome to Diario!</h1>
+                <br>
+
+                <div id="cd-login-error" class="alert alert-danger hidden" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    Your password or email is invalid!
+                </div>
+
                 <p class="fieldset">
                     <label class="image-replace cd-username" for="signin-email">Username</label>
-                    <input class="full-width has-padding has-border" name="username" id="signin-email" type="text" placeholder="Username">
+                    <input class="full-width has-padding has-border" name="username" id="signin-email" type="text"
+                           placeholder="Username">
                     <span class="cd-error-message">Error message here!</span>
                 </p>
 
                 <p class="fieldset">
                     <label class="image-replace cd-password" for="signin-password">Password</label>
-                    <input class="full-width has-padding has-border" name="password" id="signin-password" type="text"  placeholder="Password">
-                    <a href="#0" class="hide-password">Hide</a>
+                    <input class="full-width has-padding has-border" name="password" id="signin-password" type="text"
+                           placeholder="Password">
+                    <a href="javascript: return false;" id="signin-password-hide" class="hide-password">Hide</a>
                     <span class="cd-error-message">Error message here!</span>
                 </p>
 
-                <p class="fieldset">
-                    <input type="checkbox" id="remember-me" checked>
-                    <label for="remember-me">Remember me</label>
-                </p>
+                <%--<p class="fieldset">--%>
+                    <%--<input type="checkbox" id="remember-me" checked>--%>
+                    <%--<label for="remember-me">Remember me</label>--%>
+                <%--</p>--%>
                 <input name="flag" type="hidden" value="login">
 
                 <p class="fieldset">
@@ -92,41 +104,54 @@
         <div id="cd-signup"> <!-- sign up form -->
             <form class="cd-form">
                 <input name="flag" type="hidden" value="register">
+                <h1 style="text-align: center; font-size: 32px;">Welcome to Diario!</h1>
+                <br>
+
+                <div id="cd-signup-error" class="alert alert-danger alert-dismissible hidden" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    Username or email taken! Please choose another
+                    If you have made an account, please sign in <a href="javascript:return false;" class="cd-signin" >here</a>.
+                </div>
+
                 <p class="fieldset">
                     <label class="image-replace cd-username" for="signup-username">Username</label>
-                    <input class="full-width has-padding has-border" id="signup-username" name="username" type="text" placeholder="Username">
+                    <input class="full-width has-padding has-border" autofocus id="signup-username" name="username" type="text"
+                           placeholder="Username">
                     <span class="cd-error-message">Error message here!</span>
                 </p>
 
                 <p class="fieldset">
                     <label class="image-replace cd-email" for="signup-email">E-mail</label>
-                    <input class="full-width has-padding has-border" id="signup-email" name="email" type="email" placeholder="E-mail">
+                    <input class="full-width has-padding has-border" id="signup-email" name="email" type="email"
+                           placeholder="E-mail">
                     <span class="cd-error-message">Error message here!</span>
                 </p>
 
                 <p class="fieldset">
                     <label class="image-replace cd-password" for="signup-password">Password</label>
-                    <input class="full-width has-padding has-border" id="signup-password" name="password" type="text"  placeholder="Password">
-                    <a href="#0" class="hide-password">Hide</a>
+                    <input class="full-width has-padding has-border" id="signup-password" name="password" type="text"
+                           placeholder="Password">
+                    <a href="javascript: return false;" id="signup-password-hide" class="hide-password">Hide</a>
                     <span class="cd-error-message">Error message here!</span>
                 </p>
 
-                <p class="fieldset">
-                    <input type="checkbox" id="accept-terms">
-                    <label for="accept-terms">I agree to the <a href="#0">Terms</a></label>
-                </p>
+                <%--<p class="fieldset">--%>
+                    <%--<input type="checkbox" id="accept-terms">--%>
+                    <%--<label for="accept-terms">I agree to the <a href="#0">Terms</a></label>--%>
+                <%--</p>--%>
 
                 <p class="fieldset">
                     <input class="full-width has-padding" type="submit" value="Create account">
                 </p>
             </form>
-
             <!-- <a href="#0" class="cd-close-form">Close</a> -->
         </div>
 
         <%--Reset Password Form--%>
         <div id="cd-reset-password"> <!-- reset password form -->
-            <p class="cd-form-message">Lost your password? Please enter your email address. You will receive a link to create a new password.</p>
+            <p class="cd-form-message">Lost your password? Please enter your email address. You will receive a link to
+                create a new password.</p>
 
             <form class="cd-form">
                 <p class="fieldset">
@@ -151,8 +176,11 @@
 
 
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
+        integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ=="
+        crossorigin="anonymous"></script>
 <script src="../js/login.js"></script>
+
 
 
 </body>

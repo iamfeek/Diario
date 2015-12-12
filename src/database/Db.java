@@ -12,7 +12,7 @@ public class Db {
         try{
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = null;
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/diario","root", "root");
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:8888/diario","root", "narumi");
             return conn;
         }catch (SQLException e){
             e.printStackTrace();
@@ -21,7 +21,7 @@ public class Db {
         }
         return null;
     }
-
+//port: 3306 password: root
 
 
     public static void main(String[] args) throws SQLException{
@@ -47,5 +47,7 @@ public class Db {
         rs.close();
         stmt.close();
         conn.close();
+
     }
-}
+
+   }

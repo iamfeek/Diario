@@ -16,11 +16,11 @@ public class pageController {
         List<pages> list = new ArrayList<pages>();
         Connection con = null;
         Statement stmt = null;
-        String connectionURL = "jdbc:mysql://localhost:8888/diario";
+        String connectionURL = "jdbc:mysql://localhost:3306/diario";
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection(connectionURL, "root", "narumi");
+            con = DriverManager.getConnection(connectionURL, "root", "root");
             stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT date, title, content FROM pages;");
             while (rs.next()) {

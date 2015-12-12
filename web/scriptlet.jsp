@@ -6,13 +6,13 @@
 
     {
 
-        String connectionURL = "jdbc:mysql://localhost:8888/diario";
+        String connectionURL = "jdbc:mysql://localhost:3306/diario";
         Connection conn;
         Statement stmt;
         ResultSet rs;
 
         Class.forName("com.mysql.jdbc.Driver");
-        conn = DriverManager.getConnection(connectionURL, "root", "narumi");
+        conn = DriverManager.getConnection(connectionURL, "root", "root");
         stmt = conn.createStatement();
         rs = stmt.executeQuery("Select DATE_FORMAT(CURDATE(),'%W, %d %M %Y') AS today;"); %>
 

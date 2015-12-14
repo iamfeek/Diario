@@ -28,26 +28,22 @@ public class AuthServlet extends javax.servlet.http.HttpServlet {
                     response.addCookie(userCookie);
                     HttpSession session = request.getSession();
                     session.setAttribute("loggedIn", true);
+                    session.setAttribute("username", request.getParameter("username"));
                     response.setStatus(200);
                     response.sendRedirect("dashboard");
                 } else {
-                    response.setStatus(400);
+                    response.setContentType("text/html");
+                    response.getWriter().write("error");
                 }
             } else if (flag.equals("register")) {
                 User toRegister = new User(request.getParameter("username"), request.getParameter("password"), request.getParameter("email"));
-                if (toRegister.getEmail().equals("") || toRegister.getUsername().equals("") || toRegister.getPassword().equals("")) {
-                    response.setStatus(400);
-                } else {
-                    if (toRegister.register()) {
-                        User tologin = new User(toRegister.getUsername(), toRegister.getPassword());
-                        if (tologin.login()) {
-                            System.out.println("LOGGING IN");
-                            Cookie userCookie = new Cookie("User", tologin.getUsername());
-                            response.addCookie(userCookie);
-                            response.sendRedirect("dashboard");
-                        }
-                    } else{
-                        response.setStatus(400);
+                if (toRegister.register()) {
+                    User tologin = new User(toRegister.getUsername(), toRegister.getPassword());
+                    if (tologin.login()) {
+                        System.out.println("LOGGING IN");
+                        Cookie userCookie = new Cookie("User", tologin.getUsername());
+                        response.addCookie(userCookie);
+                        response.sendRedirect("dashboard");
                     }
                 }
             } else if (flag.equals("logout")) {

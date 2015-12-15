@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by gleni on 29 Nov 2015.
+ * Created by glenice on 29 Nov 2015.
  */
 public class GetTwitterTimelineServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

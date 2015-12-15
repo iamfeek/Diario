@@ -122,9 +122,41 @@
         <servlet-name>GetFacebookFeedServlet</servlet-name>
         <servlet-class>facebook.GetFacebookFeedServlet</servlet-class>
     </servlet>
+    
     <servlet-mapping>
         <servlet-name>GetFacebookFeedServlet</servlet-name>
         <url-pattern>/facebookfeed</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FacebookPostServlet</servlet-name>
+        <servlet-class>facebook.FacebookPostServlet</servlet-class>
+    </servlet>
+    
+
+    <servlet-mapping>
+        <servlet-name>FacebookPostServlet</servlet-name>
+        <url-pattern>/fbPost</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>InstagramLoginServlet</servlet-name>
+        <servlet-class>instagram.InstagramLoginServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>InstagramLoginServlet</servlet-name>
+        <url-pattern>/instagramLogin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>InstagramCallbackServlet</servlet-name>
+        <servlet-class>instagram.InstagramCallbackServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>InstagramCallbackServlet</servlet-name>
+        <url-pattern>/instagramCallback</url-pattern>
     </servlet-mapping>
     <!--<welcome-file-list>-->
 		<!--<welcome-file>index.jsp</welcome-file>-->

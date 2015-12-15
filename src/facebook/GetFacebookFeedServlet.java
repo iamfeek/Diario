@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by glenice on 5 Dec 2015.
@@ -21,9 +22,11 @@ public class GetFacebookFeedServlet extends HttpServlet {
         try{
             Facebook fb = (Facebook) request.getSession().getAttribute("facebook");
 
-            ResponseList<Friendlist> feed = fb.getFriendlists();
+            ResponseList<Friend> feed = fb.getFriends();
 
-            request.getSession().setAttribute("fbTimeline", feed);
+            List<Friend> fbFriendList = (List) feed;
+
+            request.getSession().setAttribute("fbFriendList", fbFriendList);
             response.sendRedirect("/dashboard");
 
         }catch (FacebookException ex){

@@ -27,7 +27,6 @@ public class AuthServlet extends javax.servlet.http.HttpServlet {
                     Cookie userCookie = new Cookie("User", toLogin.getUsername());
                     response.addCookie(userCookie);
                     HttpSession session = request.getSession();
-                    session.setAttribute("loggedIn", true);
                     session.setAttribute("username", request.getParameter("username"));
                     response.setStatus(200);
                     response.sendRedirect("dashboard");

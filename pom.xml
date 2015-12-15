@@ -51,6 +51,18 @@
             <artifactId>jsp-api</artifactId>
             <version>2.0</version>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.bitbucket.simon_massey</groupId>-->
+            <!--<artifactId>thinbus-srp6a-js</artifactId>-->
+            <!--<version>1.4.0</version>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.10</version>
+        </dependency>
+
+
 
 
     </dependencies>

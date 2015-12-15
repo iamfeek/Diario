@@ -1,6 +1,7 @@
 /**
  * Created by IamFeeK on 13/11/15.
  */
+
 jQuery(document).ready(function($){
     var formModal = $('.cd-user-modal'),
         formLogin = formModal.find('#cd-login'),
@@ -124,29 +125,29 @@ jQuery(document).ready(function($){
     //Signup Logic
     formSignup.find('input[type="submit"]').on('click', function(event){
         event.preventDefault();
-        $.ajax({
-            url : '/auth',
-            type: 'POST',
-            data: {
-                flag:"register",
-                username:$("#signup-username").val(),
-                email:$("#signup-email").val(),
-                password:$("#signup-password").val()
-            },
-            statusCode:{
-                200: function(){
-                    location.reload()
-                },
-                400: function(){
-                    $('#cd-signup-error').removeClass("hidden");
-                    $('#signup-password').val('');
-                    $('#signup-username').focus();
-                }
-            }
-        })
-    });
+        //$.ajax({
+        //    url : '/auth',
+        //    type: 'POST',
+        //    data: {
+        //        flag:"register",
+        //        username:$("#signup-username").val(),
+        //        email:$("#signup-email").val(),
+        //        password:$("#signup-password").val()
+        //    },
+        //    statusCode:{
+        //        200: function(){
+        //            location.reload()
+        //        },
+        //        400: function(){
+        //            $('#cd-signup-error').removeClass("hidden");
+        //            $('#signup-password').val('');
+        //            $('#signup-username').focus();
+        //        }
+        //    }
+        //})
+        //get username and password form textbox
 
-    //Logout Logic
+    });
     $("#sign-out").click(function(){
         $.ajax({
             url : '/auth',

@@ -8,7 +8,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.sql.*;
 
 /**
- * Created by: Syafiq Hanafee
+ * Created by: Syafiq Hanafeegit
  * Dated: 17/11/15.
  */
 public class User {

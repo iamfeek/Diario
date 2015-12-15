@@ -6,13 +6,39 @@
 
 	<display-name>Diario</display-name>
 
+    <!--<servlet>-->
+        <!--<servlet-name>AuthServlet</servlet-name>-->
+        <!--<servlet-class>authentication.AuthServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>AuthServlet</servlet-name>-->
+        <!--<url-pattern>/auth</url-pattern>-->
+    <!--</servlet-mapping>-->
     <servlet>
-        <servlet-name>AuthServlet</servlet-name>
-        <servlet-class>authentication.AuthServlet</servlet-class>
+        <servlet-name>Authenticate</servlet-name>
+        <servlet-class>authentication.Authenticate</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>AuthServlet</servlet-name>
-        <url-pattern>/auth</url-pattern>
+        <servlet-name>Authenticate</servlet-name>
+        <url-pattern>/authenticate</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Register</servlet-name>
+        <servlet-class>authentication.Register</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Register</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>challenge</servlet-name>
+        <servlet-class>authentication.Challenge</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>challenge</servlet-name>
+        <url-pattern>/challenge</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -62,7 +88,7 @@
 
     <servlet>
         <servlet-name>CallbackServlet</servlet-name>
-        <servlet-class>twitter.CallbackServlet</servlet-class>
+        <servlet-class>twitter.TwitterCallbackServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CallbackServlet</servlet-name>
@@ -137,6 +163,8 @@
         <servlet-name>postSystem</servlet-name>
         <servlet-class>post.postSystem</servlet-class>
     </servlet>
+
+
     <servlet-mapping>
         <servlet-name>postSystem</servlet-name>
         <url-pattern>/post</url-pattern>

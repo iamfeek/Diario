@@ -32,6 +32,7 @@
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -54,6 +55,12 @@
             <groupId>com.nimbusds</groupId>
             <artifactId>srp6a</artifactId>
             <version>1.5.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.0</version>
         </dependency>
 
         <dependency>

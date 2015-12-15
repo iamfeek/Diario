@@ -31,7 +31,7 @@
 
         var user = getCookie("User");
         if(user == ""){
-            //window.location.href = "/"
+           // window.location.href = "/"
         }
 
     </script>

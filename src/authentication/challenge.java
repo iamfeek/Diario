@@ -12,6 +12,6 @@ import java.io.IOException;
  */
 public class Challenge extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        System.out.println("Login Request: " + request.getParameter("email"));
     }
 }

@@ -57,12 +57,12 @@
         </ul>
 
         <%--Login Form--%>
-        <div id="cd-login">
+        <div id="cd-signin">
             <form class="cd-form" action="/auth" method="POST">
                 <input name="flag" type="hidden" value="login">
                 <p class="fieldset">
-                    <label class="image-replace cd-username" for="signin-email">Username</label>
-                    <input class="full-width has-padding has-border" name="username" id="signin-email" type="text" placeholder="Username">
+                    <label class="image-replace cd-username" for="signin-username">Username</label>
+                    <input class="full-width has-padding has-border" name="username" id="signin-username" type="text" placeholder="Username">
                     <span class="cd-error-message">Error message here!</span>
                 </p>
 
@@ -158,6 +158,7 @@
 <script src="../js/thinbus-srpclient-sha256.js"></script>
 <script src="../js/login.js"></script>
 <script src="../js/signup.js"></script>
+<script src="../js/signin.js"></script>
 
 
 </body>

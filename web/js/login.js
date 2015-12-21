@@ -100,54 +100,28 @@ jQuery(document).ready(function($){
     //Login Logic
     formLogin.find('input[type="submit"]').on('click', function(event){
         event.preventDefault();
-        formLogin.find('input[type="email"]').toggleClass('has-error').next('span').toggleClass('is-visible');
-        $.ajax({
-            url : '/auth',
-            type: 'POST',
-            data: {
-                flag:"login",
-                username:$("#signin-email").val(),
-                password:$("#signin-password").val()
-            },
-            statusCode:{
-                200: function(){
-                    location.reload();
-                },
-                400: function(){
-                    $('#cd-login-error').removeClass("hidden");
-                    $('#signin-password').val('');
-                    $('#signin-email').focus();
-                }
-            }
-        })
-    });
-
-    //Signup Logic
-    formSignup.find('input[type="submit"]').on('click', function(event){
-        event.preventDefault();
+        //formLogin.find('input[type="email"]').toggleClass('has-error').next('span').toggleClass('is-visible');
         //$.ajax({
         //    url : '/auth',
         //    type: 'POST',
         //    data: {
-        //        flag:"register",
-        //        username:$("#signup-username").val(),
-        //        email:$("#signup-email").val(),
-        //        password:$("#signup-password").val()
+        //        flag:"login",
+        //        username:$("#signin-email").val(),
+        //        password:$("#signin-password").val()
         //    },
         //    statusCode:{
         //        200: function(){
-        //            location.reload()
+        //            location.reload();
         //        },
         //        400: function(){
-        //            $('#cd-signup-error').removeClass("hidden");
-        //            $('#signup-password').val('');
-        //            $('#signup-username').focus();
+        //            $('#cd-login-error').removeClass("hidden");
+        //            $('#signin-password').val('');
+        //            $('#signin-email').focus();
         //        }
         //    }
         //})
-        //get username and password form textbox
-
     });
+
     $("#sign-out").click(function(){
         $.ajax({
             url : '/auth',

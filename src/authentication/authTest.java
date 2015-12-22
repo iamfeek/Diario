@@ -1,6 +1,6 @@
 package authentication;
 
-import java.util.Scanner;
+import org.json.simple.JSONObject;
 
 /**
  * Created by: Syafiq Hanafee
@@ -18,8 +18,9 @@ public class authTest {
 //        System.out.println(toLogin.login());
 //    }
     public static void main(String[] args) {
-        Scanner myScanner = new Scanner(System.in);
-        System.out.println("aisyah");
+        JSONObject jo = new JSONObject();
+        jo.put("username", "syafiq");
+        System.out.println(jo.toJSONString());
     }
 
 }

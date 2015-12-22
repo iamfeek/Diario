@@ -95,33 +95,6 @@ jQuery(document).ready(function($){
         formForgotPassword.addClass('is-selected');
     }
 
-    //SIGNUP & LOGIN Logic
-
-    //Login Logic
-    formLogin.find('input[type="submit"]').on('click', function(event){
-        event.preventDefault();
-        //formLogin.find('input[type="email"]').toggleClass('has-error').next('span').toggleClass('is-visible');
-        //$.ajax({
-        //    url : '/auth',
-        //    type: 'POST',
-        //    data: {
-        //        flag:"login",
-        //        username:$("#signin-email").val(),
-        //        password:$("#signin-password").val()
-        //    },
-        //    statusCode:{
-        //        200: function(){
-        //            location.reload();
-        //        },
-        //        400: function(){
-        //            $('#cd-login-error').removeClass("hidden");
-        //            $('#signin-password').val('');
-        //            $('#signin-email').focus();
-        //        }
-        //    }
-        //})
-    });
-
     $("#sign-out").click(function(){
         $.ajax({
             url : '/auth',
@@ -131,8 +104,6 @@ jQuery(document).ready(function($){
             }
         })
     });
-
-    //END SIGNUP & LOGIN logic
 
     if(!Modernizr.input.placeholder){
         $('[placeholder]').focus(function() {

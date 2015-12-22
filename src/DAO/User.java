@@ -3,6 +3,7 @@ package DAO;
 import database.Db;
 
 import java.sql.*;
+import java.util.HashMap;
 
 /**
  * Created by: Syafiq Hanafeegit
@@ -38,7 +39,6 @@ public class User {
     }
 
     public void setSalt(String salt) {
-
         this.salt = salt;
     }
 
@@ -48,6 +48,9 @@ public class User {
     }
 
     //Constuctors
+    public User(String username){
+        this.username = username;
+    }
     public User(String username, String email){
         this.username = username;
         this.email = email;
@@ -56,6 +59,12 @@ public class User {
     public User(String username, String email, String salt, String verifier){
         this.username = username;
         this.email = email;
+        this.salt = salt;
+        this.verifier = verifier;
+    }
+
+    public User(String username, String salt, String verifier){
+        this.username = username;
         this.salt = salt;
         this.verifier = verifier;
     }
@@ -190,4 +199,29 @@ public class User {
         }
     }
 
+    public HashMap<String, String> getSaltAndVerifier() throws SQLException {
+        String username = this.getUsername();
+        Connection conn = Db.getConnection();
+        String query = "SELECT salt, verifier FROM accounts WHERE username = '" + username + "';";
+
+        Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery(query);
+
+        String retrievedSalt = null;
+        String retrievedVerifier = null;
+
+        while(rs.next()){
+            retrievedSalt = rs.getString("salt");
+            retrievedVerifier = rs.getString("verifier");
+        }
+
+        if(retrievedSalt == null || retrievedVerifier == null){
+            return null;
+        } else {
+            HashMap<String, String> saltAndVerifier = new HashMap<String, String>();
+            saltAndVerifier.put("salt", retrievedSalt);
+            saltAndVerifier.put("verifier", retrievedVerifier);
+            return saltAndVerifier;
+        }
+    }
 }

@@ -9,7 +9,6 @@ $(document).ready(function() {
     disableSubmitBtn();
 
     loginBtn.on('click', $.proxy(function(e) {
-        console.log("CLIIIICKED")
         e.preventDefault();
         sendChallenge();
     }, this));
@@ -31,6 +30,25 @@ var sendChallenge = function(){
     }
 
     $.post("/challenge", postValues, function(response){
-        console.log(response);
+        challengeResponse(response);
     });
+}
+
+function challengeResponse(response){
+    alert(response)
+    var username = usernameElement.val();
+    var password = passwordElement.val();
+    var srpClient = new SRP6JavascriptClientSessionSHA256();
+
+    var start = +(new Date());
+
+    try{
+        srpClient.step1(username, password);
+    } catch(e){
+        console.log("Error: " + e);
+        window.location = window.location;
+    }
+
+    //var credentials = srpClient.step2(response.salt, response.b);
+    alert(response.salt + " " + response.b);
 }

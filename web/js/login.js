@@ -4,7 +4,7 @@
 
 jQuery(document).ready(function($){
     var formModal = $('.cd-user-modal'),
-        formLogin = formModal.find('#cd-login'),
+        formLogin = formModal.find('#cd-signin'),
         formSignup = formModal.find('#cd-signup'),
         formForgotPassword = formModal.find('#cd-reset-password'),
         formModalTab = $('.cd-switcher'),
@@ -75,7 +75,7 @@ jQuery(document).ready(function($){
         formForgotPassword.removeClass('is-selected');
         tabLogin.addClass('selected');
         tabSignup.removeClass('selected');
-        $( "#signin-password-hide" ).trigger("click");
+        //$( "#signin-password-hide" ).trigger("click");
     }
 
     function signup_selected(){
@@ -86,7 +86,7 @@ jQuery(document).ready(function($){
         formForgotPassword.removeClass('is-selected');
         tabLogin.removeClass('selected');
         tabSignup.addClass('selected');
-        $("#signup-password-hide").trigger("click");
+        //$("#signup-password-hide").trigger("click");
     }
 
     function forgot_password_selected(){

@@ -16,6 +16,7 @@ import java.sql.SQLException;
  */
 public class Register extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("Registration incoming!");
         PrintWriter pw = response.getWriter();
         String username = request.getParameter("username");
         String email = request.getParameter("email");

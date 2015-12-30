@@ -2,11 +2,11 @@ var formModal = $('.cd-user-modal');
 var formSignup = formModal.find('#cd-signup');
 var registerBtn = formSignup.find('input[type="submit"]');
 
-var usernameElement = $("#signup-username");
-var emailElement = $("#signup-email");
-var passwordElement = $("#signup-password");
-var passwordSaltElement = $("#password-salt");
-var passwordVerifierElement = $("#password-verifier");
+var signUpUsernameElement = $("#signup-username");
+var signUpEmailElement = $("#signup-email");
+var signUpPasswordElement = $("#signup-password");
+var signUpPasswordSaltElement = $("#password-salt");
+var signUpPasswordVerifierElement = $("#password-verifier");
 
 $(document).ready(function() {
     disableSubmitBtn();
@@ -16,12 +16,12 @@ $(document).ready(function() {
         postSaltAndVerifier();
     }, this));
 
-    emailElement.on('keyup', $.proxy(function(event) {
+    signUpEmailElement.on('keyup', $.proxy(function(event) {
         // see recommendation in the thinbus docs
         random16byteHex.advance(Math.floor(event.keyCode / 4));
     }, this));
 
-    passwordElement.on('keyup', $.proxy(function(event) {
+    signUpPasswordElement.on('keyup', $.proxy(function(event) {
             // only enable the button if the user has entered some password
             //ternary operator. test ? trueExpression : falseExpression
             $(event.currentTarget).val().length ? enableSubmitBtn()
@@ -40,16 +40,20 @@ var enableSubmitBtn = function () {
 }
 
 var postSaltAndVerifier = function(){
-    var email = emailElement.val();
-    var username = usernameElement.val();
-    var password = passwordElement.val();
+    var email = signUpEmailElement.val();
+    var username = signUpUsernameElement.val();
+    var password = signUpPasswordElement.val();
+
+    console.log(email);
+    console.log(username);
+    console.log(password);
 
     var srpClient = new SRP6JavascriptClientSessionSHA256();
     var salt = srpClient.generateRandomSalt();
     var verifier =  srpClient.generateVerifier(salt, email, password);
 
-    passwordSaltElement.attr('value', salt);
-    passwordVerifierElement.attr('value', verifier);
+    signUpPasswordSaltElement.attr('value', salt);
+    signUpPasswordVerifierElement.attr('value', verifier);
 
     var postValues = {
         username: username,

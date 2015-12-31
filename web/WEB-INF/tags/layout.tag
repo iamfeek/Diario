@@ -58,7 +58,7 @@
 
         <%--Login Form--%>
         <div id="cd-signin">
-            <form class="cd-form" action="/auth" method="POST">
+            <form class="cd-form" method="POST">
                 <input name="flag" type="hidden" value="login">
                 <p class="fieldset">
                     <label class="image-replace cd-username" for="signin-username">Username</label>

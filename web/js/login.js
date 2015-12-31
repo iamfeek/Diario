@@ -75,7 +75,10 @@ jQuery(document).ready(function($){
         formForgotPassword.removeClass('is-selected');
         tabLogin.addClass('selected');
         tabSignup.removeClass('selected');
-        //$( "#signin-password-hide" ).trigger("click");
+        setTimeout(function(){
+            $('#signin-username').focus();
+        }, 200);
+
     }
 
     function signup_selected(){
@@ -86,7 +89,10 @@ jQuery(document).ready(function($){
         formForgotPassword.removeClass('is-selected');
         tabLogin.removeClass('selected');
         tabSignup.addClass('selected');
-        //$("#signup-password-hide").trigger("click");
+        setTimeout(function(){
+            $('#signup-username').focus();
+        }, 200);
+
     }
 
     function forgot_password_selected(){

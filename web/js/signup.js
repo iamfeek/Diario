@@ -10,9 +10,10 @@ var signUpPasswordVerifierElement = $("#password-verifier");
 
 $(document).ready(function() {
     disableSubmitBtn();
-
+    registerBtn.prop("value", "Logging in...");
     registerBtn.on('click', $.proxy(function(e) {
         e.preventDefault();
+        disableSubmitBtn();
         postSaltAndVerifier();
     }, this));
 
@@ -24,8 +25,7 @@ $(document).ready(function() {
     signUpPasswordElement.on('keyup', $.proxy(function(event) {
             // only enable the button if the user has entered some password
             //ternary operator. test ? trueExpression : falseExpression
-            $(event.currentTarget).val().length ? enableSubmitBtn()
-                : disableSubmitBtn();
+            $(event.currentTarget).val().length ? enableSubmitBtn() : disableSubmitBtn();
             // see recommendation in the thinbus docs
             random16byteHex.advance(Math.floor(event.keyCode / 4));
         }, this));

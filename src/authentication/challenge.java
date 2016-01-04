@@ -3,20 +3,17 @@ package authentication;
 import DAO.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import com.nimbusds.srp6.BigIntegerUtils;
 import com.nimbusds.srp6.SRP6CryptoParams;
 import com.nimbusds.srp6.SRP6ServerSession;
-import database.Db;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +24,7 @@ import java.util.Map;
  */
 public class Challenge extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("Login Request: " + request.getParameter("username"));
+        System.out.println("|========>" + request.getParameter("username")+"<========|");
         try {
             handler(request, response);
         } catch (SQLException e) {
@@ -48,6 +45,11 @@ public class Challenge extends HttpServlet {
         String salt = saltAndVerifier.get("salt");
         String verifier = saltAndVerifier.get("verifier");
 
+        System.out.println("===Retrieved from DB===");
+        System.out.println("SALT: " +salt);
+        System.out.println("VERIFIER: " + verifier);
+        System.out.println("===End receive===");
+
         BigInteger saltBI = BigIntegerUtils.fromHex(salt);
         BigInteger verifierBI = BigIntegerUtils.fromHex(verifier);
 
@@ -61,26 +63,9 @@ public class Challenge extends HttpServlet {
         saltAndBAndSrp.put("saltAndB", saltAndBJson);
         saltAndBAndSrp.put("srp", gson.toJson(srp));
 
-        System.out.println("Salt from db: " + salt);
-        System.out.println("Biginteger Salt .toString(): " + saltBI.toString());
-
-
-
         response.getWriter().write(gson.toJson(saltAndBAndSrp));
-        //storing email and B in DB
-        Connection conn = Db.getConnection();
-
-        //generating the sqls and stuff before executeUpdate
-        String sql = "INSERT INTO temp_cache (username, b) VALUES (?, ?);";
-        PreparedStatement preparedStmt = conn.prepareStatement(sql);
-        preparedStmt.setString(1, username);
-        preparedStmt.setString(2, b.toString());
-
-        int status = preparedStmt.executeUpdate();
-        conn.close();
-
-        if(status == 1){
-            System.out.println("STORED");
-        }
+        HttpSession session = request.getSession();
+        session.setAttribute("srp", srp);
+        System.out.println("SAVING SRP: " + srp.getUserID());
     }
 }

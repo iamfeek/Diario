@@ -1,6 +1,7 @@
 package authentication;
 
 import com.nimbusds.srp6.BigIntegerUtils;
+import com.nimbusds.srp6.SRP6Exception;
 import com.nimbusds.srp6.SRP6ServerSession;
 
 import javax.servlet.ServletException;
@@ -36,6 +37,15 @@ public class Authenticate extends HttpServlet {
             System.out.println(A);
 
             SRP6ServerSession srp = (SRP6ServerSession) request.getSession().getAttribute("srp");
+
+            try {
+                BigInteger M2 = srp.step2(A, M1);
+                response.getWriter().write(M2.toString());
+            } catch (SRP6Exception e) {
+                //authentication failed
+                response.getWriter().write("Auth failed");
+            }
+
             System.out.println("SRP USER ID: " + srp.getUserID());
         } else{
             response.getWriter().write("Session Error");

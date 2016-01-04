@@ -71,7 +71,16 @@ function challengeResponse(response){
     };
 
     $.post("/authenticate", values, function(response){
-        console.log(response)
+        console.log(response, srpClient)
     });
     console.log(credentials)
+}
+
+function authenticateResponse(response, srpClient){
+    if(response === "Auth failed"){
+        alert("FAILED");
+    } else {
+        srpClient.step3(response);
+        console.log("Step 3: " + response)
+    }
 }

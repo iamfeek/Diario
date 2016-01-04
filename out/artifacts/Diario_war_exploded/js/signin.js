@@ -46,6 +46,7 @@ var sendChallenge = function(){
 }
 
 function challengeResponse(response){
+    var saltAndB = JSON.parse(response.saltAndB);
     //alert(response)
     var username = usernameElement.val();
     var password = passwordElement.val();
@@ -60,9 +61,7 @@ function challengeResponse(response){
         window.location = window.location;
     }
 
-    var credentials = srpClient.step2(response.saltAndB.salt, response.saltAndB.b);
-    console.log(response.saltAndB.b);
-    console.log(response.srp);
+    var credentials = srpClient.step2(saltAndB.salt, saltAndB.b);
     var end =  +(new Date())
 
     var values = {
@@ -72,7 +71,16 @@ function challengeResponse(response){
     };
 
     $.post("/authenticate", values, function(response){
-        console.log(response)
+        console.log(response, srpClient)
     });
-    //console.log(credentials)
+    console.log(credentials)
+}
+
+function authenticateResponse(response, srpClient){
+    if(response === "Auth failed"){
+        alert("FAILED");
+    } else {
+        srpClient.step3(response);
+        console.log("Step 3: " + response)
+    }
 }

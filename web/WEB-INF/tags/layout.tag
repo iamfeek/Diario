@@ -22,7 +22,7 @@
 
         var user = getCookie("User");
         if(user != ""){
-            //window.location.href = '/dashboard';
+            window.location.href = '/dashboard';
         }
     </script>
     <meta charset="UTF-8">
@@ -57,19 +57,19 @@
         </ul>
 
         <%--Login Form--%>
-        <div id="cd-login">
-            <form class="cd-form" action="/auth" method="POST">
+        <div id="cd-signin">
+            <form class="cd-form" method="POST">
                 <input name="flag" type="hidden" value="login">
                 <p class="fieldset">
-                    <label class="image-replace cd-username" for="signin-email">Username</label>
-                    <input class="full-width has-padding has-border" name="username" id="signin-email" type="text" placeholder="Username">
+                    <label class="image-replace cd-username" for="signin-username">Username</label>
+                    <input class="full-width has-padding has-border" name="username" id="signin-username" type="text" placeholder="Username">
                     <span class="cd-error-message">Error message here!</span>
                 </p>
 
                 <p class="fieldset">
                     <label class="image-replace cd-password" for="signin-password">Password</label>
-                    <input class="full-width has-padding has-border" name="password" id="signin-password" type="text"  placeholder="Password">
-                    <a href="#0" class="hide-password">Hide</a>
+                    <input class="full-width has-padding has-border" name="password" id="signin-password" type="password"  placeholder="Password">
+                    <a href="#0" class="hide-password">Show</a>
                     <span class="cd-error-message">Error message here!</span>
                 </p>
 
@@ -90,8 +90,10 @@
 
         <%--Sign up Form--%>
         <div id="cd-signup"> <!-- sign up form -->
-            <form class="cd-form">
-                <input name="flag" type="hidden" value="register">
+            <form class="cd-form" id="register-form" method="post">
+                <input id="password-salt" type="hidden" name="salt" />
+                <input id="password-verifier" type="hidden" name="verifier" />
+
                 <p class="fieldset">
                     <label class="image-replace cd-username" for="signup-username">Username</label>
                     <input class="full-width has-padding has-border" id="signup-username" name="username" type="text" placeholder="Username">
@@ -106,8 +108,8 @@
 
                 <p class="fieldset">
                     <label class="image-replace cd-password" for="signup-password">Password</label>
-                    <input class="full-width has-padding has-border" id="signup-password" name="password" type="text"  placeholder="Password">
-                    <a href="#0" class="hide-password">Hide</a>
+                    <input class="full-width has-padding has-border" id="signup-password" name="password" type="password"  placeholder="Password">
+                    <a href="#0" class="hide-password">Show</a>
                     <span class="cd-error-message">Error message here!</span>
                 </p>
 
@@ -117,8 +119,9 @@
                 </p>
 
                 <p class="fieldset">
-                    <input class="full-width has-padding" type="submit" value="Create account">
+                    <input class="full-width has-padding" type="submit" id="registerBtn" value="Create account">
                 </p>
+
             </form>
 
             <!-- <a href="#0" class="cd-close-form">Close</a> -->
@@ -149,10 +152,13 @@
 
 <jsp:invoke fragment="body_area"/>
 
-
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+<script src="../js/safe-prime-config.js"></script>
+<script src="../js/thinbus-srpclient-sha256.js"></script>
 <script src="../js/login.js"></script>
+<script src="../js/signup.js"></script>
+<script src="../js/signin.js"></script>
 
 
 </body>

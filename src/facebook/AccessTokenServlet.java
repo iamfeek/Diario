@@ -21,15 +21,12 @@ public class AccessTokenServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Facebook facebook = (Facebook) request.getSession().getAttribute("facebook");
-        try {
-            AccessToken info = facebook.getOAuthAccessTokenInfo();
-            request.setAttribute("token", info);
-        } catch (FacebookException e) {
-            throw new ServletException(e);
-        }
 
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/dashboard.jsp");
-        dispatcher.forward(request, response);
+        AccessToken info = facebook.getOAuthAccessToken();
+        request.getSession().setAttribute("token", info);
+
+
+        response.sendRedirect(request.getContextPath() + "/dashboard");
 
     }
 }

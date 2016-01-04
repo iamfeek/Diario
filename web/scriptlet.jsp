@@ -5,7 +5,6 @@
     try
 
     {
-
         String connectionURL = "jdbc:mysql://localhost:3306/diario";
         Connection conn;
         Statement stmt;

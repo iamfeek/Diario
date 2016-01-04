@@ -10,22 +10,22 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by glenice on 3 Dec 2015.
+ * Created by glenice on 8 Dec 2015.
  */
-public class FacebookCallbackServlet extends HttpServlet {
+public class FacebookPostServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Facebook facebook = (Facebook) request.getSession().getAttribute("facebook");
+        request.setCharacterEncoding("UTF-8");
 
-        String oauthCode = request.getParameter("code");
+        Facebook facebook = (Facebook) request.getSession().getAttribute("facebook");
         try {
-            facebook.getOAuthAccessToken(oauthCode);
+            facebook.postStatusMessage("Test");
         } catch (FacebookException e) {
             throw new ServletException(e);
         }
-        response.sendRedirect(request.getContextPath() + "/facebookaccess");
+        response.sendRedirect(request.getContextPath()+ "/");
     }
 }

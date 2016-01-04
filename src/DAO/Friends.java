@@ -5,6 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class Friends {
+    //Add friends together, username and friends_username. Remember to check for existing friend (a,b) and (b,a)
     public static boolean addFriend(String username, String friends_username) {
         Connection conn = Db.getConnection();
         String sql = "INSERT INTO diario.`friends` (username, f_username) VALUES (?, ?);";
@@ -25,6 +26,7 @@ public class Friends {
         }
     }
 
+    //Get username Arraylist<String> of all friends of <username>
     public static ArrayList<String> getFriendsList(String username) {
         ArrayList<String> friends_list = new ArrayList<String>();
 
@@ -49,6 +51,7 @@ public class Friends {
         return friends_list;
     }
 
+    //Remove friend relationship beween <username> and <friends_username>. Will auto check for both directions
     public static boolean removeFriend(String username, String friends_username)   {
         boolean tryOther = false;
 

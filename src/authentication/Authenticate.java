@@ -37,13 +37,6 @@ public class Authenticate extends HttpServlet {
 
             SRP6ServerSession srp = (SRP6ServerSession) request.getSession().getAttribute("srp");
             System.out.println("SRP USER ID: " + srp.getUserID());
-
-//            try {
-//                BigInteger M2 = srp.step2(A,M1);
-//                response.getWriter().write(M2.toString());
-//            } catch (SRP6Exception e) {
-//                e.printStackTrace();
-//            }
         } else{
             response.getWriter().write("Session Error");
         }

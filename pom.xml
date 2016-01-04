@@ -56,7 +56,6 @@
             <groupId>com.nimbusds</groupId>
             <artifactId>srp6a</artifactId>
             <version>1.5.3</version>
-            <scope>compile</scope>
         </dependency>
 
         <dependency>

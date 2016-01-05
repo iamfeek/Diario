@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nimbusds.srp6.BigIntegerUtils;
 import com.nimbusds.srp6.SRP6CryptoParams;
+import com.nimbusds.srp6.SRP6Exception;
 import com.nimbusds.srp6.SRP6ServerSession;
 
 import javax.servlet.ServletException;
@@ -24,7 +25,7 @@ import java.util.Map;
  */
 public class Challenge extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("|========>" + request.getParameter("username")+"<========|");
+        System.out.println("|========> " + request.getParameter("username")+"'s Request<========|");
         try {
             handler(request, response);
         } catch (SQLException e) {
@@ -45,18 +46,24 @@ public class Challenge extends HttpServlet {
         String salt = saltAndVerifier.get("salt");
         String verifier = saltAndVerifier.get("verifier");
 
-        System.out.println("===Retrieved from DB===");
-        System.out.println("SALT: " +salt);
-        System.out.println("VERIFIER: " + verifier);
-        System.out.println("===End receive===");
+//        System.out.println("===Retrieved from DB===");
+//        System.out.println("SALT: " +salt);
+//        System.out.println("VERIFIER: " + verifier);
+//        System.out.println("===End receive===");
 
         BigInteger saltBI = BigIntegerUtils.fromHex(salt);
         BigInteger verifierBI = BigIntegerUtils.fromHex(verifier);
 
-        BigInteger b = srp.step1(username, saltBI, verifierBI);
+        try{
+            BigInteger b = srp.step1(username, saltBI, verifierBI);
 
-        saltAndB.put("salt", saltBI);
-        saltAndB.put("b", b);
+            System.out.println("Server's B: " + b.toString());
+
+            saltAndB.put("salt", saltBI);
+            saltAndB.put("b", b);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         HashMap<String, String> saltAndBAndSrp = new HashMap<String, String>();
         String saltAndBJson = gson.toJson(saltAndB);

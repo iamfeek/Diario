@@ -3,6 +3,7 @@ package authentication;
 import com.nimbusds.srp6.BigIntegerUtils;
 import com.nimbusds.srp6.SRP6Exception;
 import com.nimbusds.srp6.SRP6ServerSession;
+import org.apache.commons.codec.binary.Hex;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,14 +26,13 @@ public class Authenticate extends HttpServlet {
         if(null != session.getAttribute("srp")){
             System.out.println("Authenticate Value Ready");
 
-            String username = request.getParameter("username");
             String StringM1 = request.getParameter("M1");
             String StringA = request.getParameter("A");
 
             BigInteger M1 = BigIntegerUtils.fromHex(StringM1);
             BigInteger A = BigIntegerUtils.fromHex(StringA);
 
-            System.out.println(username);
+//            System.out.println(username);
             System.out.println(M1);
             System.out.println(A);
 
@@ -43,12 +43,13 @@ public class Authenticate extends HttpServlet {
                 response.getWriter().write(M2.toString());
             } catch (SRP6Exception e) {
                 //authentication failed
-                response.getWriter().write("Auth failed");
+                response.getWriter().write("Status: 502");
             }
 
-            System.out.println("SRP USER ID: " + srp.getUserID());
+//            System.out.println("SRP USER ID: " + srp.getUserID());
         } else{
             response.getWriter().write("Session Error");
         }
+        System.out.println("|========> END " + request.getParameter("username")+"'s Request<========|");
     }
 }

@@ -61,9 +61,18 @@ function challengeResponse(response){
         window.location = window.location;
     }
 
+
+
+    var b = new BigInteger(saltAndB.b);
+    console.log("Server Salt: " + salt);
+    console.log("Server Salt in var: " +saltAndB.salt);
+    console.log("Server B: " + b)
+
     var credentials = srpClient.step2(saltAndB.salt, saltAndB.b);
     var end =  +(new Date())
 
+    console.log("Client M1: " + credentials.M1);
+    console.log("Client B: " + credentials.B)
     var values = {
         username: username,
         M1: credentials.M1,
@@ -71,16 +80,15 @@ function challengeResponse(response){
     };
 
     $.post("/authenticate", values, function(response){
-        console.log(response, srpClient)
+        authenticateResponse(response, srpClient);
     });
-    console.log(credentials)
 }
 
 function authenticateResponse(response, srpClient){
-    if(response === "Auth failed"){
+    if(response === "Status: 502"){
         alert("FAILED");
     } else {
         srpClient.step3(response);
-        console.log("Step 3: " + response)
+        alert("Step 3: " + response)
     }
 }

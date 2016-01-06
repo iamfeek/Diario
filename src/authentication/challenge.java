@@ -42,37 +42,39 @@ public class Challenge extends HttpServlet {
 
         SRP6ServerSession srp = new SRP6ServerSession(SRP6CryptoParams.getInstance());
         User challenger = new User(request.getParameter("username"));
+
+        //getting salt and verifier in hashmap from DB
         HashMap<String, String> saltAndVerifier = challenger.getSaltAndVerifier();
+
         String salt = saltAndVerifier.get("salt");
         String verifier = saltAndVerifier.get("verifier");
-
-//        System.out.println("===Retrieved from DB===");
-//        System.out.println("SALT: " +salt);
-//        System.out.println("VERIFIER: " + verifier);
-//        System.out.println("===End receive===");
 
         BigInteger saltBI = BigIntegerUtils.fromHex(salt);
         BigInteger verifierBI = BigIntegerUtils.fromHex(verifier);
 
+        System.out.println("===BigInteger From Hex Conversion Check===");
+        System.out.println("HEX Salt:   " +salt);
+        System.out.println("BI Salt:    " + BigIntegerUtils.toHex(saltBI));
+        System.out.println("HEX Verifier:   " + verifier);
+        System.out.println("BI Verifier:    " + BigIntegerUtils.toHex(verifierBI));
+        System.out.println("===End Check===");
+
         try{
             BigInteger b = srp.step1(username, saltBI, verifierBI);
 
-            System.out.println("Server's B: " + b.toString());
+//            System.out.println("Server's B: " + b.toString());
 
             saltAndB.put("salt", saltBI);
             saltAndB.put("b", b);
         }catch (Exception e){
             e.printStackTrace();
         }
-
-        HashMap<String, String> saltAndBAndSrp = new HashMap<String, String>();
         String saltAndBJson = gson.toJson(saltAndB);
-        saltAndBAndSrp.put("saltAndB", saltAndBJson);
-        saltAndBAndSrp.put("srp", gson.toJson(srp));
 
-        response.getWriter().write(gson.toJson(saltAndBAndSrp));
+        System.out.println("Salt And B Reply");
+        System.out.println(saltAndB);
+        response.getWriter().write(gson.toJson(saltAndBJson));
         HttpSession session = request.getSession();
         session.setAttribute("srp", srp);
-        System.out.println("SAVING SRP: " + srp.getUserID());
     }
 }

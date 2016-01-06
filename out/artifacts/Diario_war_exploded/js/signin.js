@@ -46,33 +46,40 @@ var sendChallenge = function(){
 }
 
 function challengeResponse(response){
-    var saltAndB = JSON.parse(response.saltAndB);
+    //var saltAndB = JSON.parse(response.saltAndB);
     //alert(response)
     var username = usernameElement.val();
     var password = passwordElement.val();
     var srpClient = new SRP6JavascriptClientSessionSHA256();
 
-    var start = +(new Date());
-
     try{
         srpClient.step1(username, password);
+        console.log("Step 1: COMPLETED")
     } catch(e){
         console.log("Error: " + e);
         window.location = window.location;
     }
 
+    var credentials = null;
+    var saltAndB = JSON.parse(response);
 
+    var salt = BigInteger(response.salt);
+    var b = BigInteger(response.b);
+    console.log(salt)
+    console.log(b)
+    try{
+        console.log("Step 2 Values")
+        console.log("Salt: " + saltAndB.salt )
+        console.log("B: " + saltAndB.b )
+        credentials = srpClient.step2(saltAndB.salt, saltAndB.b);
 
-    var b = new BigInteger(saltAndB.b);
-    console.log("Server Salt: " + salt);
-    console.log("Server Salt in var: " +saltAndB.salt);
-    console.log("Server B: " + b)
+        console.log("Step 2: COMPLETED")
+        console.log("Client M1: " + credentials.M1);
+        console.log("Client B: " + credentials.B)
+    } catch(e){
+        console.log("Step 2 " + e);
+    }
 
-    var credentials = srpClient.step2(saltAndB.salt, saltAndB.b);
-    var end =  +(new Date())
-
-    console.log("Client M1: " + credentials.M1);
-    console.log("Client B: " + credentials.B)
     var values = {
         username: username,
         M1: credentials.M1,

@@ -11,18 +11,13 @@ import java.util.List;
  * Created by lenovo on 1/3/2016.
  */
 public class FriendsBean{
-    private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    private static final String DATABASE_URL = "jdbc:mysql://localhost:8888/diario";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "narumi";
+
 
     //Add friends together, username and friends_username. Remember to check for existing friend (a,b) and (b,a)
     public void addFriend(Friend f) {
-        Connection con = null;
+        Connection con = Db.getConnection();
         PreparedStatement pstmt = null;
         try {
-            Class.forName(JDBC_DRIVER);
-            con = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
             pstmt = con.prepareStatement("INSERT INTO friends (id, fUNAME, Location, MF) VALUES (?, ?, ?, ?);");
             pstmt.setInt(1, f.getId());
             pstmt.setString(2, f.getfUNAME());

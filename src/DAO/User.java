@@ -134,7 +134,6 @@ public class User {
                 conn.close();
 
                 if (status == 1) {
-                    KeyGen.genAndStore(username);
                     System.out.println("register PASS");
                     return true;
                 } else {

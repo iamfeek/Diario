@@ -22,21 +22,27 @@ public class postSystem extends HttpServlet {
         }
 
         String username = (String) request.getSession().getAttribute("username");
-
-        if (Integer.parseInt(request.getParameter("secu_level")) > 0) {
-
-            PublicKey pk = KeyGen.getPubKey(username);
-            String encrypted = Encryption.encrypt(request.getParameter("text"), pk);
-            DAOPost.storeMessage(username, encrypted, true);
+        String text = request.getParameter("text");
+        int seculvl = Integer.parseInt(request.getParameter("text_secu_level"));
+        if (seculvl == 0) {
+            DAOPost.storeMessage(username, text, false);
         }
+        else if (seculvl == 50)    {
+            DAOPost.storeMessage(username, text, true);
+        }
+        //TODO: Share with friends
         else    {
-            DAOPost.storeMessage(username, request.getParameter("text"), false);
+
         }
         response.sendRedirect("/dashboard");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/post.jsp");
-        rd.forward(request, response);
+        if (request.getSession().getAttribute("loggedIn") != null)  {
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/post.jsp");
+            rd.forward(request, response);
+        }
+        else
+            response.sendRedirect("/");
     }
 }

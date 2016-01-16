@@ -90,6 +90,8 @@
 
         <%--Sign up Form--%>
         <div id="cd-signup"> <!-- sign up form -->
+            <script type="text/javascript" src="js/security/key-handler.js"></script>
+            <script type="text/javascript" src="js/security/rsa-bundle.js"></script>
             <form class="cd-form" id="register-form" method="post">
                 <input id="password-salt" type="hidden" name="salt" />
                 <input id="password-verifier" type="hidden" name="verifier" />
@@ -119,9 +121,14 @@
                 </p>
 
                 <p class="fieldset">
-                    <input class="full-width has-padding" type="submit" id="registerBtn" value="Create account">
+                    <input class="full-width has-padding has-border" type="hidden" id="pub_key" name="pubkey"/>
                 </p>
 
+                <p class="fieldset">
+                    <input class="full-width has-padding" type="button" id="registerBtn" value="Create account" onclick="registerNewKeyPair()">
+                </p>
+
+                <input type="submit" style="display:none" name="submitButton">
             </form>
 
             <!-- <a href="#0" class="cd-close-form">Close</a> -->

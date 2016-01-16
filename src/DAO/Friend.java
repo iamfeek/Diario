@@ -7,9 +7,21 @@ public class Friend {
 
     private int id;
     private String fUNAME;
+    private String username;
     private String MF;
-    private String Posts;
-    private String Friends;
+    private String posts;
+    private String friends;
+    private String search;
+    private String location;
+
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     public int getId() {
         return id;
@@ -27,12 +39,28 @@ public class Friend {
         this.fUNAME = fUNAME;
     }
 
-    public String getLocation() {
-        return Location;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLocation(String location) {
-        Location = location;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPosts() {
+        return posts;
+    }
+
+    public void setPosts(String posts) {
+        this.posts = posts;
+    }
+
+    public String getFriends() {
+        return friends;
+    }
+
+    public void setFriends(String friends) {
+        this.friends = friends;
     }
 
     public String getMF() {
@@ -43,22 +71,13 @@ public class Friend {
         this.MF = MF;
     }
 
-    private String Location;
 
-    public String getPosts() {
-        return Posts;
+    public String getSearch() {
+        return search;
     }
 
-    public void setPosts(String posts) {
-        Posts = posts;
-    }
-
-    public String getFriends() {
-        return Friends;
-    }
-
-    public void setFriends(String friends) {
-        Friends = friends;
+    public void setSearch(String search) {
+        this.search = search;
     }
 
 }

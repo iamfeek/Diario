@@ -208,6 +208,22 @@
         <servlet-name>signin</servlet-name>
         <servlet-class>authentication.signin</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>tester</servlet-name>
+        <servlet-class>tester</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>postImage</servlet-name>
+        <servlet-class>post.postImage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>postImage</servlet-name>
+        <url-pattern>/postImage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>tester</servlet-name>
+        <url-pattern>/test</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>signin</servlet-name>
         <url-pattern>/signin</url-pattern>

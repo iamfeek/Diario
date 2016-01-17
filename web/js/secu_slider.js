@@ -18,12 +18,15 @@ function onImgSlider(value) {
 
 function onTextSlider(value)    {
     if (value == 100)   {
-        document.getElementById('text_secu_text').innerHTML = "Share with selected friends (Add them later)";
+        document.getElementById('text_secu_text').innerHTML = "Share with selected friends";
+        document.getElementById('search_friends').style.display = 'block';
     }
     else if (value == 50)  {
         document.getElementById('text_secu_text').innerHTML = "Only allow yourself to view this post";
+        document.getElementById('search_friends').style.display = 'none';
     }
     else    {
         document.getElementById('text_secu_text').innerHTML = "Allow anyone to view this post (leave unencrypted)";
+        document.getElementById('search_friends').style.display = 'none';
     }
 }

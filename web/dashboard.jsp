@@ -16,8 +16,18 @@
 </jsp:attribute>
 
     <jsp:attribute name="body_area">
-        <a href="post">Post</a>
-        </br>
+        <a href="post">New Post</a>
+        <br/>
+        <br/>
+        <a href="postImage.jsp">Post Image</a>
+        <br/>
+        <br/>
+        <a href="viewPosts.jsp">View My Posts</a>
+        <br/>
+        <br/>
+        <a href="viewFriendsPosts.jsp">View Friends Posts</a>
+        <br/>
+        <br/>
         <c:choose>
             <c:when test="${sessionScope.twitter != null && sessionScope.requestToken == null}">
                 <h3>Twitter Logged In As: ${twitter.screenName}</h3>

@@ -42,7 +42,7 @@ public class Friends {
                 if (!rs.getString("f_username").equals(username))
                     friends_list.add(rs.getString("f_username"));
                 else
-                    friends_list.add(rs.getString("usernames"));
+                    friends_list.add(rs.getString("username"));
             }
             conn.close();
         } catch (SQLException e) {

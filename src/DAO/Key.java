@@ -2,10 +2,15 @@ package DAO;
 
 import database.Db;
 import org.apache.commons.codec.binary.Base64;
+import org.bouncycastle.util.io.pem.PemObject;
+import org.bouncycastle.util.io.pem.PemObjectParser;
+import org.bouncycastle.util.io.pem.PemReader;
 
-import java.io.UnsupportedEncodingException;
-import java.security.*;
-import java.security.spec.InvalidKeySpecException;
+import javax.xml.bind.DatatypeConverter;
+import java.io.StringReader;
+import java.security.KeyFactory;
+import java.security.PublicKey;
+import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.sql.*;
 
@@ -34,7 +39,6 @@ public class Key {
 
         Statement st = null;
         String pubKey = null;
-        PublicKey pk = null;
 
         try {
             st = conn.createStatement();
@@ -44,30 +48,23 @@ public class Key {
                 pubKey = rs.getString("pubkey");
             }
         }
-        catch   (SQLException e)    {
+        catch   (SQLException e) {
             e.printStackTrace();
         }
 
-        if (pubKey != null) {
-            byte[] keyBytes = new byte[0];
-            try {
-                keyBytes = Base64.decodeBase64(pubKey.getBytes("utf-8"));
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-            X509EncodedKeySpec spec = new X509EncodedKeySpec(keyBytes);
-            KeyFactory keyFactory = null;
-            try {
-                keyFactory = KeyFactory.getInstance("RSA");
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            }
-            try {
-                pk = keyFactory.generatePublic(spec);
-            } catch (InvalidKeySpecException e) {
-                e.printStackTrace();
-            }
+        pubKey = pubKey.replaceAll("(-+BEGIN PUBLIC KEY-+\\r?\\n|-+END PUBLIC KEY-+\\r?\\n?)", "");
+        byte[] keyBytes = Base64.decodeBase64(pubKey);
+
+        // generate public key
+        X509EncodedKeySpec spec = new X509EncodedKeySpec(keyBytes);
+        PublicKey publicKey = null;
+        try {
+            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+            publicKey = keyFactory.generatePublic(spec);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return pk;
+
+        return publicKey;
     }
 }

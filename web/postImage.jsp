@@ -9,10 +9,10 @@
 <jsp:attribute name="body_area">
     <script type="text/javascript" src="js/secu_slider.js"></script>
     <%--the content of the site goes here.--%>
-    <form action="/postImage" method="post">
+    <form action="/postImage" method="post" enctype="multipart/form-data">
         <div style="padding: 30px; margin-left: 100px">
             <h1 style="font-size: 30px;">Upload Image</h1><br/>
-            <button>Select Image</button>
+            <input type="file" name="photo" size="50"/>
             <div style="padding-top: 20px">
                 <h1 style="font-size:18px">Image Security</h1>
 
@@ -42,7 +42,7 @@
                 </div>
 
                 <div style="text-align: center; width: 500px; padding-top: 20px">
-                    <button style="width: 100px; height: 40px;">Post</button>
+                    <input type="submit" style="width: 100px; height: 40px;" value="Post"/>
                 </div>
             </div>
         </div>

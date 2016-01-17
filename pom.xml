@@ -56,7 +56,6 @@
             <groupId>com.nimbusds</groupId>
             <artifactId>srp6a</artifactId>
             <version>1.5.3</version>
-            <scope>compile</scope>
         </dependency>
 
         <dependency>
@@ -80,5 +79,18 @@
             <artifactId>slf4j-api</artifactId>
             <version>1.7.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+
+
     </dependencies>
 </project>

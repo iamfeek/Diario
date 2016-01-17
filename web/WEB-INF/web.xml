@@ -67,7 +67,7 @@
         <servlet-name>login</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>dashboard</servlet-name>
         <jsp-file>/dashboard.jsp</jsp-file>

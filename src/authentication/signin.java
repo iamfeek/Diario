@@ -17,5 +17,7 @@ public class signin extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().setAttribute("loggedIn", true);
         request.getSession().setAttribute("username", "tester");
+
+        System.out.println(request.getSession().getAttribute("username"));
     }
 }

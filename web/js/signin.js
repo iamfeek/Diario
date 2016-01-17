@@ -63,19 +63,18 @@ function challengeResponse(response){
     var credentials = null;
     var saltAndB = JSON.parse(response);
 
-    var salt = BigInteger(response.salt);
-    var b = BigInteger(response.b);
-    console.log(salt)
-    console.log(b)
+    var salt = saltAndB.salt;
+    var b = saltAndB.b;
     try{
         console.log("Step 2 Values")
-        console.log("Salt: " + saltAndB.salt )
-        console.log("B: " + saltAndB.b )
-        credentials = srpClient.step2(saltAndB.salt, saltAndB.b);
-
+        console.log("Salt: " + salt)
+        console.log("B: " + b )
+        credentials = srpClient.step2(salt, b);
         console.log("Step 2: COMPLETED")
+
         console.log("Client M1: " + credentials.M1);
-        console.log("Client B: " + credentials.B)
+        console.log("Client A: " + credentials.A)
+
     } catch(e){
         console.log("Step 2 " + e);
     }

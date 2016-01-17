@@ -1,5 +1,6 @@
 package authentication;
 
+import com.bitbucket.thinbus.srp6.js.SRP6JavascriptServerSession;
 import com.nimbusds.srp6.BigIntegerUtils;
 import com.nimbusds.srp6.SRP6Exception;
 import com.nimbusds.srp6.SRP6ServerSession;
@@ -26,27 +27,21 @@ public class Authenticate extends HttpServlet {
         if(null != session.getAttribute("srp")){
             System.out.println("Authenticate Value Ready");
 
-            String StringM1 = request.getParameter("M1");
-            String StringA = request.getParameter("A");
+            String M1 = request.getParameter("M1");
+            String A = request.getParameter("A");
 
-            BigInteger M1 = BigIntegerUtils.fromHex(StringM1);
-            BigInteger A = BigIntegerUtils.fromHex(StringA);
+            System.out.println("A: " + A);
+            System.out.println("M1: " + M1);
 
-//            System.out.println(username);
-            System.out.println(M1);
-            System.out.println(A);
-
-            SRP6ServerSession srp = (SRP6ServerSession) request.getSession().getAttribute("srp");
-
+            SRP6JavascriptServerSession srp = (SRP6JavascriptServerSession) request.getSession().getAttribute("srp");
             try {
-                BigInteger M2 = srp.step2(A, M1);
-                response.getWriter().write(M2.toString());
-            } catch (SRP6Exception e) {
+                String M2 = srp.step2(A, M1);
+                response.getWriter().write(M2);
+            } catch (Exception e) {
                 //authentication failed
+                System.out.println("AUTH FAILED");
                 response.getWriter().write("Status: 502");
             }
-
-//            System.out.println("SRP USER ID: " + srp.getUserID());
         } else{
             response.getWriter().write("Session Error");
         }

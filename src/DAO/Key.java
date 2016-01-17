@@ -2,15 +2,9 @@ package DAO;
 
 import database.Db;
 import org.apache.commons.codec.binary.Base64;
-import org.bouncycastle.util.io.pem.PemObject;
-import org.bouncycastle.util.io.pem.PemObjectParser;
-import org.bouncycastle.util.io.pem.PemReader;
 
-import javax.xml.bind.DatatypeConverter;
-import java.io.StringReader;
 import java.security.KeyFactory;
 import java.security.PublicKey;
-import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.sql.*;
 

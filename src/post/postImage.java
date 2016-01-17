@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * Created by Jy on 17-Jan-16.
  */
-@MultipartConfig(maxFileSize = 16177215);
+
 public class postImage extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

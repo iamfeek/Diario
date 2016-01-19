@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8' />
+    <title>Keypair generator testing</title>
+    <script type="text/javascript" src="js/security/rsa-bundle.js"></script>
+    <script language="JavaScript" type="text/javascript">
+        function genKeys() {
+            var f1 = document.form1;
+            var rsaKey = generateRSAKeyAndStore();
+            f1.out_prv.value = rsaKey.exportKey('pkcs8-private');
+            f1.out_pub.value = rsaKey.exportKey('public');
+        }
+
+        function encryptStuff() {
+            if (checkForExistingKey())  {
+                var f2 = document.form2;
+                var rsaKey = retrieveRSAKeyFromStore();
+                f2.out_crp.value = rsaKey.encrypt(f2.plain.value, 'base64');
+            }
+        }
+
+        function decryptStuff() {
+            if (checkForExistingKey())  {
+                var f2 = document.form2;
+                var f3 = document.form3;
+                var rsaKey = retrieveRSAKeyFromStore();
+                f3.out_plain.value = rsaKey.decrypt(f2.out_crp.value, 'utf-8');
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <form name="form1">
+        Generate Keys<br/>
+        <input type="button" value="Generate your keypair" onClick="genKeys()"/><br/>
+
+        <hr>
+        <h2>Generated Keys</h2>
+
+        <b>PKCS#8 plain PRIVATE KEY</b><br/>
+        <textarea name="out_prv" cols="82" rows="5"></textarea>
+        <br/>
+        <b>PKCS#8 plain PUBLIC KEY</b><br/>
+        <textarea name="out_pub" cols="82" rows="5"></textarea>
+        <br/>
+    </form>
+    <form name="form2">
+        <b>Plain Text</b>
+        <br/>
+        <input type="text" name="plain"/><br/>
+
+        <input type="button" value="Encrypt plain text with public key" onclick="encryptStuff()"/><br/>
+        <br/>
+        <b>Encrypted Text</b><br/>
+        <textarea name="out_crp" cols="82" rows="5"></textarea>
+        <br/>
+    </form>
+    <form name="form3">
+        <b>Decrypted Text</b><br/>
+        <textarea readonly="readonly" name="out_plain" cols="82" rows="5"></textarea>
+        <br/>
+        <input type="button" value="Decrypt to plain text" onclick="decryptStuff()"/><br/>
+    </form>
+</div>
+
+
+</body>
+</html>

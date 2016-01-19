@@ -46,8 +46,6 @@ public class InstagramCallbackServlet extends HttpServlet {
 
         request.getSession().setAttribute("userFeed", listMedia);
 
-
-
         /*for(int i =0;i<feed.size();i++){
             reader = new JsonReader(new StringReader(feed.get(i).getImages().getLowResolution().getImageUrl()));
 

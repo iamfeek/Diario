@@ -69,47 +69,6 @@ public class User {
         this.verifier = verifier;
     }
 
-    //METHODS
-//    public boolean login() {
-//        String username = this.getUsername();
-//        String password = this.getPassword();
-//
-//        Connection conn = Db.getConnection();
-//        String query = "SELECT password FROM accounts where username = '" + username + "';";
-//        System.out.println("Login Query: " + query);
-////        System.out.println("Retrieved password: " + password);
-//
-//        Statement st = null;
-//        try {
-//            st = conn.createStatement();
-//            ResultSet rs = st.executeQuery(query);
-//
-//            String retrievedPassword = null;
-//            while (rs.next()) {
-//                retrievedPassword = rs.getString("password");
-//                System.out.println("Retrieved Password: " + retrievedPassword);
-//
-//                if (PasswordHash.validatePassword(password, retrievedPassword)) {
-//                    //legit account
-//                    System.out.println("login PASS");
-//                    return true;
-//                } else {
-//                    System.out.println("login FAIL");
-//                    return false;
-//                }
-//            }
-//            conn.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } catch (InvalidKeySpecException e) {
-//            e.printStackTrace();
-//        } catch (NoSuchAlgorithmException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return false;
-//    }
-
     public boolean register() {
         try {
             System.out.println("Registering User");

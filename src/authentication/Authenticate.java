@@ -4,6 +4,7 @@ import com.bitbucket.thinbus.srp6.js.SRP6JavascriptServerSession;
 import com.nimbusds.srp6.BigIntegerUtils;
 import com.nimbusds.srp6.SRP6Exception;
 import com.nimbusds.srp6.SRP6ServerSession;
+import database.Db;
 import org.apache.commons.codec.binary.Hex;
 
 import javax.servlet.ServletException;
@@ -13,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  * Created by: Syafiq Hanafee
@@ -34,6 +38,15 @@ public class Authenticate extends HttpServlet {
             System.out.println("M1: " + M1);
 
             SRP6JavascriptServerSession srp = (SRP6JavascriptServerSession) request.getSession().getAttribute("srp");
+
+            //checking if B of session and db is the same
+            if(getB(srp.getUserID()).equals(srp.getPublicServerValue()))
+                System.out.println("The same B");
+            else
+                System.out.println("Not the same B. FIX THIS.");
+
+            System.out.println(srp.getUserID());
+
             try {
                 String M2 = srp.step2(A, M1);
                 response.getWriter().write(M2);
@@ -46,5 +59,23 @@ public class Authenticate extends HttpServlet {
             response.getWriter().write("Session Error");
         }
         System.out.println("|========> END " + request.getParameter("username")+"'s Request<========|");
+    }
+
+    private static String getB(String username){
+        String b = null;
+        try{
+            Connection conn = Db.getConnection();
+            String query = "SELECT b FROM b_temp where username = '" + username + "';";
+
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                b = rs.getString("b");
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        return b;
     }
 }

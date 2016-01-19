@@ -1,12 +1,14 @@
 package authentication;
 
 import DAO.User;
+import com.bitbucket.thinbus.srp6.js.SRP6JavascriptServerSessionSHA256;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nimbusds.srp6.BigIntegerUtils;
 import com.nimbusds.srp6.SRP6CryptoParams;
 import com.nimbusds.srp6.SRP6Exception;
 import com.nimbusds.srp6.SRP6ServerSession;
+import database.Db;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,10 +39,13 @@ public class Challenge extends HttpServlet {
         response.setContentType("application/json");
         String username = request.getParameter("username");
 
-        Map<String, BigInteger> saltAndB = new HashMap<String, BigInteger>();
+        Map<String, String> saltAndB = new HashMap<String, String>();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-        SRP6ServerSession srp = new SRP6ServerSession(SRP6CryptoParams.getInstance());
+
+        String N = "21766174458617435773191008891802753781907668374255538511144643224689886235383840957210909013086056401571399717235807266581649606472148410291413364152197364477180887395655483738115072677402235101762521901569820740293149529620419333266262073471054548368736039519702486226506248861060256971802984953561121442680157668000761429988222457090413873973970171927093992114751765168063614761119615476233422096442783117971236371647333871414335895773474667308967050807005509320424799678417036867928316761272274230314067548291133582479583061439577559347101961771406173684378522703483495337037655006751328447510550299250924469288819";
+        String g = "2";
+        SRP6JavascriptServerSessionSHA256 srp = new SRP6JavascriptServerSessionSHA256(N, g);
         User challenger = new User(request.getParameter("username"));
 
         //getting salt and verifier in hashmap from DB
@@ -49,32 +54,87 @@ public class Challenge extends HttpServlet {
         String salt = saltAndVerifier.get("salt");
         String verifier = saltAndVerifier.get("verifier");
 
-        BigInteger saltBI = BigIntegerUtils.fromHex(salt);
-        BigInteger verifierBI = BigIntegerUtils.fromHex(verifier);
-
-        System.out.println("===BigInteger From Hex Conversion Check===");
-        System.out.println("HEX Salt:   " +salt);
-        System.out.println("BI Salt:    " + BigIntegerUtils.toHex(saltBI));
-        System.out.println("HEX Verifier:   " + verifier);
-        System.out.println("BI Verifier:    " + BigIntegerUtils.toHex(verifierBI));
-        System.out.println("===End Check===");
-
         try{
-            BigInteger b = srp.step1(username, saltBI, verifierBI);
+            srp.step1(username, salt, verifier);
 
-//            System.out.println("Server's B: " + b.toString());
+            saltAndB.put("salt", salt);
+            saltAndB.put("b", srp.getPublicServerValue());
+            storeB(srp.getUserID(), srp.getPublicServerValue());
 
-            saltAndB.put("salt", saltBI);
-            saltAndB.put("b", b);
+
         }catch (Exception e){
             e.printStackTrace();
         }
         String saltAndBJson = gson.toJson(saltAndB);
 
         System.out.println("Salt And B Reply");
-        System.out.println(saltAndB);
         response.getWriter().write(gson.toJson(saltAndBJson));
+        System.out.println("Response to Client: " + saltAndBJson.toString());
         HttpSession session = request.getSession();
         session.setAttribute("srp", srp);
+    }
+
+    private static void storeB(String username, String b){
+        if(!bIsThere(username)){
+            try{
+                Connection conn = Db.getConnection();
+
+                //generating the sqls and stuff before executeUpdate
+                String sql = "INSERT INTO b_temp (username, b) VALUES (?, ?);";
+                PreparedStatement preparedStmt = conn.prepareStatement(sql);
+                preparedStmt.setString(1, username);
+                preparedStmt.setString(2, b);
+
+                int status = preparedStmt.executeUpdate();
+                if(status == 1)
+                    System.out.println("Saved B");
+                else
+                    System.out.println("NOT Saved B");
+                conn.close();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        } else{
+            removeB(username);
+            storeB(username, b);
+        }
+
+    }
+
+    private static boolean bIsThere(String username){
+        String retrievedUsername = null;
+        try{
+            Connection conn = Db.getConnection();
+            String query = "SELECT username FROM b_temp where username = '" + username + "';";
+
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                retrievedUsername = rs.getString("username");
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
+        if(retrievedUsername != null)
+            return true;
+        else
+            return false;
+    }
+
+    private static void removeB(String username){
+        try{
+            Connection conn = Db.getConnection();
+            String query = "delete FROM b_temp where username = ?;";
+
+            PreparedStatement pstmt = null;
+            pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, username);
+            pstmt.executeUpdate();
+            System.out.println("B has been deleted.");
+        } catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }

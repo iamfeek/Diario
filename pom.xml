@@ -90,6 +90,11 @@
             <version>3.0.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.bitbucket.simon_massey</groupId>
+            <artifactId>thinbus-srp6a-js</artifactId>
+            <version>1.4.0</version>
+        </dependency>
 
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>

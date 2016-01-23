@@ -7,13 +7,34 @@
 	<display-name>Diario</display-name>
 
     <servlet>
-        <servlet-name>AuthServlet</servlet-name>
-        <servlet-class>authentication.AuthServlet</servlet-class>
+        <servlet-name>Authenticate</servlet-name>
+        <servlet-class>authentication.Authenticate</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>AuthServlet</servlet-name>
-        <url-pattern>/auth</url-pattern>
+        <servlet-name>Authenticate</servlet-name>
+        <url-pattern>/authenticate</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Challenge</servlet-name>
+        <servlet-class>authentication.Challenge</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Challenge</servlet-name>
+        <url-pattern>/challenge</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Register</servlet-name>
+        <servlet-class>authentication.Register</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Register</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+
+
+
 
     <servlet>
         <servlet-name>pageServlet</servlet-name>
@@ -23,6 +44,8 @@
         <servlet-name>pageServlet</servlet-name>
         <url-pattern>/pageServlet</url-pattern>
     </servlet-mapping>
+
+
 
     <servlet>
         <servlet-name>home</servlet-name>

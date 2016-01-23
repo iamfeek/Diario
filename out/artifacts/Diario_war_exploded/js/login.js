@@ -1,10 +1,9 @@
 /**
  * Created by IamFeeK on 13/11/15.
  */
-
 jQuery(document).ready(function($){
     var formModal = $('.cd-user-modal'),
-        formLogin = formModal.find('#cd-signin'),
+        formLogin = formModal.find('#cd-login'),
         formSignup = formModal.find('#cd-signup'),
         formForgotPassword = formModal.find('#cd-reset-password'),
         formModalTab = $('.cd-switcher'),
@@ -22,8 +21,6 @@ jQuery(document).ready(function($){
     mainNav.on('click', '.cd-signup', signup_selected);
     //open login-form form
     mainNav.on('click', '.cd-signin', login_selected);
-
-    $('#cd-signup-error').on('click', '.cd-signin', login_selected);
 
     //close modal
     formModal.on('click', function(event){
@@ -75,10 +72,6 @@ jQuery(document).ready(function($){
         formForgotPassword.removeClass('is-selected');
         tabLogin.addClass('selected');
         tabSignup.removeClass('selected');
-        setTimeout(function(){
-            $('#signin-username').focus();
-        }, 200);
-
     }
 
     function signup_selected(){
@@ -89,10 +82,6 @@ jQuery(document).ready(function($){
         formForgotPassword.removeClass('is-selected');
         tabLogin.removeClass('selected');
         tabSignup.addClass('selected');
-        setTimeout(function(){
-            $('#signup-username').focus();
-        }, 200);
-
     }
 
     function forgot_password_selected(){
@@ -101,6 +90,47 @@ jQuery(document).ready(function($){
         formForgotPassword.addClass('is-selected');
     }
 
+    //SIGNUP & LOGIN Logic
+
+    //Login Logic
+    formLogin.find('input[type="submit"]').on('click', function(event){
+        //$("#btnLogin").attr('value', 'Processing...')
+        //$("#btnLogin").prop('disabled', true);
+        event.preventDefault();
+        formLogin.find('input[type="email"]').toggleClass('has-error').next('span').toggleClass('is-visible');
+        $.ajax({
+            url : '/auth',
+            type: 'POST',
+            data: {
+                flag:"login",
+                username:$("#signin-email").val(),
+                password:$("#signin-password").val()
+            },
+            success: function(){
+                location.reload();
+            }
+        })
+    });
+
+    //Signup Logic
+    formSignup.find('input[type="submit"]').on('click', function(event){
+        event.preventDefault();
+        $.ajax({
+            url : '/auth',
+            type: 'POST',
+            data: {
+                flag:"register",
+                username:$("#signup-username").val(),
+                email:$("#signup-email").val(),
+                password:$("#signup-password").val()
+            },
+            success : function(data){
+                location.reload();
+            }
+        })
+    });
+
+    //Logout Logic
     $("#sign-out").click(function(){
         $.ajax({
             url : '/auth',
@@ -110,6 +140,8 @@ jQuery(document).ready(function($){
             }
         })
     });
+
+    //END SIGNUP & LOGIN logic
 
     if(!Modernizr.input.placeholder){
         $('[placeholder]').focus(function() {

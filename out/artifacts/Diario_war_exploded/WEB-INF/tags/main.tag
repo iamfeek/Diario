@@ -42,7 +42,7 @@
 </head>
 <body>
 <header role="banner">
-    <div id="cd-logo"><a href="/dashboard"><img src="../img/cd-logo.svg" alt="Logo"></a></div>
+    <div id="cd-logo"><a href="/home"><img src="../img/cd-logo.svg" alt="Logo"></a></div>
 
     <div style=" height: 100%; border: 1px solid;width: 500px; text-align: right; float: right;">
         <a style="color: #fff; font-weight: 100; font-size: 165%; margin-top: 25px;" id="profile_name"></a>
@@ -61,5 +61,7 @@
 
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="../js/login.js"></script>
+<script>
+</script>
 </body>
 </html>

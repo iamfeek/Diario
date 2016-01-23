@@ -24,7 +24,7 @@
 <br>
 <form action="/pageServlet" method="post">
     <div>
-        <jsp:include page="date.jsp" flush="true" />
+        <jsp:include page="scriptlet.jsp" flush="true" />
     <br>
     <p>
     <label class="andy">Enter Title:</label>

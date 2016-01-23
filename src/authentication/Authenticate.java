@@ -1,8 +1,10 @@
 package authentication;
 
+import com.bitbucket.thinbus.srp6.js.SRP6JavascriptServerSession;
 import com.nimbusds.srp6.BigIntegerUtils;
 import com.nimbusds.srp6.SRP6Exception;
 import com.nimbusds.srp6.SRP6ServerSession;
+import database.Db;
 import org.apache.commons.codec.binary.Hex;
 
 import javax.servlet.ServletException;
@@ -12,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  * Created by: Syafiq Hanafee
@@ -26,30 +31,51 @@ public class Authenticate extends HttpServlet {
         if(null != session.getAttribute("srp")){
             System.out.println("Authenticate Value Ready");
 
-            String StringM1 = request.getParameter("M1");
-            String StringA = request.getParameter("A");
+            String M1 = request.getParameter("M1");
+            String A = request.getParameter("A");
 
-            BigInteger M1 = BigIntegerUtils.fromHex(StringM1);
-            BigInteger A = BigIntegerUtils.fromHex(StringA);
+            System.out.println("A: " + A);
+            System.out.println("M1: " + M1);
 
-//            System.out.println(username);
-            System.out.println(M1);
-            System.out.println(A);
+            SRP6JavascriptServerSession srp = (SRP6JavascriptServerSession) request.getSession().getAttribute("srp");
 
-            SRP6ServerSession srp = (SRP6ServerSession) request.getSession().getAttribute("srp");
+            //checking if B of session and db is the same
+            if(getB(srp.getUserID()).equals(srp.getPublicServerValue()))
+                System.out.println("The same B");
+            else
+                System.out.println("Not the same B. FIX THIS.");
+
+            System.out.println(srp.getUserID());
 
             try {
-                BigInteger M2 = srp.step2(A, M1);
-                response.getWriter().write(M2.toString());
-            } catch (SRP6Exception e) {
+                String M2 = srp.step2(A, M1);
+                response.getWriter().write(M2);
+            } catch (Exception e) {
                 //authentication failed
+                System.out.println("AUTH FAILED");
                 response.getWriter().write("Status: 502");
             }
-
-//            System.out.println("SRP USER ID: " + srp.getUserID());
         } else{
             response.getWriter().write("Session Error");
         }
         System.out.println("|========> END " + request.getParameter("username")+"'s Request<========|");
+    }
+
+    private static String getB(String username){
+        String b = null;
+        try{
+            Connection conn = Db.getConnection();
+            String query = "SELECT b FROM b_temp where username = '" + username + "';";
+
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                b = rs.getString("b");
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        return b;
     }
 }

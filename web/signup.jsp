@@ -27,9 +27,8 @@
             <input type="checkbox" id="accept-terms">
             <label for="accept-terms">I agree to the <a href="#0">Terms</a></label>
         </p>
-
         <p class="fieldset">
-            <input class="full-width has-padding" type="submit" id="registerBtn" value="Create account">
+            <input class="full-width has-padding" type=submit" id="registerBtn" value="Create account">
         </p>
     </form>
 

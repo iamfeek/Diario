@@ -6,10 +6,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.PublicKey;
+import java.io.PrintWriter;
 
 import DAO.DAOPost;
-import DAO.KeyGen;
 
 /**
  * Created by Jy on 10-Dec-15.
@@ -22,21 +21,47 @@ public class postSystem extends HttpServlet {
         }
 
         String username = (String) request.getSession().getAttribute("username");
-
-        if (Integer.parseInt(request.getParameter("secu_level")) > 0) {
-
-            PublicKey pk = KeyGen.getPubKey(username);
-            String encrypted = Encryption.encrypt(request.getParameter("text"), pk);
-            DAOPost.storeMessage(username, encrypted, true);
+        String text = request.getParameter("text");
+        int seculvl = Integer.parseInt(request.getParameter("text_secu_level"));
+        if (seculvl == 0) {
+            System.out.println("User " + username + " posting unencrypted message");
+            DAOPost.storeMessage(username, text, false);
+        }
+        else if (seculvl == 50)    {
+            System.out.println("User " + username + " posting encrypted message");
+            DAOPost.storeMessage(username, text, true);
         }
         else    {
-            DAOPost.storeMessage(username, request.getParameter("text"), false);
+            String str_selected_friends = request.getParameter("selected_friends");
+            String[] selected_friends = str_selected_friends.split(",");
+
+            String AESKey = Encryption.generateBase64AESKey();
+            String encryptedPost = Encryption.encryptWithAES(text, AESKey);
+
+            int postid = DAOPost.storeMessage(username, encryptedPost, true, true);
+            DAOPost.storeAESKey(postid, username, Encryption.generateAESxRSAKeyForUser(username, AESKey));
+            System.out.print("User " + username + " posted encrypted message shared with: ");
+            for (int i = 0; i < selected_friends.length; i++)   {
+                System.out.print(selected_friends[i] + ", ");
+                DAOPost.storeAESKey(postid, selected_friends[i], Encryption.generateAESxRSAKeyForUser(selected_friends[i], AESKey));
+            }
+            System.out.println();
+
         }
+        PrintWriter out = response.getWriter();
+        response.setContentType("text/html");
+        out.println("<script type=\"text/javascript\">");
+        out.println("alert('Posted!');");
+        out.println("</script>");
         response.sendRedirect("/dashboard");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/post.jsp");
-        rd.forward(request, response);
+        if (request.getSession().getAttribute("loggedIn") != null)  {
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/post.jsp");
+            rd.forward(request, response);
+        }
+        else
+            response.sendRedirect("/");
     }
 }

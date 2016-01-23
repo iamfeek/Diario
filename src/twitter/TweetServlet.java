@@ -26,7 +26,7 @@ public class TweetServlet extends HttpServlet {
         } catch (TwitterException e) {
             throw new ServletException(e);
         }
-        response.sendRedirect(request.getContextPath()+ "/");
+        response.sendRedirect(request.getContextPath()+ "/dashboard");
     }
 
 }

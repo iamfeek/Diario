@@ -7,6 +7,7 @@ var signUpEmailElement = $("#signup-email");
 var signUpPasswordElement = $("#signup-password");
 var signUpPasswordSaltElement = $("#password-salt");
 var signUpPasswordVerifierElement = $("#password-verifier");
+var pubkeyElement = $("#pub_key");
 
 $(document).ready(function() {
     disableSubmitBtn();
@@ -43,6 +44,7 @@ var postSaltAndVerifier = function(){
     var email = signUpEmailElement.val();
     var username = signUpUsernameElement.val();
     var password = signUpPasswordElement.val();
+    var pubkey = pubkeyElement.val();
 
     console.log(email);
     console.log(username);
@@ -59,7 +61,8 @@ var postSaltAndVerifier = function(){
         username: username,
         email: email,
         salt: salt,
-        verifier: verifier
+        verifier: verifier,
+        pubkey: pubkey
     }
 
     $.post("/register", postValues, function(response){

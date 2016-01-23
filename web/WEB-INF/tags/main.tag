@@ -33,7 +33,6 @@
         if(user == ""){
            // window.location.href = "/"
         }
-
     </script>
 
     <title>${title}</title>
@@ -51,9 +50,9 @@
         </a>
     </div>
     <script>
-        var x = getCookie("User");
+        var username = "${sessionScope.username}"
         var profile = document.getElementById("profile_name");
-        profile.innerHTML += "Hey, <u>"+x+"</u>!";
+        profile.innerHTML += "Hey, <u>"+username+"</u>!";
     </script>
 </header>
 <jsp:invoke fragment="body_area"/>

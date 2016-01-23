@@ -63,19 +63,15 @@ function challengeResponse(response){
     var credentials = null;
     var saltAndB = JSON.parse(response);
 
-    var salt = BigInteger(response.salt);
-    var b = BigInteger(response.b);
-    console.log(salt)
-    console.log(b)
+    var salt = saltAndB.salt;
+    var b = saltAndB.b;
     try{
         console.log("Step 2 Values")
-        console.log("Salt: " + saltAndB.salt )
-        console.log("B: " + saltAndB.b )
-        credentials = srpClient.step2(saltAndB.salt, saltAndB.b);
-
+        console.log("Salt: " + salt)
+        console.log("B: " + b )
+        credentials = srpClient.step2(salt, b);
         console.log("Step 2: COMPLETED")
-        console.log("Client M1: " + credentials.M1);
-        console.log("Client B: " + credentials.B)
+
     } catch(e){
         console.log("Step 2 " + e);
     }
@@ -86,6 +82,10 @@ function challengeResponse(response){
         A: credentials.A
     };
 
+    console.log("A: " + values.A)
+    console.log("M1: " + values.M1)
+
+
     $.post("/authenticate", values, function(response){
         authenticateResponse(response, srpClient);
     });
@@ -93,7 +93,7 @@ function challengeResponse(response){
 
 function authenticateResponse(response, srpClient){
     if(response === "Status: 502"){
-        alert("FAILED");
+        console.log("FAILED.")
     } else {
         srpClient.step3(response);
         alert("Step 3: " + response)

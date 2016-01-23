@@ -483,10 +483,10 @@ xsigin/signup popup
   }
 }
 
-#cd-signin, #cd-signup, #cd-reset-password {
+#cd-login, #cd-signup, #cd-reset-password {
   display: none;
 }
 
-#cd-signin.is-selected, #cd-signup.is-selected, #cd-reset-password.is-selected {
+#cd-login.is-selected, #cd-signup.is-selected, #cd-reset-password.is-selected {
   display: block;
 }

@@ -11,8 +11,8 @@ import java.io.IOException;
 
 /**
  * Created by lenovo on 1/7/2016.
- */
-@WebServlet(urlPatterns = "/addFriend")
+*/
+
 public class AddFriendServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

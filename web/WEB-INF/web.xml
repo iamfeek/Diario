@@ -6,14 +6,6 @@
 
 	<display-name>Diario</display-name>
 
-    <!--<servlet>-->
-        <!--<servlet-name>AuthServlet</servlet-name>-->
-        <!--<servlet-class>authentication.AuthServlet</servlet-class>-->
-    <!--</servlet>-->
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>AuthServlet</servlet-name>-->
-        <!--<url-pattern>/auth</url-pattern>-->
-    <!--</servlet-mapping>-->
     <servlet>
         <servlet-name>Authenticate</servlet-name>
         <servlet-class>authentication.Authenticate</servlet-class>
@@ -21,6 +13,15 @@
     <servlet-mapping>
         <servlet-name>Authenticate</servlet-name>
         <url-pattern>/authenticate</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Challenge</servlet-name>
+        <servlet-class>authentication.Challenge</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Challenge</servlet-name>
+        <url-pattern>/challenge</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -32,14 +33,8 @@
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>challenge</servlet-name>
-        <servlet-class>authentication.Challenge</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>challenge</servlet-name>
-        <url-pattern>/challenge</url-pattern>
-    </servlet-mapping>
+
+
 
     <servlet>
         <servlet-name>pageServlet</servlet-name>
@@ -49,6 +44,8 @@
         <servlet-name>pageServlet</servlet-name>
         <url-pattern>/pageServlet</url-pattern>
     </servlet-mapping>
+
+
 
     <servlet>
         <servlet-name>home</servlet-name>
@@ -164,8 +161,6 @@
         <servlet-name>postSystem</servlet-name>
         <servlet-class>post.postSystem</servlet-class>
     </servlet>
-
-
     <servlet-mapping>
         <servlet-name>postSystem</servlet-name>
         <url-pattern>/post</url-pattern>
@@ -200,50 +195,76 @@
         <servlet-name>InstagramCallbackServlet</servlet-name>
         <servlet-class>instagram.InstagramCallbackServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>jythonTestServlet</servlet-name>
+        <servlet-class>sentiment.jythonTestServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>jythonTestServlet</servlet-name>
+        <url-pattern>/testJ</url-pattern>
+    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>InstagramCallbackServlet</servlet-name>
         <url-pattern>/instagramCallback</url-pattern>
     </servlet-mapping>
-    
     <servlet>
-        <servlet-name>AddFriendServlet</servlet-name>
-        <servlet-class>friends.AddFriendServlet</servlet-class>
+        <servlet-name>signin</servlet-name>
+        <servlet-class>authentication.signin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>tester</servlet-name>
+        <servlet-class>tester</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>postImage</servlet-name>
+        <servlet-class>post.postImage</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>AddFriendServlet</servlet-name>
-        <url-pattern>/addFriend</url-pattern>
+        <servlet-name>postImage</servlet-name>
+        <url-pattern>/postImage</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>tester</servlet-name>
+        <url-pattern>/test</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>signin</servlet-name>
+        <url-pattern>/signin</url-pattern>
+    </servlet-mapping>
+
+
     <!--<welcome-file-list>-->
 		<!--<welcome-file>index.jsp</welcome-file>-->
 	<!--</welcome-file-list>-->
 
 
     <!--jsessionid will be transmitted on https ONLY-->
-    <!--<session-config>-->
-        <!--<cookie-config>-->
-            <!--<secure>true</secure>-->
-        <!--</cookie-config>-->
-    <!--</session-config>-->
-    <!-- SSL CONFIG -->
-	<!--<security-constraint>-->
-        <!--<web-resource-collection>-->
-            <!--<web-resource-name>HTTPSOnly</web-resource-name>-->
-            <!--<url-pattern>/*</url-pattern>-->
-        <!--</web-resource-collection>-->
-        <!--<user-data-constraint>-->
-            <!--<transport-guarantee>CONFIDENTIAL</transport-guarantee>-->
-        <!--</user-data-constraint>-->
-    <!--</security-constraint>-->
-    <!--<security-constraint>-->
-        <!--<web-resource-collection>-->
-            <!--<web-resource-name>HTTPSOrHTTP</web-resource-name>-->
-            <!--<url-pattern>*.ico</url-pattern>-->
-            <!--<url-pattern>/images/*</url-pattern>-->
-            <!--<url-pattern>/css/*</url-pattern>-->
-        <!--</web-resource-collection>-->
-        <!--<user-data-constraint>-->
-            <!--<transport-guarantee>NONE</transport-guarantee>-->
-        <!--</user-data-constraint>-->
-    <!--</security-constraint>-->
+    <session-config>
+        <cookie-config>
+            <secure>true</secure>
+        </cookie-config>
+    </session-config>
+     <!--SSL CONFIG-->
+	<security-constraint>
+        <web-resource-collection>
+            <web-resource-name>HTTPSOnly</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>HTTPSOrHTTP</web-resource-name>
+            <url-pattern>*.ico</url-pattern>
+            <url-pattern>/images/*</url-pattern>
+            <url-pattern>/css/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
 </web-app>

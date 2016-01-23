@@ -1,5 +1,6 @@
 package authentication;
 
+import DAO.Key;
 import DAO.User;
 
 import javax.servlet.ServletException;
@@ -22,6 +23,7 @@ public class Register extends HttpServlet {
         String email = request.getParameter("email");
         String salt = request.getParameter("salt");
         String verifier = request.getParameter("verifier");
+        String pubkey = request.getParameter("pubkey");
 
         User userToCheck = new User(username, email);
         try {
@@ -32,6 +34,11 @@ public class Register extends HttpServlet {
                 System.out.println("Registration: Username and Email available");
                 User toRegister = new User(username, email, salt, verifier);
                 boolean registrationStatus = toRegister.register();
+                if (registrationStatus) {
+                    System.out.println("Received public key:");
+                    System.out.println(pubkey);
+                    Key.store(username, pubkey);
+                }
                 System.out.println("Registration Status: " + registrationStatus);
             } else{
                 pw.write("Email or Username Taken");

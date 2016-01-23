@@ -5,7 +5,7 @@ package twitter;
  * Description: Login using Twitter
  *
  *
- * asdfgh
+ *
  */
 
 import twitter4j.Twitter;
@@ -41,6 +41,7 @@ public class TwitterLoginServlet extends HttpServlet {
                     "").append("/twittercallback");
             RequestToken requestToken =
                     twitter.getOAuthRequestToken(callbackURL.toString());
+
             req.getSession().setAttribute("requestToken", requestToken);
 
             resp.sendRedirect(requestToken.getAuthenticationURL());

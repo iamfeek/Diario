@@ -52,16 +52,6 @@
     </servlet-mapping>
     
     <servlet>
-        <servlet-name>social</servlet-name>
-        <jsp-file>/social.jsp</jsp-file>
-    </servlet>
-    
-    <servlet-mapping>
-        <servlet-name>social</servlet-name>
-        <url-pattern>/social</url-pattern>
-    </servlet-mapping>
-    
-    <servlet>
         <servlet-name>TwitterLoginServlet</servlet-name>
         <servlet-class>twitter.TwitterLoginServlet</servlet-class>
     </servlet>
@@ -186,48 +176,122 @@
         <servlet-name>jythonTestServlet</servlet-name>
         <servlet-class>sentiment.jythonTestServlet</servlet-class>
     </servlet>
-    
+
     <servlet-mapping>
         <servlet-name>jythonTestServlet</servlet-name>
         <url-pattern>/testJ</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AccessServlet</servlet-name>
+        <servlet-class>twitter.AccessServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AccessServlet</servlet-name>
+        <url-pattern>/twitterAccess</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>UserTimelineServlet</servlet-name>
+        <servlet-class>twitter.UserTimelineServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>UserTimelineServlet</servlet-name>
+        <url-pattern>/userTimeline</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SearchUserServlet</servlet-name>
+        <servlet-class>instagram.SearchUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchUserServlet</servlet-name>
+        <url-pattern>/instagramSearch</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>InstagramUserTimelineServlet</servlet-name>
+        <servlet-class>instagram.InstagranUserTimelineServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>InstagramUserTimelineServlet</servlet-name>
+        <url-pattern>/instagramUserTimeline</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>InstagramFeedServlet</servlet-name>
+        <servlet-class>instagram.InstagramFeedServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>InstagramFeedServlet</servlet-name>
+        <url-pattern>/instagramFeed</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>InstagramCallbackServlet</servlet-name>
         <url-pattern>/instagramCallback</url-pattern>
     </servlet-mapping>
-    
-    
+    <servlet>
+        <servlet-name>signin</servlet-name>
+        <servlet-class>authentication.signin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>tester</servlet-name>
+        <servlet-class>tester</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>postImage</servlet-name>
+        <servlet-class>post.postImage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>postImage</servlet-name>
+        <url-pattern>/postImage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>tester</servlet-name>
+        <url-pattern>/test</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>signin</servlet-name>
+        <url-pattern>/signin</url-pattern>
+    </servlet-mapping>
+
+
+
     <!--<welcome-file-list>-->
 		<!--<welcome-file>index.jsp</welcome-file>-->
 	<!--</welcome-file-list>-->
 
 
     <!--jsessionid will be transmitted on https ONLY-->
-    <!--<session-config>-->
-        <!--<cookie-config>-->
-            <!--<secure>true</secure>-->
-        <!--</cookie-config>-->
-    <!--</session-config>-->
-    <!-- SSL CONFIG -->
-	<!--<security-constraint>-->
-        <!--<web-resource-collection>-->
-            <!--<web-resource-name>HTTPSOnly</web-resource-name>-->
-            <!--<url-pattern>/*</url-pattern>-->
-        <!--</web-resource-collection>-->
-        <!--<user-data-constraint>-->
-            <!--<transport-guarantee>CONFIDENTIAL</transport-guarantee>-->
-        <!--</user-data-constraint>-->
-    <!--</security-constraint>-->
-    <!--<security-constraint>-->
-        <!--<web-resource-collection>-->
-            <!--<web-resource-name>HTTPSOrHTTP</web-resource-name>-->
-            <!--<url-pattern>*.ico</url-pattern>-->
-            <!--<url-pattern>/images/*</url-pattern>-->
-            <!--<url-pattern>/css/*</url-pattern>-->
-        <!--</web-resource-collection>-->
-        <!--<user-data-constraint>-->
-            <!--<transport-guarantee>NONE</transport-guarantee>-->
-        <!--</user-data-constraint>-->
-    <!--</security-constraint>-->
+    <session-config>
+        <cookie-config>
+            <secure>true</secure>
+        </cookie-config>
+    </session-config>
+     <!--SSL CONFIG-->
+	<security-constraint>
+        <web-resource-collection>
+            <web-resource-name>HTTPSOnly</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>HTTPSOrHTTP</web-resource-name>
+            <url-pattern>*.ico</url-pattern>
+            <url-pattern>/images/*</url-pattern>
+            <url-pattern>/css/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
 </web-app>

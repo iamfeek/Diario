@@ -36,7 +36,7 @@ public class jythonTestServlet extends HttpServlet {
             Double pos = (Double) json.get("pos");
             Double neu = (Double) json.get("neu");
 
-            System.out.print(neg);
+
 
         } catch (ParseException e) {
             e.printStackTrace();

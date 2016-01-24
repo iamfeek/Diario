@@ -29,11 +29,15 @@ public class TwitterCallbackServlet extends HttpServlet {
             String verifier = req.getParameter("oauth_verifier");
             try {
                 twitter.getOAuthAccessToken(requestToken, verifier);
+
+                System.out.println(requestToken);
+                System.out.println(verifier);
+
                 req.getSession().removeAttribute("requestToken");
             } catch (TwitterException e) {
                 resp.sendRedirect(req.getContextPath() + "/twitterlogout");
             }
-            resp.sendRedirect(req.getContextPath() + "/dashboard");
+            resp.sendRedirect(req.getContextPath() + "/twitterTimeline");
         }
     }
 }

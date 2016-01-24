@@ -27,6 +27,21 @@ public class jythonTestServlet extends HttpServlet {
         interp.exec("vader = vaderSentiment(text)");
         PyObject res = interp.get("vader");
 
+        String jsonResult = res.toString().replace('\'','\"');
+
+        try {
+            JSONObject json = (JSONObject) new JSONParser().parse(jsonResult);
+            Double compound = (Double) json.get("compound");
+            Double neg = (Double) json.get("neg");
+            Double pos = (Double) json.get("pos");
+            Double neu = (Double) json.get("neu");
+
+            System.out.print(neg);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         request.getSession().setAttribute("sentAnalysis", res);
 
         //JSONParser parse = new JSONParser();
@@ -40,8 +55,6 @@ public class jythonTestServlet extends HttpServlet {
         //} catch (ParseException e) {
           //  e.printStackTrace();
         //}
-
-
         request.getSession().setAttribute("sentText", text);
 
         response.sendRedirect(request.getContextPath()+ "/dashboard");

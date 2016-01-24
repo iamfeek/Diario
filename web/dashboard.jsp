@@ -75,8 +75,29 @@
                         <br/>
                         <input class="btn btn-default" type="submit" name="post" value="update"/>
                         <br/>
-                        <label>Result: ${sessionScope.sentAnalysis}</label>
-                        <label>${sessionScope.compound}</label>
+                        <label>Result:
+                       </label>
+
+                        <c:choose>
+                            <c:when test="${sessionScope.sentResults.getCompound()<0}">
+                                Negative
+                            </c:when>
+
+                            <c:when test="${sessionScope.sentResults.getCompound()>0}">
+                                Positive
+                            </c:when>
+
+                            <c:otherwise>
+                                Neutral
+                            </c:otherwise>
+
+                        </c:choose>
+                        <br/>
+                        <label>Neutral: ${sessionScope.sentResults.getNeu()}</label>
+                        <br/>
+                        <label>Negative: ${sessionScope.sentResults.getNeg()}</label>
+                        <br/>
+                        <label>Positive: ${sessionScope.sentResults.getPos()}</label>
                     </form>
                 </div>
 
@@ -214,12 +235,12 @@
                                 Profile</a></li>
                             <li role="presentation" class="${sessionScope.homeTimelineActive}"><a
                                     href="/twitterTimeline">Timeline</a></li>
-                            <li role="presentation" class-
-                            "${sessionScope.messagesActive}><a href="#">Messages</a></li>
+                            <%--<li role="presentation" class=""
+                            "${sessionScope.messagesActive}><a href="#">Messages</a></li>--%>
 
                         </ul>
 
-                        <nav>
+                       <%-- <nav>
                             <ul class="pagination" style="align: center">
                                 <li>
                                     <a href="#" aria-label="Previous">
@@ -238,7 +259,7 @@
                         </nav>
 
                         <br/>
-
+--%>
                         <c:choose>
 
                             <c:when test="${sessionScope.homeTimelineActive == 'active'}">

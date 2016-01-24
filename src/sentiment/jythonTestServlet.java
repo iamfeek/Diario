@@ -25,6 +25,8 @@ public class jythonTestServlet extends HttpServlet {
 
         request.getSession().setAttribute("sentText", text);
 
+        request.getSession().setAttribute("sentResults", sentimentDAO.getSentiment(1));
+
         response.sendRedirect(request.getContextPath()+ "/dashboard");
     }
 

@@ -33,9 +33,6 @@
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
 
-
-
-
     <servlet>
         <servlet-name>pageServlet</servlet-name>
         <servlet-class>diary.pageServlet</servlet-class>
@@ -207,6 +204,16 @@
     <servlet-mapping>
         <servlet-name>InstagramLoginServlet</servlet-name>
         <url-pattern>/instagramLogin</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>InstagramLoginCheckServlet</servlet-name>
+        <servlet-class>instagram.InstagramLoginCheckServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>InstagramLoginCheckServlet</servlet-name>
+        <url-pattern>/checkInstagram</url-pattern>
     </servlet-mapping>
 
     <servlet>

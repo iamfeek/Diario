@@ -50,6 +50,9 @@ public class Authenticate extends HttpServlet {
             try {
                 String M2 = srp.step2(A, M1);
                 response.getWriter().write(M2);
+
+                request.getSession().setAttribute("loggedIn", true);
+                request.getSession().setAttribute("username", "tester");
             } catch (Exception e) {
                 //authentication failed
                 System.out.println("AUTH FAILED");
@@ -59,6 +62,7 @@ public class Authenticate extends HttpServlet {
             response.getWriter().write("Session Error");
         }
         System.out.println("|========> END " + request.getParameter("username")+"'s Request<========|");
+
     }
 
     private static String getB(String username){

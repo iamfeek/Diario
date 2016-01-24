@@ -94,7 +94,6 @@ function authenticateResponse(response, srpClient){
         document.getElementById("bad-credentials").className = "alert alert-danger alert-dismissible";
         setTimeout(function(){document.getElementById("bad-credentials").className = "hidden alert alert-danger alert-dismissible";}, 5000)
     } else {
-        srpClient.step3(response);
-        alert("Step 3: " + response)
+        window.location.replace("/checkInstagram")
     }
 }

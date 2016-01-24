@@ -145,11 +145,11 @@
                             <li role="presentation" class="${sessionScope.InstagramUserTimelineActive}"><a
                                     href="/instagramUserTimeline">My
                                 Profile</a></li>
-                            <li role="presentation" class="${sessionScope.InstagramHomeTimelineActive}"><a
+                            <%--<li role="presentation" class="${sessionScope.InstagramHomeTimelineActive}"><a
                                     href="/instagramFeed">Timeline</a></li>
 
                             <li role="presentation" class="${sessionScope.InstagramSearch}"><a
-                                    href="/instagramSearch">Search</a></li>
+                                    href="/instagramSearch">Search</a></li>--%>
 
                         </ul>
 
@@ -273,7 +273,7 @@
                          </nav>
 
                          <br/>
- --%>\
+ --%>
 
                         <br/>
                         <c:choose>

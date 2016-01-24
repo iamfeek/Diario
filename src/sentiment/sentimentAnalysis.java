@@ -30,7 +30,6 @@ public class sentimentAnalysis {
             Double pos = (Double) json.get("pos");
             Double neu = (Double) json.get("neu");
 
-            System.out.println(sentimentDAO.saveSentiment(postid, pos, neg, neu, compound));
 
         } catch (ParseException e) {
             e.printStackTrace();

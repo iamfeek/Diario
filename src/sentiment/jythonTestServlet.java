@@ -20,41 +20,9 @@ public class jythonTestServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String text = request.getParameter("post");
 
-        PythonInterpreter interp = new PythonInterpreter();
-        System.out.println("Testing vader");
-        interp.exec("from vaderSentiment.vaderSentiment import sentiment as vaderSentiment");
-        interp.exec("text = \"" + text + "\"");
-        interp.exec("vader = vaderSentiment(text)");
-        PyObject res = interp.get("vader");
+        // Constructor pass in username, text and PostID
+        sentimentAnalysis.analysis((String)request.getSession().getAttribute("username"), text, 1);
 
-        String jsonResult = res.toString().replace('\'','\"');
-
-        try {
-            JSONObject json = (JSONObject) new JSONParser().parse(jsonResult);
-            Double compound = (Double) json.get("compound");
-            Double neg = (Double) json.get("neg");
-            Double pos = (Double) json.get("pos");
-            Double neu = (Double) json.get("neu");
-
-
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        request.getSession().setAttribute("sentAnalysis", res);
-
-        //JSONParser parse = new JSONParser();
-        //try {
-          //  JSONObject json = (JSONObject)  parse.parse(res.toString());
-
-            //String compound = (String) json.get("compoung");
-
-            //request.getSession().setAttribute("compoung", compound);
-
-        //} catch (ParseException e) {
-          //  e.printStackTrace();
-        //}
         request.getSession().setAttribute("sentText", text);
 
         response.sendRedirect(request.getContextPath()+ "/dashboard");

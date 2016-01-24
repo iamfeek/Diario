@@ -8,8 +8,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-
 <html>
 <head>
     <title>Diario</title>
@@ -34,15 +32,13 @@
             <div class="container-fluid">
                 <p class="navbar-brand">Diario</p>
                 <button type="button" class="btn btn-default navbar-btn">Sign in</button>
-
             </div>
         </nav>
     </div>
 
     <div class="row">
-
         <div class="btn-group btn-group-justified" role="group">
-
+            <%--Post--%>
             <div class="col-md-4">
                 <!--
                 <c:choose>
@@ -69,7 +65,7 @@
 
                 -->
                 <h3 style="text-align: center">Diario</h3>
-                <h4 style="color: grey; text-align: center;">Username</h4>
+                <h4 style="color: grey; text-align: center;">${sessionScope.username}</h4>
 
                 <div class="form-group">
                     <form action="/testJ" method="post">
@@ -87,6 +83,7 @@
 
             </div>
 
+            <%--Instagram--%>
             <div class="col-md-4">
                 <h3 style="text-align: center;">Instagram</h3>
                 <c:choose>
@@ -190,7 +187,7 @@
                 </c:choose>
             </div>
 
-
+            <%--Twitter--%>
             <div class="col-md-4">
                 <h3 style="color: 4099FF; font-family: Arial; text-align: center">Twitter</h3>
                 <c:choose>
@@ -300,8 +297,6 @@
 
 
             </div>
-
-
         </div>
     </div>
 </div>

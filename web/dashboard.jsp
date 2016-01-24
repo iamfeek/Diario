@@ -91,29 +91,43 @@
                         <br/>
                         <input class="btn btn-default" type="submit" name="post" value="update"/>
                         <br/>
-                        <label>Result:
-                        </label>
+
 
                         <c:choose>
-                            <c:when test="${sessionScope.sentResults.getCompound()<0}">
-                                Negative
-                            </c:when>
+                            <c:when test="${sessionScope.sentResults.getCompound()!= null}">
+                                <label>Result:
+                                </label>
 
-                            <c:when test="${sessionScope.sentResults.getCompound()>0}">
-                                Positive
-                            </c:when>
+                                <c:choose>
 
-                            <c:otherwise>
-                                Neutral
-                            </c:otherwise>
+
+                                    <c:when test="${sessionScope.sentResults.getCompound()<0}">
+                                        Negative
+                                    </c:when>
+
+                                    <c:when test="${sessionScope.sentResults.getCompound()>0}">
+                                        Positive
+                                    </c:when>
+
+                                    <c:otherwise>
+                                        Neutral
+                                    </c:otherwise>
+
+
+
+                                </c:choose>
+
+                                <br/>
+                                <label>Neutral: ${sessionScope.sentResults.getNeu()}</label>
+                                <br/>
+                                <label>Negative: ${sessionScope.sentResults.getNeg()}</label>
+                                <br/>
+                                <label>Positive: ${sessionScope.sentResults.getPos()}</label>
+                            </c:when>
 
                         </c:choose>
-                        <br/>
-                        <label>Neutral: ${sessionScope.sentResults.getNeu()}</label>
-                        <br/>
-                        <label>Negative: ${sessionScope.sentResults.getNeg()}</label>
-                        <br/>
-                        <label>Positive: ${sessionScope.sentResults.getPos()}</label>
+
+
                     </form>
                 </div>
 
@@ -147,11 +161,11 @@
                             <li role="presentation" class="${sessionScope.InstagramUserTimelineActive}"><a
                                     href="/instagramUserTimeline">My
                                 Profile</a></li>
-                            <li role="presentation" class="${sessionScope.InstagramHomeTimelineActive}"><a
+                            <%--<li role="presentation" class="${sessionScope.InstagramHomeTimelineActive}"><a
                                     href="/instagramFeed">Timeline</a></li>
 
                             <li role="presentation" class="${sessionScope.InstagramSearch}"><a
-                                    href="/instagramSearch">Search</a></li>
+                                    href="/instagramSearch">Search</a></li>--%>
 
                         </ul>
 
@@ -275,7 +289,7 @@
                          </nav>
 
                          <br/>
- --%>\
+ --%>
 
                         <br/>
                         <c:choose>

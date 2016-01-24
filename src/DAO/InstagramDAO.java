@@ -33,8 +33,6 @@ public class InstagramDAO {
             e.printStackTrace();
             return false;
         }
-
-
     }
 
     public static Token getToken(String username) {

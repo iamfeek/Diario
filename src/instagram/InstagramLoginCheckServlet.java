@@ -23,7 +23,6 @@ public class InstagramLoginCheckServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String username = (String) request.getSession().getAttribute("username");
-
         Token token = InstagramDAO.getToken(username);
 
         if(token == null){

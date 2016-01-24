@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import DAO.DAOPost;
+import sentiment.sentimentAnalysis;
+import sentiment.sentimentDAO;
 
 /**
  * Created by Jy on 10-Dec-15.
@@ -25,11 +27,14 @@ public class postSystem extends HttpServlet {
         int seculvl = Integer.parseInt(request.getParameter("text_secu_level"));
         if (seculvl == 0) {
             System.out.println("User " + username + " posting unencrypted message");
-            DAOPost.storeMessage(username, text, false);
+            int postid = DAOPost.storeMessage(username, text, false);
+            sentimentAnalysis.analysis((String)request.getSession().getAttribute("username"), text, postid);
+            request.getSession().setAttribute("sentResults", sentimentDAO.getSentiment(postid));
         }
         else if (seculvl == 50)    {
             System.out.println("User " + username + " posting encrypted message");
             DAOPost.storeMessage(username, text, true);
+            request.getSession().setAttribute("sentResults", null);
         }
         else    {
             String str_selected_friends = request.getParameter("selected_friends");
@@ -45,8 +50,9 @@ public class postSystem extends HttpServlet {
                 System.out.print(selected_friends[i] + ", ");
                 DAOPost.storeAESKey(postid, selected_friends[i], Encryption.generateAESxRSAKeyForUser(selected_friends[i], AESKey));
             }
+            sentimentAnalysis.analysis((String)request.getSession().getAttribute("username"), text, postid);
+            request.getSession().setAttribute("sentResults", sentimentDAO.getSentiment(postid));
             System.out.println();
-
         }
         PrintWriter out = response.getWriter();
         response.setContentType("text/html");

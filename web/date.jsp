@@ -1,17 +1,15 @@
 <%@ page import="java.sql.*" %>
+<%@ page import="database.Db" %>
 
 <%
 
     try
 
     {
-        String connectionURL = "jdbc:mysql://localhost:3306/diario";
-        Connection conn;
+        Connection conn = Db.getConnection();
         Statement stmt;
         ResultSet rs;
 
-        Class.forName("com.mysql.jdbc.Driver");
-        conn = DriverManager.getConnection(connectionURL, "root", "root");
         stmt = conn.createStatement();
         rs = stmt.executeQuery("Select DATE_FORMAT(CURDATE(),'%W, %d %M %Y') AS today;"); %>
 

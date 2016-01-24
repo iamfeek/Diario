@@ -1,4 +1,4 @@
-
+<%--@elvariable id="nono" type="DAO.Friend"--%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -12,7 +12,11 @@
 </head>
 
 <body>
-
+<a href="friendslist.jsp">Go to your friends list</a>
+<jsp:include page="diary.jsp" flush="true"/>
+<div>
+    *********************************************************************************************************************************************************************************************************************************************
+    </div>
 
 <sql:setDataSource
              var="myDS"
@@ -75,6 +79,7 @@
              </div>
      </c:forEach>
 
+<div class="break"></div>
 
 
 </body>

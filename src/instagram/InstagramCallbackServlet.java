@@ -24,6 +24,7 @@ import java.util.List;
 /**
  * Created by glenice on 8 Dec 2015.
  */
+
 public class InstagramCallbackServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

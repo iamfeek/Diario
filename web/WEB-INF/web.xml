@@ -57,6 +57,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>friendslist</servlet-name>
+        <jsp-file>/friendslist.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>friendslist</servlet-name>
+        <url-pattern>/friendslist</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>login</servlet-name>
         <jsp-file>/login.jsp</jsp-file>
     </servlet>

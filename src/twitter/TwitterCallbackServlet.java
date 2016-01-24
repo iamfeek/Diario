@@ -16,12 +16,12 @@ import java.io.IOException;
 
 public class TwitterCallbackServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
-        if(req.getParameter("denied") != null) {
+        if (req.getParameter("denied") != null) {
             resp.sendRedirect(req.getContextPath() + "/twitterlogout");
-        }
-        else {
+        } else {
             Twitter twitter = (Twitter)
                     req.getSession().getAttribute("twitter");
             RequestToken requestToken = (RequestToken)
@@ -29,9 +29,9 @@ public class TwitterCallbackServlet extends HttpServlet {
             String verifier = req.getParameter("oauth_verifier");
             try {
                 twitter.getOAuthAccessToken(requestToken, verifier);
-
                 System.out.println(requestToken);
                 System.out.println(verifier);
+
 
                 req.getSession().removeAttribute("requestToken");
             } catch (TwitterException e) {

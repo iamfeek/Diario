@@ -29,7 +29,5 @@ public class pages {
         this.content = content;
     }
 
-    public pages (){}
-
 
 }

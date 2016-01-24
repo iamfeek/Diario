@@ -27,8 +27,6 @@ public class GetTwitterTimelineServlet extends HttpServlet {
 
             statusList.addAll(twitter.getHomeTimeline(page));
 
-            System.out.println(statusList.get(statusList.size()-1));
-
             request.getSession().setAttribute("twitterTimelineList", statusList);
             response.sendRedirect("/dashboard");
 

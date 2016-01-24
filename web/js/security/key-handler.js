@@ -4,7 +4,6 @@
 function registerNewKeyPair()   {
     var keyPair = generateRSAKeyAndStore();
     document.getElementById('pub_key').value = keyPair.exportKey("pkcs8-public-pem");
-    document.getElementById('register-form').submitButton.click();
 }
 
 function decryptString(encrypted)    {

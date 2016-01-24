@@ -53,7 +53,7 @@ public class Authenticate extends HttpServlet {
             } catch (Exception e) {
                 //authentication failed
                 System.out.println("AUTH FAILED");
-                response.getWriter().write("Status: 502");
+                response.getWriter().write("bad");
             }
         } else{
             response.getWriter().write("Session Error");

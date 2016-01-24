@@ -1,10 +1,7 @@
-var formModal = $('.cd-user-modal');
-var formSignin = formModal.find('#cd-signin');
-var loginBtn = formSignin.find('input[type="submit"]');
-//var loginBtn = $('#btnLogin');
+var loginBtn = $("#loginBtn");
 
-var usernameElement = $("#signin-username");
-var passwordElement = $("#signin-password");
+var usernameElement = $("#username");
+var passwordElement = $("#password");
 
 $(document).ready(function() {
     disableSubmitBtn();
@@ -92,8 +89,10 @@ function challengeResponse(response){
 }
 
 function authenticateResponse(response, srpClient){
-    if(response === "Status: 502"){
-        console.log("FAILED.")
+    console.log(response)
+    if(response == "bad"){
+        document.getElementById("bad-credentials").className = "alert alert-danger alert-dismissible";
+        setTimeout(function(){document.getElementById("bad-credentials").className = "hidden alert alert-danger alert-dismissible";}, 5000)
     } else {
         srpClient.step3(response);
         alert("Step 3: " + response)

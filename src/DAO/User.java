@@ -48,8 +48,9 @@ public class User {
     }
 
     //Constuctors
-    public User(String username){
+    public User(String username) throws SQLException {
         this.username = username;
+        this.email = getEmailFromUsername(username);
     }
     public User(String username, String email){
         this.username = username;
@@ -67,6 +68,22 @@ public class User {
         this.username = username;
         this.salt = salt;
         this.verifier = verifier;
+    }
+
+    private String getEmailFromUsername(String username) throws SQLException {
+        Connection conn = Db.getConnection();
+        String sql = "select email_address from accounts where username = ?";
+        PreparedStatement pstmt = null;
+        pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, username);
+        ResultSet rs = pstmt.executeQuery();
+
+        String retrievedEmail = null;
+        while(rs.next()){
+            retrievedEmail = rs.getString("email_address");
+        }
+
+        return retrievedEmail;
     }
 
     public boolean register() {

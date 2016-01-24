@@ -122,4 +122,3 @@ SRP6JavascriptClientSessionSHA256.prototype.H = function (x) {
 }
 
 SRP6JavascriptClientSessionSHA256.prototype.k = new BigInteger(SRP6CryptoParams.k_base16, 16);
-

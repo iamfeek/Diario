@@ -72,9 +72,9 @@
 </body>
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A==" crossorigin="anonymous"></script>
-<script src="../js/safe-prime-config.js"></script>
-<script src="../js/thinbus-srpclient-sha256.js"></script>
-<script src="../js/signup.js"></script>
+<script src="js/rfc5054-safe-prime-config.js"></script>
+<script src="js/thinbus-srpclient-sha256.js"></script>
+<script src="js/signup.js"></script>
 <script type="text/javascript" src="js/security/key-handler.js"></script>
 <script type="text/javascript" src="js/security/rsa-bundle.js"></script>
 </html>

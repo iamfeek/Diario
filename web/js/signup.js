@@ -56,8 +56,9 @@ var postSaltAndVerifier = function(){
     console.log(password);
 
     var srpClient = new SRP6JavascriptClientSessionSHA256();
+
     var salt = srpClient.generateRandomSalt();
-    var verifier =  srpClient.generateVerifier(salt, email, password);
+    var verifier =  srpClient.generateVerifier(salt, username, password);
 
     signUpPasswordSaltElement.attr('value', salt);
     signUpPasswordVerifierElement.attr('value', verifier);

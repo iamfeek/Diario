@@ -210,7 +210,14 @@
         <servlet-name>signin</servlet-name>
         <url-pattern>/signin</url-pattern>
     </servlet-mapping>
-
+    <servlet>
+        <servlet-name>getImage</servlet-name>
+        <servlet-class>post.getImage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getImage</servlet-name>
+        <url-pattern>/getImage</url-pattern>
+    </servlet-mapping>
 
     <!--<welcome-file-list>-->
 		<!--<welcome-file>index.jsp</welcome-file>-->
@@ -218,30 +225,30 @@
 
 
     <!--jsessionid will be transmitted on https ONLY-->
-    <!--<session-config>-->
-        <!--<cookie-config>-->
-            <!--<secure>true</secure>-->
-        <!--</cookie-config>-->
-    <!--</session-config>-->
-     <!--&lt;!&ndash;SSL CONFIG&ndash;&gt;-->
-	<!--<security-constraint>-->
-        <!--<web-resource-collection>-->
-            <!--<web-resource-name>HTTPSOnly</web-resource-name>-->
-            <!--<url-pattern>/*</url-pattern>-->
-        <!--</web-resource-collection>-->
-        <!--<user-data-constraint>-->
-            <!--<transport-guarantee>CONFIDENTIAL</transport-guarantee>-->
-        <!--</user-data-constraint>-->
-    <!--</security-constraint>-->
-    <!--<security-constraint>-->
-        <!--<web-resource-collection>-->
-            <!--<web-resource-name>HTTPSOrHTTP</web-resource-name>-->
-            <!--<url-pattern>*.ico</url-pattern>-->
-            <!--<url-pattern>/images/*</url-pattern>-->
-            <!--<url-pattern>/css/*</url-pattern>-->
-        <!--</web-resource-collection>-->
-        <!--<user-data-constraint>-->
-            <!--<transport-guarantee>NONE</transport-guarantee>-->
-        <!--</user-data-constraint>-->
-    <!--</security-constraint>-->
+    <session-config>
+        <cookie-config>
+            <secure>true</secure>
+        </cookie-config>
+    </session-config>
+     <!--SSL CONFIG-->
+	<security-constraint>
+        <web-resource-collection>
+            <web-resource-name>HTTPSOnly</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>HTTPSOrHTTP</web-resource-name>
+            <url-pattern>*.ico</url-pattern>
+            <url-pattern>/images/*</url-pattern>
+            <url-pattern>/css/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
 </web-app>

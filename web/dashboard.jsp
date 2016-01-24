@@ -75,29 +75,43 @@
                         <br/>
                         <input class="btn btn-default" type="submit" name="post" value="update"/>
                         <br/>
-                        <label>Result:
-                       </label>
+
 
                         <c:choose>
-                            <c:when test="${sessionScope.sentResults.getCompound()<0}">
-                                Negative
-                            </c:when>
+                            <c:when test="${sessionScope.sentResults.getCompound()!= null}">
+                                <label>Result:
+                                </label>
 
-                            <c:when test="${sessionScope.sentResults.getCompound()>0}">
-                                Positive
-                            </c:when>
+                                <c:choose>
 
-                            <c:otherwise>
-                                Neutral
-                            </c:otherwise>
+
+                                    <c:when test="${sessionScope.sentResults.getCompound()<0}">
+                                        Negative
+                                    </c:when>
+
+                                    <c:when test="${sessionScope.sentResults.getCompound()>0}">
+                                        Positive
+                                    </c:when>
+
+                                    <c:otherwise>
+                                        Neutral
+                                    </c:otherwise>
+
+
+
+                                </c:choose>
+
+                                <br/>
+                                <label>Neutral: ${sessionScope.sentResults.getNeu()}</label>
+                                <br/>
+                                <label>Negative: ${sessionScope.sentResults.getNeg()}</label>
+                                <br/>
+                                <label>Positive: ${sessionScope.sentResults.getPos()}</label>
+                            </c:when>
 
                         </c:choose>
-                        <br/>
-                        <label>Neutral: ${sessionScope.sentResults.getNeu()}</label>
-                        <br/>
-                        <label>Negative: ${sessionScope.sentResults.getNeg()}</label>
-                        <br/>
-                        <label>Positive: ${sessionScope.sentResults.getPos()}</label>
+
+
                     </form>
                 </div>
 
@@ -235,31 +249,31 @@
                                 Profile</a></li>
                             <li role="presentation" class="${sessionScope.homeTimelineActive}"><a
                                     href="/twitterTimeline">Timeline</a></li>
-                            <%--<li role="presentation" class=""
-                            "${sessionScope.messagesActive}><a href="#">Messages</a></li>--%>
+                                <%--<li role="presentation" class=""
+                                "${sessionScope.messagesActive}><a href="#">Messages</a></li>--%>
 
                         </ul>
 
-                       <%-- <nav>
-                            <ul class="pagination" style="align: center">
-                                <li>
-                                    <a href="#" aria-label="Previous">
-                                        1
-                                    </a>
-                                </li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li>
-                                    <a href="#" aria-label="Next">
-                                        <span aria-hidden="true">5</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+                        <%-- <nav>
+                             <ul class="pagination" style="align: center">
+                                 <li>
+                                     <a href="#" aria-label="Previous">
+                                         1
+                                     </a>
+                                 </li>
+                                 <li><a href="#">2</a></li>
+                                 <li><a href="#">3</a></li>
+                                 <li><a href="#">4</a></li>
+                                 <li>
+                                     <a href="#" aria-label="Next">
+                                         <span aria-hidden="true">5</span>
+                                     </a>
+                                 </li>
+                             </ul>
+                         </nav>
 
-                        <br/>
---%>\
+                         <br/>
+ --%>\
 
                         <br/>
                         <c:choose>
@@ -311,7 +325,7 @@
                         <div style="text-align: center">
                             <a href="/twitterlogin" role="button">Login to Twitter</a>
 
-                            <%--<a href="/twitterAccess">My Profile</a>--%>
+                                <%--<a href="/twitterAccess">My Profile</a>--%>
                             <br/>
                         </div>
 

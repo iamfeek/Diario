@@ -65,7 +65,7 @@
 
                 -->
                 <h3 style="text-align: center">Diario</h3>
-                <h4 style="color: grey; text-align: center;">${sessionScope.username}</h4>
+                <h4 style="color: grey; text-align: center;"><a href="/profile">${sessionScope.username}</a></h4>
 
                 <div class="form-group">
                     <form action="/testJ" method="post">

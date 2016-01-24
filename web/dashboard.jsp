@@ -223,7 +223,7 @@
                         </ul>
 
                         <nav>
-                            <ul class="pagination" style="align: middle">
+                            <ul class="pagination" style="align: center">
                                 <li>
                                     <a href="#" aria-label="Previous">
                                         1
@@ -234,7 +234,7 @@
                                 <li><a href="#">4</a></li>
                                 <li>
                                     <a href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
+                                        <span aria-hidden="true">5</span>
                                     </a>
                                 </li>
                             </ul>

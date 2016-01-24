@@ -23,13 +23,13 @@
                     <sql:setDataSource
                             var="myDS"
                             driver="com.mysql.jdbc.Driver"
-                            url="jdbc:mysql://localhost:8888/diario"
-                            user="root" password="narumi"
+                            url="jdbc:mysql://localhost:3306/diario"
+                            user="root" password="root"
                     />
 
 
                     <sql:query var="srh" dataSource="${myDS}">
-                        SELECT * FROM friends WHERE locate(?, fUNAME)>0;
+                        SELECT * FROM friends WHERE locate(?, f_username)>0;
                         <sql:param value="${param.s}"/>
 
                     </sql:query>
@@ -46,7 +46,7 @@
                             </a>
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <h2 class="media-heading"><a href="#fakelink" >${row.fUNAME}</a></h2>
+                                    <h2 class="media-heading"><a href="#fakelink" >${row.f_username}</a></h2>
                                     <p><i class="fa fa-map-marker"></i>${row.location}
                                         <br><small class="text-danger">${row.MF} Mutual Friends</small></p>
                                 </div>
@@ -83,7 +83,7 @@
                             </a>
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <h2 class="media-heading"><a href="#fakelink" >${friend.fUNAME}</a></h2>
+                                    <h2 class="media-heading"><a href="#fakelink" >${friend.f_username}</a></h2>
                                     <p><i class="fa fa-map-marker"></i>${friend.location}
                                         <br><small class="text-danger">${friend.MF} Mutual Friends</small></p>
                                 </div>

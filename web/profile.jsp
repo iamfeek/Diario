@@ -21,8 +21,8 @@
 <sql:setDataSource
              var="myDS"
              driver="com.mysql.jdbc.Driver"
-             url="jdbc:mysql://localhost:8888/diario"
-             user="root" password="narumi"
+             url="jdbc:mysql://localhost:3306/diario"
+             user="root" password="root"
      />
 
      <sql:query var="srh" dataSource="${myDS}">

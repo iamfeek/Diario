@@ -18,9 +18,9 @@ public class FriendsBean{
         Connection con = Db.getConnection();
         PreparedStatement pstmt = null;
         try {
-            pstmt = con.prepareStatement("INSERT INTO friends (id, fUNAME, Location, MF) VALUES (?, ?, ?, ?);");
+            pstmt = con.prepareStatement("INSERT INTO friends (id, f_username, Location, MF) VALUES (?, ?, ?, ?);");
             pstmt.setInt(1, f.getId());
-            pstmt.setString(2, f.getfUNAME());
+            pstmt.setString(2, f.getF_username());
             pstmt.setString(3, f.getLocation());
             pstmt.setString(4, f.getMF());
             pstmt.executeUpdate();
@@ -48,7 +48,7 @@ public class FriendsBean{
         String username = f.getUsername();
 
         Connection conn = Db.getConnection();
-        String query = "SELECT * FROM friends where username = '" + username + "' or fUNAME = '" + username + "';";
+        String query = "SELECT * FROM friends where username = '" + username + "' or f_username = '" + username + "';";
 
         Statement st;
         try {
@@ -56,8 +56,8 @@ public class FriendsBean{
             ResultSet rs = st.executeQuery(query);
 
             while (rs.next()) {
-                if (!rs.getString("fUNAME").equals(username))
-                    friends_list.add(rs.getString("fUNAME"));
+                if (!rs.getString("f_username").equals(username))
+                    friends_list.add(rs.getString("f_username"));
                 else
                     friends_list.add(rs.getString("username"));
             }
@@ -135,11 +135,11 @@ public class FriendsBean{
         Statement stmt = null;
         try {
             stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM friends ORDER BY fUNAME");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM friends ORDER BY f_username");
             while (rs.next()) {
                 Friend f = new Friend();
                 f.setId(rs.getInt(1));
-                f.setfUNAME(rs.getString(3));
+                f.setF_username(rs.getString(3));
                 f.setLocation(rs.getString(4));
                 f.setMF(rs.getString(5));
 

@@ -6,7 +6,7 @@ package DAO;
 public class Friend {
 
     private int id;
-    private String fUNAME;
+    private String f_username;
     private String username;
     private String MF;
     private String posts;
@@ -31,12 +31,12 @@ public class Friend {
         this.id = id;
     }
 
-    public String getfUNAME() {
-        return fUNAME;
+    public String getF_username() {
+        return f_username;
     }
 
-    public void setfUNAME(String fUNAME) {
-        this.fUNAME = fUNAME;
+    public void setF_username(String fUNAME) {
+        this.f_username = fUNAME;
     }
 
     public String getUsername() {

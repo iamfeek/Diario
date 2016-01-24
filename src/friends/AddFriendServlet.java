@@ -25,7 +25,7 @@ public class AddFriendServlet extends HttpServlet {
         Friend f = new Friend();
         f.setId(Integer.parseInt(request.getParameter("id")));
 
-        f.setfUNAME(request.getParameter("fUNAME"));
+        f.setF_username(request.getParameter("fUNAME"));
         f.setLocation(request.getParameter("location"));
         f.setMF(request.getParameter("MF"));
         FriendsBean fb = new FriendsBean();

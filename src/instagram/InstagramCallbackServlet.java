@@ -1,5 +1,6 @@
 package instagram;
 
+import DAO.InstagramDAO;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import org.jinstagram.Instagram;
@@ -39,25 +40,12 @@ public class InstagramCallbackServlet extends HttpServlet {
 
         Token accessToken = service.getAccessToken(null, verifier);
 
-        System.out.println("==========================");
-        System.out.print(accessToken);
-
         Instagram instagram = new Instagram(accessToken);
 
         request.getSession().setAttribute("instagramUserInfo", instagram.getCurrentUserInfo().getData());
-        /*for(int i =0;i<feed.size();i++){
-            reader = new JsonReader(new StringReader(feed.get(i).getImages().getLowResolution().getImageUrl()));
 
-            reader.setLenient(true);
+        InstagramDAO.saveToken(accessToken,(String) request.getSession().getAttribute("username"));
 
-            MediaFeedData mdf = gson.fromJson(reader, MediaFeedData.class);
-
-            feed.set(i, mdf);
-
-        }
-
-        request.getSession().setAttribute("instagramfeed", feed);
-*/
         request.getSession().setAttribute("instagram", instagram);
 
         response.sendRedirect("/instagramUserTimeline");

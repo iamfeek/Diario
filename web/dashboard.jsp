@@ -259,7 +259,9 @@
                         </nav>
 
                         <br/>
---%>
+--%>\
+
+                        <br/>
                         <c:choose>
 
                             <c:when test="${sessionScope.homeTimelineActive == 'active'}">

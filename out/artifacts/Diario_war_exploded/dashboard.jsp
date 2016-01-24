@@ -32,7 +32,7 @@
     <div class="row">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
-                <p class="navbar-brand">DIARIO</p>
+                <p class="navbar-brand">Diario</p>
                 <button type="button" class="btn btn-default navbar-btn">Sign in</button>
 
             </div>
@@ -107,7 +107,6 @@
                                 <input class="btn btn-default" type="submit" name="post" value="Search"/>
                             </span>
                             </div>
-
                         </form>
 
                         <ul class="nav nav-tabs">
@@ -135,7 +134,7 @@
                                                      alt="">
                                                 <span class="glyphicon glyphicon-heart"></span>
                                                 <c:out value="${media.getLikes().getCount()}"/>
-                                                ${media.getCaption().getText()}
+                                                    ${media.getCaption().getText()}
                                                     ${media.getCreatedTime()}
 
                                             </div>
@@ -156,7 +155,7 @@
                                                 <span class="glyphicon glyphicon-heart"></span>
                                                 <c:out value="${media.getLikes().getCount()}"/>
 
-                                                ${media.getCaption().getText()}
+                                                    ${media.getCaption().getText()}
                                                     ${media.getCreatedTime()}
 
                                             </div>
@@ -174,10 +173,7 @@
                                     ${resultUser.getBio()}
                                     <br/>
                                     ${resultUser.getProfilePictureUrl()}
-
                                 </c:forEach>
-
-
                             </c:otherwise>
 
                         </c:choose>

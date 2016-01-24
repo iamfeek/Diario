@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by gleni on 23 Jan 2016.
+ * Created by glenice on 23 Jan 2016.
  */
 @WebServlet(name = "InstagranUserTimelineServlet")
 public class InstagranUserTimelineServlet extends HttpServlet {

@@ -19,6 +19,6 @@ public class signin extends HttpServlet {
         request.getSession().setAttribute("username", "tester");
 
         System.out.println(request.getSession().getAttribute("username"));
-        response.sendRedirect("/dashboard");
+        response.sendRedirect("/checkInstagram");
     }
 }

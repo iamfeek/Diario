@@ -8,6 +8,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:choose>
+    <c:when test="${sessionScope.loggedIn}">
+    </c:when>
+    <c:otherwise>
+        <% response.sendRedirect("/signin"); %>
+    </c:otherwise>
+</c:choose>
 <html>
 <head>
     <title>Diario</title>
@@ -24,18 +31,27 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
             integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
             crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 <body>
-<div class="container-fluid">
-    <div class="row">
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <p class="navbar-brand">Diario</p>
-                <button type="button" class="btn btn-default navbar-btn">Sign in</button>
-            </div>
-        </nav>
-    </div>
 
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/dashboard">Diario</a>
+        </div>
+        <ul class="nav navbar-nav navbar-left">
+            <li class="active"><a href="/dashboard">Dashboard</a></li>
+            <li class=""><a href="/profile">Profile</a></li>
+            <li class=""><a href="/post.jsp">Add Post</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <input type="button" class="btn btn-default navbar-btn" onclick="location.href='/signout';" value="Sign Out"/>
+            <p class="navbar-text">Signed in as <a href="/profile" class="navbar-link">${sessionScope.username}</a></p>
+        </ul>
+    </div>
+</nav>
+<div class="container-fluid" style="margin-top: 60px;">
     <div class="row">
         <div class="btn-group btn-group-justified" role="group">
             <%--Post--%>
@@ -76,7 +92,7 @@
                         <input class="btn btn-default" type="submit" name="post" value="update"/>
                         <br/>
                         <label>Result:
-                       </label>
+                        </label>
 
                         <c:choose>
                             <c:when test="${sessionScope.sentResults.getCompound()<0}">
@@ -235,31 +251,31 @@
                                 Profile</a></li>
                             <li role="presentation" class="${sessionScope.homeTimelineActive}"><a
                                     href="/twitterTimeline">Timeline</a></li>
-                            <%--<li role="presentation" class=""
-                            "${sessionScope.messagesActive}><a href="#">Messages</a></li>--%>
+                                <%--<li role="presentation" class=""
+                                "${sessionScope.messagesActive}><a href="#">Messages</a></li>--%>
 
                         </ul>
 
-                       <%-- <nav>
-                            <ul class="pagination" style="align: center">
-                                <li>
-                                    <a href="#" aria-label="Previous">
-                                        1
-                                    </a>
-                                </li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li>
-                                    <a href="#" aria-label="Next">
-                                        <span aria-hidden="true">5</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+                        <%-- <nav>
+                             <ul class="pagination" style="align: center">
+                                 <li>
+                                     <a href="#" aria-label="Previous">
+                                         1
+                                     </a>
+                                 </li>
+                                 <li><a href="#">2</a></li>
+                                 <li><a href="#">3</a></li>
+                                 <li><a href="#">4</a></li>
+                                 <li>
+                                     <a href="#" aria-label="Next">
+                                         <span aria-hidden="true">5</span>
+                                     </a>
+                                 </li>
+                             </ul>
+                         </nav>
 
-                        <br/>
---%>\
+                         <br/>
+ --%>\
 
                         <br/>
                         <c:choose>
@@ -311,7 +327,7 @@
                         <div style="text-align: center">
                             <a href="/twitterlogin" role="button">Login to Twitter</a>
 
-                            <%--<a href="/twitterAccess">My Profile</a>--%>
+                                <%--<a href="/twitterAccess">My Profile</a>--%>
                             <br/>
                         </div>
 

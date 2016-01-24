@@ -11,20 +11,27 @@ import java.util.ArrayList;
  * Created by Jy on 14-Dec-15.
  */
 public class DAOPost {
-    public static void storeMessage(String username, String text, boolean encrypted)    {
+    public static int storeMessage(String username, String text, boolean encrypted)    {
         Connection conn = Db.getConnection();
         String sql = "INSERT INTO diario.`posts` (username, text, encrypted) VALUES (?, ?, ?);";
         PreparedStatement preparedStmt = null;
+        int postid = -1;
         try {
-            preparedStmt = conn.prepareStatement(sql);
+            preparedStmt = conn.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS);
             preparedStmt.setString(1, username);
             preparedStmt.setString(2, text);
             preparedStmt.setBoolean(3, encrypted);
             int status = preparedStmt.executeUpdate();
+            ResultSet rs = preparedStmt.getGeneratedKeys();
+            while (rs.next())   {
+                postid = rs.getInt(1);
+            }
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("Posted! Post id returned: " + postid);
+        return postid;
     }
 
     public static int storeMessage(String username, String text, boolean encrypted, boolean shared)    {

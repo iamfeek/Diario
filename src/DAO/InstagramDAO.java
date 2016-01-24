@@ -14,7 +14,7 @@ import java.sql.SQLException;
 
 public class InstagramDAO {
 
-    public static boolean saveToken(Token token, String username){
+    public static boolean saveToken(Token token, String username) {
 
         Connection conn = Db.getConnection();
         String sql = "INSERT INTO diario.`InstagramAccessToken` (token, secret, username) VALUES (?, ?, ?);";
@@ -25,9 +25,10 @@ public class InstagramDAO {
             preparedStmt.setString(2, token.getSecret());
             preparedStmt.setString(3, username);
 
+            preparedStmt.execute();
             conn.close();
-
             return true;
+
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -36,9 +37,9 @@ public class InstagramDAO {
 
     }
 
-    public static Token getToken(String username){
+    public static Token getToken(String username) {
         Connection conn = Db.getConnection();
-        String query = "SELECT * FROM diario.`InstagramAccessToken` where username = '" + username + "';";
+        String query = "SELECT * FROM diario.`InstagramAccessToken` where username = '" + username + "'";
 
         PreparedStatement preparedStmt = null;
 
@@ -46,7 +47,10 @@ public class InstagramDAO {
             preparedStmt = conn.prepareStatement(query);
             ResultSet rs = preparedStmt.executeQuery();
 
-            Token token = new Token(rs.getString("token"),rs.getString("secret"));
+            rs.next();
+            Token token = new Token(rs.getString("token"), rs.getString("secret"));
+
+            System.out.println(token);
             conn.close();
 
             return token;

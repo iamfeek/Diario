@@ -1,5 +1,6 @@
 package sentiment;
 
+import DAO.SentimentResult;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -11,7 +12,7 @@ import org.python.util.PythonInterpreter;
  */
 public class sentimentAnalysis {
 
-    public static boolean analysis(String username, String text) {
+    public static boolean analysis(String username, String text, int postid) {
 
         PythonInterpreter interp = new PythonInterpreter();
         System.out.println("Testing vader");
@@ -29,8 +30,7 @@ public class sentimentAnalysis {
             Double pos = (Double) json.get("pos");
             Double neu = (Double) json.get("neu");
 
-
-
+            return sentimentDAO.saveSentiment(postid, pos, neg, neu, compound,username);
 
         } catch (ParseException e) {
             e.printStackTrace();

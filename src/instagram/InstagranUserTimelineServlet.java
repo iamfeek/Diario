@@ -28,8 +28,7 @@ public class InstagranUserTimelineServlet extends HttpServlet {
         request.getSession().setAttribute("InstagramHomeTimelineActive", "");
         request.getSession().setAttribute("InstagramSearch", "");
 
-        Token token = new Token("43470728.0897a0f.a250679d631c4b7c94b2d42cd9aca282","");
-        Instagram instagram = new Instagram(token);
+        Instagram instagram = (Instagram) request.getSession().getAttribute("instagram");
 
         MediaFeed mf = instagram.getRecentMediaFeed(instagram.getCurrentUserInfo().getData().getId());
 

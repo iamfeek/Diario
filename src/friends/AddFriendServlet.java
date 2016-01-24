@@ -12,6 +12,7 @@ import java.io.IOException;
 /**
  * Created by lenovo on 1/7/2016.
 */
+@WebServlet(urlPatterns = {"/addFriend"})
 
 public class AddFriendServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -29,8 +30,9 @@ public class AddFriendServlet extends HttpServlet {
         f.setMF(request.getParameter("MF"));
         FriendsBean fb = new FriendsBean();
         fb.addFriend(f);
+        response.sendRedirect("friendslist.jsp");
 
-        request.getRequestDispatcher("friendslist.jsp").forward(request, response);
+       //request.getRequestDispatcher("friendslist.jsp").forward(request, response);
 
 
     }

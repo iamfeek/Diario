@@ -93,11 +93,6 @@ public class FriendsBean{
 
     }
 
-    public void view (){
-        Connection conn = Db.getConnection();
-        Statement stmt = null;
-
-    }
     public void message (int id){
         Connection conn = Db.getConnection();
         Statement stmt = null;
@@ -118,6 +113,8 @@ public class FriendsBean{
                 f.setUsername(rs.getString(2));
                 f.setLocation(rs.getString(3));
                 f.setMF(rs.getString(4));
+                f.setPosts(rs.getString(5));
+                f.setFriends(rs.getString(6));
             }
         } catch (Exception e) {
             e.printStackTrace();

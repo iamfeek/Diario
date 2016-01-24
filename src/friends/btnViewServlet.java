@@ -1,6 +1,7 @@
 package friends;
 import DAO.Friend;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,13 +21,25 @@ public class btnViewServlet extends HttpServlet {
         super();
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
         int id = Integer.parseInt(request.getParameter("view"));
         FriendsBean bean = new FriendsBean();
         Friend fr = bean.getFriend(id);
         request.setAttribute("nono", fr);
-        request.getRequestDispatcher("friendslist.jsp").forward(request, response);
-       // response.sendRedirect("profile.jsp"); set (if else)
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/view.jsp");
+        rd.forward(request, response);
+        //response.sendRedirect("profile.jsp");
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
+
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
 
     }
 

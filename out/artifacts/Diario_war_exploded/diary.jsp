@@ -1,11 +1,7 @@
 
 
 <%--
-  Created by IntelliJ IDEA.
-  User: lenovo
-  Date: 12/6/2015
-  Time: 9:15 PM
-  To change this template use File | Settings | File Templates.
+  Created by NH
 --%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
@@ -15,6 +11,7 @@
         <title>${title}</title>
 
             <link href="../css/pages.css" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 
     <%--all custom js/css for this page belongs here.--%>
 </jsp:attribute>
@@ -24,7 +21,7 @@
 <br>
 <form action="/pageServlet" method="post">
     <div>
-        <jsp:include page="scriptlet.jsp" flush="true" />
+        <jsp:include page="date.jsp" flush="true" />
     <br>
     <p>
     <label class="andy">Enter Title:</label>
@@ -40,16 +37,11 @@
 </form>
 <br>
 <br>
-        <div style="display: block;width: 100%;
-	 	background: #64e0ef;height: 55px;
-	 	padding-left: 10px;color: #fff;
-	 	font-size: 20px;line-height: 55px;
-	 	text-shadow: 1px 1px 1px rgba(0,0,0,.3);
-	 	box-sizing: border-box;">Diary Contents</div>
-
+        <div class="container"><span class="h3 tab" >**************************************************Diary Contents********************************************</span></div>
+<br>
     <div style="display: table;width: 100%;
 	 	background: #fff;margin: 0;
-	 	box-sizing: border-box;">
+	 	box-sizing: border-box;" class="container">
 
         <div style="background: #2f889a;color: #fff; display: table-row;">
         <span style="display: table-cell;padding: 6px;
@@ -64,6 +56,7 @@
         </div>
 
          <jsp:include page="retriever.jsp" flush="true" />
+
 
     </div>
         <br>

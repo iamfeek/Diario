@@ -54,7 +54,10 @@
                     <input type="checkbox">Remember Me
                 </label>
             </div>
-            <button type="submit" class="btn btn-default" id="registerBtn">Log Me In</button><a href="/signup"> I need an account...</a>
+            <button type="submit" class="btn btn-default" id="registerBtn">Log Me In</button><br><br>
+            <a href="/signup"> Forgot Password</a><br>
+            <a href="/signup"> Create An Account</a>
+
         </form>
     </div>
 </div>

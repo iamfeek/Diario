@@ -4,31 +4,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
-<head>
-    <%--all custom js/css for this page belongs here.--%>
-    <link href="css/profile.css" rel="stylesheet">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-
-</head>
-
-<body>
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/dashboard">Diario</a>
-        </div>
-        <ul class="nav navbar-nav navbar-left">
-            <li class=""><a href="/dashboard">Dashboard</a></li>
-            <li class="active"><a href="/profile">Profile</a></li>
-            <li class=""><a href="/post.jsp">Add Post</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <button type="button" class="btn btn-default navbar-btn">Sign Out</button>
-            <p class="navbar-text">Signed in as <a href="/profile" class="navbar-link">${sessionScope.username}</a></p>
-        </ul>
-    </div>
-</nav>
+<jsp:include page="header.jsp">
+    <jsp:param name="profile" value="active"></jsp:param>
+</jsp:include>
 <div class="container" style="margin-top: 60px;">
 
     <h3> ${nono.username} </h3>

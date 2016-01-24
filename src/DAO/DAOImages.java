@@ -93,4 +93,40 @@ public class DAOImages {
         }
         return null;
     }
+
+    public static int getImageSecu(int imgid) {
+        Connection conn = Db.getConnection();
+        String query = "SELECT secu FROM diario.`images` where imgid = '" + imgid + "';";
+
+        PreparedStatement preparedStmt = null;
+        try {
+            preparedStmt = conn.prepareStatement(query);
+            ResultSet rs = preparedStmt.executeQuery();
+            rs.next();
+            int secu = rs.getInt("secu");
+            conn.close();
+            return secu;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public static String getImageOwner(int imgid) {
+        Connection conn = Db.getConnection();
+        String query = "SELECT username FROM diario.`images` where imgid = '" + imgid + "';";
+
+        PreparedStatement preparedStmt = null;
+        try {
+            preparedStmt = conn.prepareStatement(query);
+            ResultSet rs = preparedStmt.executeQuery();
+            rs.next();
+            String username = rs.getString("username");
+            conn.close();
+            return username;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

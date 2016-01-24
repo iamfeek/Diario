@@ -1,16 +1,10 @@
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-
-<t:layout title="Diario">
-
-<jsp:attribute name="head_area">
-    <%--all custom js/css for this page belongs here.--%>
-</jsp:attribute>
-
-<jsp:attribute name="body_area">
+<jsp:include page="header.jsp">
+    <jsp:param name="post" value="active"></jsp:param>
+</jsp:include>
     <script type="text/javascript" src="js/secu_slider.js"></script>
     <%--the content of the site goes here.--%>
     <form action="/postImage" method="post" enctype="multipart/form-data">
-        <div style="padding: 30px; margin-left: 100px">
+        <div style="padding: 30px; margin-left: 100px; margin-top: 50px">
             <h1 style="font-size: 30px;">Upload Image</h1><br/>
             <input type="file" name="photo" size="50"/>
             <div style="padding-top: 20px">
@@ -37,8 +31,7 @@
                         <td align="center" style="width: 100px">Strong</td>
                     </tr>
                 </table>
-                <div style="text-align: center; width: 500px; padding-top: 20px" id="img_secu_text">A small logo and light
-                    watermarking will be applied
+                <div style="text-align: center; width: 500px; padding-top: 20px" id="img_secu_text">A small logo will be applied
                 </div>
 
                 <div style="text-align: center; width: 500px; padding-top: 20px">
@@ -47,5 +40,3 @@
             </div>
         </div>
     </form>
-</jsp:attribute>
-</t:layout>

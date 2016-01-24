@@ -15,7 +15,7 @@ import java.io.IOException;
  * Created by Jy on 18-Jan-16.
  */
 public class Watermarking {
-    public static void watermarkEntire(BufferedImage original, String watermarkText, int fontSize, float opacity) {
+    public static void watermarkEntire(BufferedImage original, String watermarkText) {
         Graphics2D g2d = original.createGraphics();
         g2d.scale(1, 1);
         g2d.addRenderingHints(
@@ -24,7 +24,7 @@ public class Watermarking {
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
-        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, fontSize);
+        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 20);
         GlyphVector fontGV = font.createGlyphVector(g2d.getFontRenderContext(), watermarkText);
         Rectangle size = fontGV.getPixelBounds(g2d.getFontRenderContext(), 0, 0);
         Shape textShape = fontGV.getOutline();
@@ -35,9 +35,9 @@ public class Watermarking {
 
         // use a gradient that repeats 4 times
         g2d.setPaint(new GradientPaint(0, 0,
-                new Color(0f, 0f, 0f, 0.1f),
+                new Color(0f, 0f, 0f, 0.2f),
                 original.getWidth() / 2, original.getHeight() / 2,
-                new Color(1f, 1f, 1f, opacity)));
+                new Color(1f, 1f, 1f, 0.3f)));
         g2d.setStroke(new BasicStroke(0.5f));
 
         // step in y direction is calc'ed using pythagoras + 5 pixel padding
@@ -53,6 +53,60 @@ public class Watermarking {
             }
             g2d.translate(textHeight * 3, -(y + yStep));
         }
+    }
+
+    public static void watermarkText(BufferedImage original, String watermarkText) {
+        Graphics2D g2d = original.createGraphics();
+        g2d.scale(1, 1);
+        g2d.addRenderingHints(
+                new RenderingHints(RenderingHints.KEY_ANTIALIASING,
+                        RenderingHints.VALUE_ANTIALIAS_ON));
+        g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+
+        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 50);
+        GlyphVector fontGV = font.createGlyphVector(g2d.getFontRenderContext(), watermarkText);
+        Rectangle size = fontGV.getPixelBounds(g2d.getFontRenderContext(), 0, 0);
+        Shape textShape = fontGV.getOutline();
+        double textWidth = size.getWidth();
+
+        // use a gradient that repeats 4 times
+        g2d.setPaint(new GradientPaint(0, 0,
+                new Color(0f, 0f, 0f, 0.3f),
+                original.getWidth() / 2, original.getHeight() / 2,
+                new Color(1f, 1f, 1f, 0.5f)));
+        g2d.setStroke(new BasicStroke(0.5f));
+
+        g2d.translate(10, original.getHeight() - 10);
+        g2d.draw(textShape);
+        g2d.fill(textShape);
+    }
+
+    public static void watermarkLogo(BufferedImage original) {
+        Graphics2D g2d = original.createGraphics();
+        g2d.scale(1, 1);
+        g2d.addRenderingHints(
+                new RenderingHints(RenderingHints.KEY_ANTIALIASING,
+                        RenderingHints.VALUE_ANTIALIAS_ON));
+        g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+
+        Font font = new Font(Font.SANS_SERIF, Font.ITALIC, 50);
+        GlyphVector fontGV = font.createGlyphVector(g2d.getFontRenderContext(), "Diario");
+        Rectangle size = fontGV.getPixelBounds(g2d.getFontRenderContext(), 0, 0);
+        Shape textShape = fontGV.getOutline();
+        double textWidth = size.getWidth();
+
+        // use a gradient that repeats 4 times
+        g2d.setPaint(new GradientPaint(0, 0,
+                new Color(0f, 0f, 0f, 0.3f),
+                original.getWidth() / 2, original.getHeight() / 2,
+                new Color(1f, 1f, 1f, 0.5f)));
+        g2d.setStroke(new BasicStroke(0.5f));
+
+        g2d.translate(original.getWidth() - textWidth - 10, original.getHeight() - 10);
+        g2d.draw(textShape);
+        g2d.fill(textShape);
     }
 
     public static byte[] encodeJPEG(BufferedImage image, int quality) throws IOException {

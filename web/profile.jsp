@@ -2,7 +2,6 @@
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
 <html>
 <jsp:include page="header.jsp">
     <jsp:param name="profile" value="active"></jsp:param>
@@ -16,7 +15,8 @@
         ${nono.username} has created ${nono.posts} posts.<br>
         ${nono.username} made ${nono.friends} friends.
     </p>
-
+    <input type="button" class="btn btn-default navbar-btn" onclick="alert(localStorage.getItem('prvKey'))"
+           value="Export Key"/>
     <h3><span class="h3 text">Find friends</span></h3>
     <form id="search">
         <input type="search" name="search"   />

@@ -18,13 +18,51 @@ public class getImage extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (DAOImages.checkForOwnership(Integer.parseInt(request.getParameter("imgid")), request.getSession().getAttribute("username").toString())) {
-            BufferedImage image = DAOImages.getImage(Integer.parseInt(request.getParameter("imgid")));
-            Watermarking.watermarkEntire(image, "Diario", 20, 0.1f);
-            byte[] imageBytes = Watermarking.encodeJPEG(image, 100);
-            response.setContentType("image/jpeg");
-            response.setContentLength(imageBytes.length);
-            response.getOutputStream().write(imageBytes);
+        int imgid = Integer.parseInt(request.getParameter("imgid"));
+        if (DAOImages.checkForOwnership(imgid, request.getSession().getAttribute("username").toString())) {
+            int secu = DAOImages.getImageSecu(imgid);
+            if (secu == 0)  {
+                BufferedImage image = DAOImages.getImage(Integer.parseInt(request.getParameter("imgid")));
+                byte[] imageBytes = Watermarking.encodeJPEG(image, 100);
+                response.setContentType("image/jpeg");
+                response.setContentLength(imageBytes.length);
+                response.getOutputStream().write(imageBytes);
+            }
+            else if (secu == 25)    {
+                BufferedImage image = DAOImages.getImage(Integer.parseInt(request.getParameter("imgid")));
+                Watermarking.watermarkLogo(image);
+                byte[] imageBytes = Watermarking.encodeJPEG(image, 100);
+                response.setContentType("image/jpeg");
+                response.setContentLength(imageBytes.length);
+                response.getOutputStream().write(imageBytes);
+            }
+            else if (secu == 50)    {
+                BufferedImage image = DAOImages.getImage(Integer.parseInt(request.getParameter("imgid")));
+                Watermarking.watermarkLogo(image);
+                Watermarking.watermarkText(image, DAOImages.getImageOwner(imgid));
+                byte[] imageBytes = Watermarking.encodeJPEG(image, 100);
+                response.setContentType("image/jpeg");
+                response.setContentLength(imageBytes.length);
+                response.getOutputStream().write(imageBytes);
+            }
+            else if (secu == 75)    {
+                BufferedImage image = DAOImages.getImage(Integer.parseInt(request.getParameter("imgid")));
+                Watermarking.watermarkLogo(image);
+                Watermarking.watermarkText(image, "Owner: " + DAOImages.getImageOwner(imgid) + " Viewer: " + request.getSession().getAttribute("username").toString());
+                byte[] imageBytes = Watermarking.encodeJPEG(image, 100);
+                response.setContentType("image/jpeg");
+                response.setContentLength(imageBytes.length);
+                response.getOutputStream().write(imageBytes);
+            }
+            else    {
+                BufferedImage image = DAOImages.getImage(Integer.parseInt(request.getParameter("imgid")));
+                Watermarking.watermarkLogo(image);
+                Watermarking.watermarkEntire(image, "Owner: " + DAOImages.getImageOwner(imgid) + " Viewer: " + request.getSession().getAttribute("username").toString());
+                byte[] imageBytes = Watermarking.encodeJPEG(image, 100);
+                response.setContentType("image/jpeg");
+                response.setContentLength(imageBytes.length);
+                response.getOutputStream().write(imageBytes);
+            }
         }
     }
 }

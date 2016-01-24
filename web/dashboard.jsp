@@ -23,7 +23,7 @@
     <div class="row">
         <div class="btn-group btn-group-justified" role="group">
             <%--Post--%>
-            <div class="col-md-4">
+            <div class="col-md-4" style="text-align: center">
                 <!--
                 <c:choose>
                     <c:when test="${sessionScope.facebook != null}">
@@ -50,56 +50,20 @@
                 -->
                 <h3 style="text-align: center">Diario</h3>
                 <h4 style="color: grey; text-align: center;"><a href="/profile">${sessionScope.username}</a></h4>
-
-                <div class="form-group">
-                    <form action="/testJ" method="post">
-                        <label for="post">Post:</label>
-                        <textarea class="form-control" rows="5" id="post" name="post"
-                                  placeholder="${sentText}"></textarea>
-                        <br/>
-                        <input class="btn btn-default" type="submit" name="post" value="update"/>
-                        <br/>
-
-
-                        <c:choose>
-                            <c:when test="${sessionScope.sentResults.getCompound()!= null}">
-                                <label>Result:
-                                </label>
-
-                                <c:choose>
-
-
-                                    <c:when test="${sessionScope.sentResults.getCompound()<0}">
-                                        Negative
-                                    </c:when>
-
-                                    <c:when test="${sessionScope.sentResults.getCompound()>0}">
-                                        Positive
-                                    </c:when>
-
-                                    <c:otherwise>
-                                        Neutral
-                                    </c:otherwise>
-
-
-
-                                </c:choose>
-
-                                <br/>
-                                <label>Neutral: ${sessionScope.sentResults.getNeu()}</label>
-                                <br/>
-                                <label>Negative: ${sessionScope.sentResults.getNeg()}</label>
-                                <br/>
-                                <label>Positive: ${sessionScope.sentResults.getPos()}</label>
-                            </c:when>
-
-                        </c:choose>
-
-
-                    </form>
-                </div>
-
-
+                <input type="button" class="btn btn-default navbar-btn" onclick="location.href='/post';"
+                       value="Post New Entry"/>
+                <br/>
+                <input type="button" class="btn btn-default navbar-btn" onclick="location.href='/viewPosts.jsp';"
+                       value="View Diary"/>
+                <br/>
+                <input type="button" class="btn btn-default navbar-btn" onclick="location.href='/postImage.jsp';"
+                       value="Post Image"/>
+                <br/>
+                <input type="button" class="btn btn-default navbar-btn" onclick="location.href='/viewImages.jsp';"
+                       value="View Images"/>
+                <br/>
+                <input type="button" class="btn btn-default navbar-btn" onclick="location.href='/viewFriendsPosts.jsp';"
+                       value="View Friends' Posts"/>
             </div>
 
             <%--Instagram--%>

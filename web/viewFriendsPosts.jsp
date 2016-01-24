@@ -1,17 +1,13 @@
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-
-<t:layout title="Diario">
-
-<jsp:attribute name="head_area">
+<jsp:include page="header.jsp">
+    <jsp:param name="post" value="active"></jsp:param>
+</jsp:include>
     <script type="text/javascript" src="js/security/rsa-bundle.js"></script>
     <script type="text/javascript" src="js/security/key-handler.js"></script>
     <script type="text/javascript" src="js/security/aes-handler.js"></script>
     <script type="text/javascript" src="js/security/aes.js"></script>
     <script type="text/javascript" src="js/security/mode-ecb-min.js"></script>
-</jsp:attribute>
 
-<jsp:attribute name="body_area">
-    <div style="padding: 30px; margin-left: 100px">
+    <div style="padding: 30px; margin-left: 100px; margin-top: 50px">
         <h1 style="font-size: 30px;">Your Friends' Posts</h1>
         <jsp:include page="getFriendsPosts.jsp"></jsp:include>
         <script type="text/javascript">
@@ -25,5 +21,3 @@
             }
         </script>
     </div>
-</jsp:attribute>
-</t:layout>

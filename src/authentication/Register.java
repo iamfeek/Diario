@@ -41,6 +41,8 @@ public class Register extends HttpServlet {
                 }
                 System.out.println("Registration Status: " + registrationStatus);
                 pw.write("done");
+                request.getSession().setAttribute("username", username);
+                request.getSession().setAttribute("loggedIn", true);
             } else{
                 pw.write("Email or Username Taken");
             }

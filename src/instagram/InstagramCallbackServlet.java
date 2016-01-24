@@ -17,11 +17,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by glenice on 8 Dec 2015.
  */
+
 public class InstagramCallbackServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -35,17 +38,13 @@ public class InstagramCallbackServlet extends HttpServlet {
         Verifier verifier = new Verifier(code);
 
         Token accessToken = service.getAccessToken(null, verifier);
+
+        System.out.println("==========================");
+        System.out.print(accessToken);
+
         Instagram instagram = new Instagram(accessToken);
 
-        request.getSession().setAttribute("instagramUserInfo",instagram.getCurrentUserInfo().getData());
-
-        MediaFeed mf = instagram.getRecentMediaFeed(instagram.getCurrentUserInfo().getData().getId());
-
-        List<MediaFeedData> listMedia = mf.getData();
-
-
-        request.getSession().setAttribute("userFeed", listMedia);
-
+        request.getSession().setAttribute("instagramUserInfo", instagram.getCurrentUserInfo().getData());
         /*for(int i =0;i<feed.size();i++){
             reader = new JsonReader(new StringReader(feed.get(i).getImages().getLowResolution().getImageUrl()));
 
@@ -61,8 +60,6 @@ public class InstagramCallbackServlet extends HttpServlet {
 */
         request.getSession().setAttribute("instagram", instagram);
 
-
-
-        response.sendRedirect("/dashboard");
+        response.sendRedirect("/instagramUserTimeline");
     }
 }

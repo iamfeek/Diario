@@ -1,9 +1,6 @@
 package twitter;
 
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.Status;
-import twitter4j.User;
+import twitter4j.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,11 +15,18 @@ import java.util.List;
 public class GetTwitterTimelineServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+
+            request.getSession().setAttribute("homeTimelineActive", "active");
+            request.getSession().setAttribute("userTimelineActive", "");
+            request.getSession().setAttribute("messagesActive", "");
             Twitter twitter = (Twitter) request.getSession().getAttribute("twitter");
 
-            User user = twitter.verifyCredentials();
-
             List<Status> statusList = twitter.getHomeTimeline();
+
+            Paging page = new Paging(2, 40);
+
+            statusList.addAll(twitter.getHomeTimeline(page));
+
             request.getSession().setAttribute("twitterTimelineList", statusList);
             response.sendRedirect("/dashboard");
 

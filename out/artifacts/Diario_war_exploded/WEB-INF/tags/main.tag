@@ -33,7 +33,6 @@
         if(user == ""){
            // window.location.href = "/"
         }
-
     </script>
 
     <title>${title}</title>
@@ -42,7 +41,7 @@
 </head>
 <body>
 <header role="banner">
-    <div id="cd-logo"><a href="/home"><img src="../img/cd-logo.svg" alt="Logo"></a></div>
+    <div id="cd-logo"><a href="/dashboard"><img src="../img/cd-logo.svg" alt="Logo"></a></div>
 
     <div style=" height: 100%; border: 1px solid;width: 500px; text-align: right; float: right;">
         <a style="color: #fff; font-weight: 100; font-size: 165%; margin-top: 25px;" id="profile_name"></a>
@@ -51,9 +50,9 @@
         </a>
     </div>
     <script>
-        var x = getCookie("User");
+        var username = "${sessionScope.username}"
         var profile = document.getElementById("profile_name");
-        profile.innerHTML += "Hey, <u>"+x+"</u>!";
+        profile.innerHTML += "Hey, <u>"+username+"</u>!";
     </script>
 </header>
 <jsp:invoke fragment="body_area"/>
@@ -61,7 +60,5 @@
 
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="../js/login.js"></script>
-<script>
-</script>
 </body>
 </html>

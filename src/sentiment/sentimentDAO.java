@@ -13,9 +13,9 @@ import java.sql.SQLException;
  */
 public class sentimentDAO {
 
-    public static boolean saveSentiment(int postID, Double pos, Double neg, Double neu, Double compound) {
+    public static boolean saveSentiment(int postID, Double pos, Double neg, Double neu, Double compound, String username) {
         Connection conn = Db.getConnection();
-        String sql = "INSERT INTO diario.`sentimentanalysis` (idPost, pos, neu, neg, compound) VALUES (?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO diario.`sentimentanalysis` (idPost, pos, neu, neg, compound, username) VALUES (?, ?, ?, ?, ?, ?);";
         PreparedStatement preparedStmt = null;
         try {
             preparedStmt = conn.prepareStatement(sql);
@@ -24,6 +24,7 @@ public class sentimentDAO {
             preparedStmt.setDouble(3, neu);
             preparedStmt.setDouble(4, neg);
             preparedStmt.setDouble(5, compound);
+            preparedStmt.setString(6, username);
 
             preparedStmt.executeUpdate();
 

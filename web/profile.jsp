@@ -13,25 +13,33 @@
 
 <body>
 <a href="friendslist.jsp">Go to your friends list</a>
-<jsp:include page="diary.jsp" flush="true"/>
-<div>
-    *********************************************************************************************************************************************************************************************************************************************
-    </div>
+<%--<jsp:include page="diary.jsp" flush="true"/>--%>
+<%--<div>--%>
+    <%--*********************************************************************************************************************************************************************************************************************************************--%>
+    <%--</div>--%>
 
-<sql:setDataSource
-             var="myDS"
-             driver="com.mysql.jdbc.Driver"
-             url="jdbc:mysql://localhost:3306/diario"
-             user="root" password="root"
-     />
+<%--<sql:setDataSource--%>
+             <%--var="myDS"--%>
+             <%--driver="com.mysql.jdbc.Driver"--%>
+             <%--url="jdbc:mysql://localhost:3306/diario"--%>
+             <%--user="root" password="root"--%>
+     <%--/>--%>
 
-     <sql:query var="srh" dataSource="${myDS}">
-         SELECT * FROM profiles WHERE locate(?, username)>0;
-         <sql:param value="${param.search}"/>
+     <%--<sql:query var="srh" dataSource="${myDS}">--%>
+         <%--SELECT * FROM profiles WHERE locate(?, username)>0;--%>
+         <%--<sql:param value="${param.search}"/>--%>
 
-     </sql:query>
+     <%--</sql:query>--%>
 
      <div class="container ">
+
+         <h3> ${nono.username} </h3>
+         <p> Location: ${nono.location} <br>
+             ${nono.MF} Mutual Friends </p>
+         <p>
+             ${nono.username} has created ${nono.posts} posts.<br>
+             ${nono.username} made ${nono.friends} friends.
+         </p>
 
      <h3><span class="h3 text">Find friends</span></h3>
      <form id="search">
@@ -78,9 +86,6 @@
      </li>
              </div>
      </c:forEach>
-
 <div class="break"></div>
-
-
 </body>
 </html>

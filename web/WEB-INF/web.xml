@@ -82,6 +82,15 @@
         <servlet-name>dashboard</servlet-name>
         <url-pattern>/dashboard</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>profile</servlet-name>
+        <jsp-file>/profile.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>profile</servlet-name>
+        <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
     
     <servlet>
         <servlet-name>TwitterLoginServlet</servlet-name>

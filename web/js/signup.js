@@ -71,6 +71,8 @@ var postSaltAndVerifier = function(){
     }
 
     $.post("/register", postValues, function(response){
-        console.log(response);
+        if(response === "done"){
+            window.location.replace("/signin.do")
+        }
     })
 }

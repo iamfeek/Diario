@@ -40,6 +40,7 @@ public class Register extends HttpServlet {
                     Key.store(username, pubkey);
                 }
                 System.out.println("Registration Status: " + registrationStatus);
+                pw.write("done");
             } else{
                 pw.write("Email or Username Taken");
             }

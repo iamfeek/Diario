@@ -65,7 +65,7 @@
                     <input type="checkbox"> I agree with the Terms and Conditions
                 </label>
             </div>
-            <button type="submit" class="btn btn-default" id="registerBtn">Submit</button>
+            <button type="submit" class="btn btn-default" id="registerBtn">Create My Account</button><a href="/signin"> I have an account!</a>
         </form>
     </div>
 </div>

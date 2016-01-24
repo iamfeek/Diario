@@ -1,11 +1,4 @@
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:layout title="Diario">
-
-<jsp:attribute name="head_area">
-    <%--all custom js/css for this page belongs here.--%>
-</jsp:attribute>
-<jsp:attribute name="body_area">
     <script type="text/javascript" src="js/secu_slider.js"></script>
     <script type="text/javascript" src="js/security/key-handler.js"></script>
     <script type="text/javascript" src="js/security/rsa-bundle.js"></script>
@@ -90,5 +83,3 @@
         </div>
     </div>
         </div>
-</jsp:attribute>
-</t:layout>

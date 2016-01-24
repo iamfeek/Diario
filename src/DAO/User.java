@@ -178,6 +178,7 @@ public class User {
         String username = this.getUsername();
         Connection conn = Db.getConnection();
         String query = "SELECT salt, verifier FROM accounts WHERE username = '" + username + "';";
+        System.out.println(query);
 
         Statement st = conn.createStatement();
         ResultSet rs = st.executeQuery(query);
@@ -191,6 +192,7 @@ public class User {
         }
 
         if(retrievedSalt == null || retrievedVerifier == null){
+            System.out.println("Returning null");
             return null;
         } else {
             HashMap<String, String> saltAndVerifier = new HashMap<String, String>();

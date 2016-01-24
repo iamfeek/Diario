@@ -51,28 +51,34 @@ public class Challenge extends HttpServlet {
 
         //getting salt and verifier in hashmap from DB
         HashMap<String, String> saltAndVerifier = challenger.getSaltAndVerifier();
+        System.out.println("SAV: " + saltAndVerifier);
+        if(saltAndVerifier != null) {
+            String salt = saltAndVerifier.get("salt");
+            String verifier = saltAndVerifier.get("verifier");
 
-        String salt = saltAndVerifier.get("salt");
-        String verifier = saltAndVerifier.get("verifier");
+            try {
+                srp.step1(username, salt, verifier);
 
-        try{
-            srp.step1(username, salt, verifier);
-
-            saltAndB.put("salt", salt);
-            saltAndB.put("b", srp.getPublicServerValue());
-            storeB(srp.getUserID(), srp.getPublicServerValue());
+                saltAndB.put("salt", salt);
+                saltAndB.put("b", srp.getPublicServerValue());
+                storeB(srp.getUserID(), srp.getPublicServerValue());
 
 
-        }catch (Exception e){
-            e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+                response.getWriter().write("bad");
+            }
+            String saltAndBJson = gson.toJson(saltAndB);
+
+            System.out.println("Salt And B Reply");
+            response.getWriter().write(gson.toJson(saltAndBJson));
+            System.out.println("Response to Client: " + saltAndBJson.toString());
+            HttpSession session = request.getSession();
+            session.setAttribute("srp", srp);
+        } else {
+            System.out.println("Sending out a bad response");
+            response.getWriter().write("{status: bad}");
         }
-        String saltAndBJson = gson.toJson(saltAndB);
-
-        System.out.println("Salt And B Reply");
-        response.getWriter().write(gson.toJson(saltAndBJson));
-        System.out.println("Response to Client: " + saltAndBJson.toString());
-        HttpSession session = request.getSession();
-        session.setAttribute("srp", srp);
     }
 
     private static void storeB(String username, String b){

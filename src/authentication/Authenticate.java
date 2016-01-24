@@ -52,7 +52,7 @@ public class Authenticate extends HttpServlet {
                 response.getWriter().write(M2);
 
                 request.getSession().setAttribute("loggedIn", true);
-                request.getSession().setAttribute("username", "tester");
+                request.getSession().setAttribute("username", request.getParameter("username"));
             } catch (Exception e) {
                 //authentication failed
                 System.out.println("AUTH FAILED");

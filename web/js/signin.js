@@ -44,48 +44,53 @@ var sendChallenge = function(){
 
 function challengeResponse(response){
     //var saltAndB = JSON.parse(response.saltAndB);
-    //alert(response)
-    var username = usernameElement.val();
-    var password = passwordElement.val();
-    var srpClient = new SRP6JavascriptClientSessionSHA256();
+    alert(response)
+    if(response == "bad"){
+        document.getElementById("bad-credentials").className = "alert alert-danger alert-dismissible";
+        setTimeout(function(){document.getElementById("bad-credentials").className = "hidden alert alert-danger alert-dismissible";}, 5000)
+    } else {
+        var username = usernameElement.val();
+        var password = passwordElement.val();
+        var srpClient = new SRP6JavascriptClientSessionSHA256();
 
-    try{
-        srpClient.step1(username, password);
-        console.log("Step 1: COMPLETED")
-    } catch(e){
-        console.log("Error: " + e);
-        window.location = window.location;
+        try {
+            srpClient.step1(username, password);
+            console.log("Step 1: COMPLETED")
+        } catch (e) {
+            console.log("Error: " + e);
+            window.location = window.location;
+        }
+
+        var credentials = null;
+        var saltAndB = JSON.parse(response);
+
+        var salt = saltAndB.salt;
+        var b = saltAndB.b;
+        try {
+            console.log("Step 2 Values")
+            console.log("Salt: " + salt)
+            console.log("B: " + b)
+            credentials = srpClient.step2(salt, b);
+            console.log("Step 2: COMPLETED")
+
+        } catch (e) {
+            console.log("Step 2 " + e);
+        }
+
+        var values = {
+            username: username,
+            M1: credentials.M1,
+            A: credentials.A
+        };
+
+        console.log("A: " + values.A)
+        console.log("M1: " + values.M1)
+
+
+        $.post("/authenticate", values, function (response) {
+            authenticateResponse(response, srpClient);
+        });
     }
-
-    var credentials = null;
-    var saltAndB = JSON.parse(response);
-
-    var salt = saltAndB.salt;
-    var b = saltAndB.b;
-    try{
-        console.log("Step 2 Values")
-        console.log("Salt: " + salt)
-        console.log("B: " + b )
-        credentials = srpClient.step2(salt, b);
-        console.log("Step 2: COMPLETED")
-
-    } catch(e){
-        console.log("Step 2 " + e);
-    }
-
-    var values = {
-        username: username,
-        M1: credentials.M1,
-        A: credentials.A
-    };
-
-    console.log("A: " + values.A)
-    console.log("M1: " + values.M1)
-
-
-    $.post("/authenticate", values, function(response){
-        authenticateResponse(response, srpClient);
-    });
 }
 
 function authenticateResponse(response, srpClient){

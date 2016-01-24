@@ -288,7 +288,7 @@
                         <div style="text-align: center">
                             <a href="/twitterlogin" role="button">Login to Twitter</a>
 
-                            <a href="/twitterAccess">My Profile</a>
+                            <%--<a href="/twitterAccess">My Profile</a>--%>
                             <br/>
                         </div>
 

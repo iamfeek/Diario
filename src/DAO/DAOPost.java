@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Created by Jy on 14-Dec-15.
  */
 public class DAOPost {
-    private static void incrementPost(String username){
+    public static void incrementPost(String username){
         Connection conn = Db.getConnection();
         String sql = "UPDATE PROFILES SET POSTS=POSTS + 1 WHERE username=?";
         try {
@@ -45,6 +45,7 @@ public class DAOPost {
             e.printStackTrace();
         }
         System.out.println("Posted! Post id returned: " + postid);
+        incrementPost(username);
         return postid;
     }
 
@@ -69,6 +70,7 @@ public class DAOPost {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        incrementPost(username);
         return -1;
     }
 

@@ -29,6 +29,7 @@ public class DAOImages {
                 imgid = rs.getInt(1);
             }
             conn.close();
+            DAOPost.incrementPost(username);
             return imgid;
         } catch (SQLException e) {
             e.printStackTrace();

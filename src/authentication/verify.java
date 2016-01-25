@@ -1,5 +1,6 @@
 package authentication;
 
+import DAO.User;
 import database.Db;
 import facebook4j.internal.org.json.JSONException;
 import facebook4j.internal.org.json.JSONObject;
@@ -61,11 +62,44 @@ public class Verify extends HttpServlet {
 
             pstmt.executeUpdate();
             System.out.println("Updated " + email + " with verified: 1");
+            System.out.println("Creating profile");
+            createProfile(email);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         deleteToken(email);
+    }
+
+    private static void createProfile(String email){
+        Connection conn = Db.getConnection();
+        String sql = "SELECT userid, username from ACCOUNTS where email_address = ?";
+
+        int id= 0;
+        String username = null;
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, email);
+            System.out.println("select query: " + pstmt.toString());
+            ResultSet rs = pstmt.executeQuery();
+
+            while(rs.next()){
+                id = Integer.parseInt(rs.getString("userid"));
+                username = rs.getString("username");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        User toCreateProfile = new User(id, username);
+        boolean created = toCreateProfile.createProfile();
+        if(created){
+            System.out.println("Profile created");
+        } else {
+            System.out.println("Profile Creation Failed.");
+        }
+
     }
 
     private static void deleteToken(String email){

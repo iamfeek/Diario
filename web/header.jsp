@@ -22,7 +22,7 @@
         </div>
         <ul class="nav navbar-nav navbar-left">
             <li class="${param.dashboard}"><a href="/dashboard">Dashboard</a></li>
-            <li class="${param.profile}"><a href="/profile">Profile</a></li>
+            <li class="${param.profile}"><a href="/view?user=${sessionScope.username}">Profile</a></li>
             <li class="${param.post}"><a href="/post.jsp">Post</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">

@@ -24,11 +24,12 @@ public class btnViewServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        int id = Integer.parseInt(request.getParameter("view"));
+        String username = request.getParameter("user");
+        System.out.println("View ID: " + username);
         FriendsBean bean = new FriendsBean();
-        Friend fr = bean.getFriend(id);
+        Friend fr = bean.getFriend(username);
         request.setAttribute("nono", fr);
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/view.jsp");
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/profile.jsp");
         rd.forward(request, response);
         //response.sendRedirect("profile.jsp");
     }

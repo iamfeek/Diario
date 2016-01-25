@@ -11,6 +11,20 @@ import java.util.ArrayList;
  * Created by Jy on 14-Dec-15.
  */
 public class DAOPost {
+    private static void incrementPost(String username){
+        Connection conn = Db.getConnection();
+        String sql = "UPDATE PROFILES SET POSTS=POSTS + 1 WHERE username=?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, username);
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public static int storeMessage(String username, String text, boolean encrypted)    {
         Connection conn = Db.getConnection();
         String sql = "INSERT INTO diario.`posts` (username, text, encrypted) VALUES (?, ?, ?);";

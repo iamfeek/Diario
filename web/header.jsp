@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <head>
     <title>Diario</title>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>

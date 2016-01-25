@@ -2,6 +2,13 @@
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<c:choose>
+    <c:when test="${sessionScope.loggedIn}">
+    </c:when>
+    <c:otherwise>
+        <% response.sendRedirect("/signin"); %>
+    </c:otherwise>
+</c:choose>
 <html>
 <jsp:include page="header.jsp">
     <jsp:param name="profile" value="active"></jsp:param>

@@ -8,33 +8,14 @@ var signUpPasswordVerifierElement = $("#password-verifier");
 var pubkeyElement = $("#pub_key");
 
 $(document).ready(function(e) {
+    $("#register-form").validator();
+    $("#username").focus();
     $('#register-form').on('submit', function(e){
         e.preventDefault();
         registerNewKeyPair();
         disableSubmitBtn();
         postSaltAndVerifier();
     });
-//    disableSubmitBtn();
-//    registerBtn.prop("value", "Logging in...");
-//    registerBtn.on('click', $.proxy(function(e) {
-//        e.preventDefault();
-//        alert("CLICKED")
-//        //disableSubmitBtn();
-//        //postSaltAndVerifier();
-//    }, this));
-//
-//    signUpEmailElement.on('keyup', $.proxy(function(event) {
-//        // see recommendation in the thinbus docs
-//        random16byteHex.advance(Math.floor(event.keyCode / 4));
-//    }, this));
-//
-//    signUpPasswordElement.on('keyup', $.proxy(function(event) {
-//            // only enable the button if the user has entered some password
-//            //ternary operator. test ? trueExpression : falseExpression
-//            $(event.currentTarget).val().length ? enableSubmitBtn() : disableSubmitBtn();
-//            // see recommendation in the thinbus docs
-//            random16byteHex.advance(Math.floor(event.keyCode / 4));
-//        }, this));
 });
 
 var disableSubmitBtn = function () {
@@ -73,7 +54,21 @@ var postSaltAndVerifier = function(){
 
     $.post("/register", postValues, function(response){
         if(response === "done"){
-            window.location.replace("/checkInstagram")
+            document.getElementById("create-success").className = "alert alert-success";
+            setTimeout(function(){
+                window.location.replace("/checkInstagram")
+            },3000)
+
+        } else {
+            document.getElementById("create-failed").className = "alert alert-danger";
+            $("#usernameFormGroup").addClass("has-error");
+            $("#emailFormGroup").addClass("has-error");
+            $("#username").val("");
+            $("#email").val("");
+            $("#password").val("");
+            $("#cfmPassword").val("");
+            $("#username").focus();
+            enableSubmitBtn();
         }
     })
 }

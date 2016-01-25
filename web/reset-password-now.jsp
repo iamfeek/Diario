@@ -5,7 +5,17 @@
   Time: 12:31 AM
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:choose>
+    <c:when test="${sessionScope.loggedIn}">
+        <% response.sendRedirect("/checkInstagram"); %>
+    </c:when>
+    <c:otherwise>
+
+    </c:otherwise>
+</c:choose>
 <html>
 <head>
     <title>Diario</title>
@@ -32,12 +42,16 @@
 <div class="container" style="margin-top: 60px;">
     <div class="row">
         <div class="page-header">
-            <h1>Just A Few More Steps<h1>
+            <h1>Just A Few More Steps</h1>
         </div>
         <form id="reset-password-now-form" role="form" data-toggle="validator" id="reset-form" method="post">
-            <div id="email-sent" class="hidden alert alert-info" role="alert">
+            <div id="update-success" class="hidden alert alert-success" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <strong>Success!</strong> We sent you an email. Please check and follow the instructions there.
+                <strong>Success!</strong> We have resetted your account. Please <a href="/signin">log in</a>.
+            </div>
+            <div id="update-failed" class="hidden alert alert-success" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>ERROR!</strong> Your session has ended. Please try again <a href="/reset-password">here</a>.
             </div>
             <div class="form-group has-feedback">
                 <label for="username">Username</label>

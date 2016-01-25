@@ -44,8 +44,7 @@ var sendChallenge = function(){
 
 function challengeResponse(response){
     //var saltAndB = JSON.parse(response.saltAndB);
-    alert(response)
-    if(response == "bad"){
+    if(response.status == "fail"){
         document.getElementById("bad-credentials").className = "alert alert-danger alert-dismissible";
         setTimeout(function(){document.getElementById("bad-credentials").className = "hidden alert alert-danger alert-dismissible";}, 5000)
     } else {
@@ -95,7 +94,7 @@ function challengeResponse(response){
 
 function authenticateResponse(response, srpClient){
     console.log(response)
-    if(response == "bad"){
+    if(response.status == "fail"){
         document.getElementById("bad-credentials").className = "alert alert-danger alert-dismissible";
         setTimeout(function(){document.getElementById("bad-credentials").className = "hidden alert alert-danger alert-dismissible";}, 5000)
     } else {

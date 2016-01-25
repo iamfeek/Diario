@@ -43,7 +43,9 @@
             <% response.sendRedirect("/dashboard");%>
         </c:when>
         <c:otherwise>
-            Stuff all your HTML here.
+            <div class="row" style="margin-top: 60px;">
+                WELCOME TO DIARIO.
+            </div>
         </c:otherwise>
     </c:choose>
 </div>

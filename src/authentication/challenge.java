@@ -9,6 +9,7 @@ import com.nimbusds.srp6.SRP6CryptoParams;
 import com.nimbusds.srp6.SRP6Exception;
 import com.nimbusds.srp6.SRP6ServerSession;
 import database.Db;
+import org.json.simple.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -62,11 +63,12 @@ public class Challenge extends HttpServlet {
                 saltAndB.put("salt", salt);
                 saltAndB.put("b", srp.getPublicServerValue());
                 storeB(srp.getUserID(), srp.getPublicServerValue());
-
-
             } catch (Exception e) {
                 e.printStackTrace();
-                response.getWriter().write("bad");
+                System.out.println("Step 1: failed");
+                JSONObject fail = new JSONObject();
+                fail.put("status", "fail");
+                response.getWriter().write(fail.toJSONString());
             }
             String saltAndBJson = gson.toJson(saltAndB);
 
@@ -76,8 +78,11 @@ public class Challenge extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("srp", srp);
         } else {
-            System.out.println("Sending out a bad response");
-            response.getWriter().write("{status: bad}");
+            System.out.println("No account error");
+            JSONObject fail = new JSONObject();
+            fail.put("status", "fail");
+            System.out.println(fail.toString());
+            response.getWriter().write(fail.toString());
         }
     }
 

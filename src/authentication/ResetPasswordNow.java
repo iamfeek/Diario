@@ -38,9 +38,12 @@ public class ResetPasswordNow extends HttpServlet {
 
     private static boolean doReset(String username, int key, String password, String salt, String verifier) throws SQLException {
         boolean keyIsTrue = getKey(username, key);
+        System.out.println(keyIsTrue);
         if(keyIsTrue){
+            Connection conn = Db.getConnection();
             String sql = "UPDATE accounts set salt = ?, verifier = ? where username = ?";
-            PreparedStatement pstmt = Db.getConnection().prepareStatement(sql);
+            System.out.println(sql);
+            PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, salt);
             pstmt.setString(2, verifier);
             pstmt.setString(3, username);
@@ -53,10 +56,11 @@ public class ResetPasswordNow extends HttpServlet {
 
     private static boolean getKey(String username, int key) throws SQLException {
         Connection conn = Db.getConnection();
-        String sql = "select rand from reset where username = ?";
+        String sql = "select rand from reset where username = '"+username+"';";
+
         PreparedStatement pstmt = null;
         pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, username);
+        System.out.println(pstmt);
         ResultSet rs = pstmt.executeQuery();
 
         int rand = 0;
@@ -64,6 +68,8 @@ public class ResetPasswordNow extends HttpServlet {
             rand = rs.getInt("rand");
         }
 
+        System.out.println("KEY: " + key);
+        System.out.println("RAND: " + rand);
         if(key == rand)
             return true;
         else return false;

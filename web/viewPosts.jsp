@@ -1,4 +1,6 @@
-<jsp:include page="header.jsp"></jsp:include>
+<jsp:include page="header.jsp">
+    <jsp:param name="post" value="active"></jsp:param>
+</jsp:include>
     <script type="text/javascript" src="js/security/rsa-bundle.js"></script>
     <script type="text/javascript" src="js/security/key-handler.js"></script>
     <script type="text/javascript" src="js/security/aes-handler.js"></script>
@@ -6,9 +8,7 @@
     <script type="text/javascript" src="js/security/mode-ecb-min.js"></script>
 <div style="padding: 30px; margin-left: 100px; margin-top: 50px">
     <h1 style="font-size: 30px;">Your own posts</h1>
-    <jsp:include page="getOwnPosts.jsp">
-        <jsp:param name="post" value="active"></jsp:param>
-    </jsp:include>
+    <jsp:include page="getOwnPosts.jsp"></jsp:include>
     <script type="text/javascript">
         //decrypt all RSA posts
         var rsaPosts = document.getElementsByClassName("RSA");

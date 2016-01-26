@@ -40,17 +40,21 @@ public class DAOImages {
         Connection conn = Db.getConnection();
         String query = "SELECT username FROM diario.`images` where imgid = '" + imgid + "';";
         PreparedStatement preparedStmt = null;
+        String retrieved = null;
         try {
             preparedStmt = conn.prepareStatement(query);
             ResultSet rs = preparedStmt.executeQuery();
             rs.next();
-            String retrieved = rs.getString("username");
+            retrieved = rs.getString("username");
             conn.close();
-            if (retrieved.equals(username))
-                return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
+        if (retrieved.equals(username))
+            return true;
+        ArrayList<String> friends = Friends.getFriendsList(username);
+        if (friends.contains(retrieved))
+            return true;
         return false;
     }
 

@@ -5,7 +5,8 @@ import database.Db;
 import post.Post;
 
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.Date;
 
 /**
  * Created by Jy on 14-Dec-15.
@@ -102,7 +103,7 @@ public class DAOPost {
             preparedStmt = conn.prepareStatement(query);
             ResultSet rs = preparedStmt.executeQuery();
             while (rs.next())   {
-                posts.add(new Post(rs.getInt("postid"), rs.getString("username"), rs.getString("text"), rs.getBoolean("encrypted"), rs.getBoolean("shared")));
+                posts.add(new Post(rs.getInt("postid"), rs.getString("username"), rs.getString("text"), rs.getBoolean("encrypted"), rs.getBoolean("shared"), rs.getDate("timestamp")));
             }
             conn.close();
         } catch (SQLException e) {
@@ -121,12 +122,30 @@ public class DAOPost {
             preparedStmt = conn.prepareStatement(query);
             ResultSet rs = preparedStmt.executeQuery();
             while (rs.next())   {
-                posts.add(new Post(rs.getInt("postid"), rs.getString("username"), rs.getString("text"), rs.getBoolean("encrypted"), rs.getBoolean("shared")));
+                posts.add(new Post(rs.getInt("postid"), rs.getString("username"), rs.getString("text"), rs.getBoolean("encrypted"), rs.getBoolean("shared"), rs.getDate("timestamp")));
             }
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return posts;
+    }
+
+    public static java.util.Date getPostDate(int postid)    {
+        Connection conn = Db.getConnection();
+        String query = "SELECT timestamp FROM diario.posts WHERE postid='" + postid + "'";
+
+        PreparedStatement preparedStmt = null;
+        Date timestamp = null;
+        try {
+            preparedStmt = conn.prepareStatement(query);
+            ResultSet rs = preparedStmt.executeQuery();
+            rs.next();
+            timestamp = rs.getDate("timestamp");
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return timestamp;
     }
 }

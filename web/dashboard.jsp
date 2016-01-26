@@ -64,6 +64,9 @@
                 <br/>
                 <input type="button" class="btn btn-default navbar-btn" onclick="location.href='/viewFriendsPosts.jsp';"
                        value="View Friends' Posts"/>
+                <br/>
+                <input type="button" class="btn btn-default navbar-btn" onclick="location.href='/viewFriendsImages.jsp';"
+                       value="View Friends Images"/>
             </div>
 
             <%--Instagram--%>

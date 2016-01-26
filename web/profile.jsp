@@ -15,7 +15,41 @@
         ${nono.username} has created ${nono.posts} posts.<br>
         ${nono.username} made ${nono.friends} friends.
     </p>
-    <input type="button" class="btn btn-default navbar-btn" onclick="alert(localStorage.getItem('prvKey'))"
+    <script type="text/javascript">
+        function saveTextAsFile()
+        {
+            var textToWrite = localStorage.getItem("prvKey");
+            var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
+            var fileNameToSaveAs = "key.txt"
+
+            var downloadLink = document.createElement("a");
+            downloadLink.download = fileNameToSaveAs;
+            downloadLink.innerHTML = "Download File";
+            if (window.webkitURL != null)
+            {
+                // Chrome allows the link to be clicked
+                // without actually adding it to the DOM.
+                downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+            }
+            else
+            {
+                // Firefox requires the link to be added to the DOM
+                // before it can be clicked.
+                downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+                downloadLink.onclick = destroyClickedElement;
+                downloadLink.style.display = "none";
+                document.body.appendChild(downloadLink);
+            }
+
+            downloadLink.click();
+        }
+
+        function destroyClickedElement(event)
+        {
+            document.body.removeChild(event.target);
+        }
+    </script>
+    <input type="button" class="btn btn-default navbar-btn" onclick="saveTextAsFile()"
            value="Export Key"/>
     <h3><span class="h3 text">Find friends</span></h3>
     <form id="search">

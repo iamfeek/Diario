@@ -1,5 +1,7 @@
 package post;
 
+import java.util.Date;
+
 /**
  * Created by Jy on 17-Jan-16.
  */
@@ -9,13 +11,15 @@ public class Post {
     String text;
     Boolean encrypted;
     Boolean shared;
+    Date date;
 
-    public Post(int postid, String username, String text, Boolean encrypted, Boolean shared) {
+    public Post(int postid, String username, String text, Boolean encrypted, Boolean shared, Date date) {
         this.postid = postid;
         this.username = username;
         this.text = text;
         this.encrypted = encrypted;
         this.shared = shared;
+        this.date = date;
     }
 
     public Boolean getShared() {
@@ -36,5 +40,9 @@ public class Post {
 
     public Boolean getEncrypted() {
         return encrypted;
+    }
+
+    public Date getDate() {
+        return date;
     }
 }

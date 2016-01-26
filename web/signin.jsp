@@ -6,6 +6,15 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:choose>
+    <c:when test="${sessionScope.loggedIn}">
+        <% response.sendRedirect("/checkInstagram"); %>
+    </c:when>
+    <c:otherwise>
+
+    </c:otherwise>
+</c:choose>
 <html>
 <head>
     <title>Diario</title>
@@ -35,6 +44,10 @@
             <h1>Sign In </h1>
         </div>
         <form class="cd-form" id="login-form" method="post">
+            <div id="not-verified" class="hidden alert alert-danger alert-info" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>Oh Drat!</strong> You have not verified your account. Please check your email.</br> Try again after you have verified.
+            </div>
             <div id="bad-credentials" class="hidden alert alert-danger alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <strong>Oh Snap!</strong> Username or password is wrong.

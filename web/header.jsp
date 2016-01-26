@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <head>
     <title>Diario</title>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -20,7 +22,7 @@
         </div>
         <ul class="nav navbar-nav navbar-left">
             <li class="${param.dashboard}"><a href="/dashboard">Dashboard</a></li>
-            <li class="${param.profile}"><a href="/profile">Profile</a></li>
+            <li class="${param.profile}"><a href="/view?user=${sessionScope.username}">Profile</a></li>
             <li class="${param.post}"><a href="/post.jsp">Post</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">

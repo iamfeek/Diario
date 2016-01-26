@@ -12,6 +12,20 @@ import java.util.Date;
  * Created by Jy on 14-Dec-15.
  */
 public class DAOPost {
+    public static void incrementPost(String username){
+        Connection conn = Db.getConnection();
+        String sql = "UPDATE PROFILES SET POSTS=POSTS + 1 WHERE username=?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, username);
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public static int storeMessage(String username, String text, boolean encrypted)    {
         Connection conn = Db.getConnection();
         String sql = "INSERT INTO diario.`posts` (username, text, encrypted) VALUES (?, ?, ?);";
@@ -32,6 +46,7 @@ public class DAOPost {
             e.printStackTrace();
         }
         System.out.println("Posted! Post id returned: " + postid);
+        incrementPost(username);
         return postid;
     }
 
@@ -56,6 +71,7 @@ public class DAOPost {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        incrementPost(username);
         return -1;
     }
 

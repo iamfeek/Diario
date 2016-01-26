@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -85,8 +86,10 @@ public class ResetPassword extends HttpServlet {
                 message.addRecipient(Message.RecipientType.TO, toAddress[i]);
             }
             message.setSubject("Diario - Reset your password");
-            int rand = (int) (Math.random() * (99999999 - 11111111) + 11111111);
-            message.setText("Please enter this digits: " + rand + ". Or you can follow this link. https://localhost:8443/reset-password-now?username=iamfeek&email="+email+"&key=" + rand);
+            SessionIdentifierGenerator sig = new SessionIdentifierGenerator();
+
+            String rand = sig.nextSessionId();
+            message.setText("Please enter this digits: " + rand + ". Or you can follow this link. https://localhost:8443/reset-password-now?username="+username+"&email="+email+"&key=" + rand);
             Transport transport = session.getTransport("smtp");
             transport.connect(host, from, pass);
             transport.sendMessage(message, message.getAllRecipients());
@@ -98,14 +101,14 @@ public class ResetPassword extends HttpServlet {
         return false;
     }
 
-    public static void saveToDb(String username, int rand) throws SQLException {
+    public static void saveToDb(String username, String rand) throws SQLException {
         if (removeFromDb(username)) {
             Connection conn = Db.getConnection();
             //generating the sqls and stuff before executeUpdate
             String sql = "INSERT INTO reset (username, rand) VALUES (?, ?);";
             PreparedStatement preparedStmt = conn.prepareStatement(sql);
             preparedStmt.setString(1, username);
-            preparedStmt.setInt(2, rand);
+            preparedStmt.setString(2, rand);
 
             int status = preparedStmt.executeUpdate();
             conn.close();
@@ -114,7 +117,6 @@ public class ResetPassword extends HttpServlet {
                 System.out.println("Saved Rand to DB");
             } else {
                 System.out.println("SAVE FAILED");
-
             }
         }
     }

@@ -13,7 +13,6 @@ $( document ).ready(function() {
 });
 
 function doReset(){
-    alert("Do Reset")
     var srpClient = new SRP6JavascriptClientSessionSHA256();
     var password = $("#password").val();
     var username = $("#username").val();
@@ -35,9 +34,16 @@ function doReset(){
     console.log(postValues)
 
     $.post("/reset-now", postValues, function(response){
-        if(response === "true"){
-            document.getElementById("email-sent").className = "alert alert-info";
-            //document.getElementById("keyDiv").className = "form-group";
+        if(response === "done"){
+            document.getElementById("update-success").className = "alert alert-success";
+            setTimeout(function(){
+                window.location.replace("/signin");
+            }, 5000)
+        } else{
+            document.getElementById("update-failed").className = "alert alert-danger";
+            setTimeout(function(){
+                window.location.replace("/signin");
+            }, 8000)
         }
     });
 

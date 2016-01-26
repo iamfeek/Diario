@@ -9,6 +9,7 @@ import com.nimbusds.srp6.SRP6CryptoParams;
 import com.nimbusds.srp6.SRP6Exception;
 import com.nimbusds.srp6.SRP6ServerSession;
 import database.Db;
+import org.json.simple.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -27,7 +28,7 @@ import java.util.Map;
  */
 public class Challenge extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("|========> " + request.getParameter("username")+"'s Request<========|");
+        System.out.println("|========> " + request.getParameter("username") + "'s Request<========|");
         try {
             handler(request, response);
         } catch (SQLException e) {
@@ -39,6 +40,7 @@ public class Challenge extends HttpServlet {
         response.setContentType("application/json");
         String username = request.getParameter("username");
 
+        System.out.println("Client Verified");
         Map<String, String> saltAndB = new HashMap<String, String>();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -52,38 +54,74 @@ public class Challenge extends HttpServlet {
         //getting salt and verifier in hashmap from DB
         HashMap<String, String> saltAndVerifier = challenger.getSaltAndVerifier();
         System.out.println("SAV: " + saltAndVerifier);
-        if(saltAndVerifier != null) {
-            String salt = saltAndVerifier.get("salt");
-            String verifier = saltAndVerifier.get("verifier");
+        if (saltAndVerifier != null) {
+            if (checkVerified(username)) {
+                String salt = saltAndVerifier.get("salt");
+                String verifier = saltAndVerifier.get("verifier");
 
-            try {
-                srp.step1(username, salt, verifier);
+                try {
+                    srp.step1(username, salt, verifier);
 
-                saltAndB.put("salt", salt);
-                saltAndB.put("b", srp.getPublicServerValue());
-                storeB(srp.getUserID(), srp.getPublicServerValue());
+                    saltAndB.put("salt", salt);
+                    saltAndB.put("b", srp.getPublicServerValue());
+                    storeB(srp.getUserID(), srp.getPublicServerValue());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.out.println("Step 1: failed");
+                    JSONObject fail = new JSONObject();
+                    fail.put("status", "bad");
+                    response.getWriter().write(fail.toJSONString());
+                }
+                String saltAndBJson = gson.toJson(saltAndB);
 
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                response.getWriter().write("bad");
+                System.out.println("Salt And B Reply");
+                response.getWriter().write(gson.toJson(saltAndBJson));
+                System.out.println("Response to Client: " + saltAndBJson.toString());
+                HttpSession session = request.getSession();
+                session.setAttribute("srp", srp);
+            } else {
+                System.out.println("Client NOT verified");
+                JSONObject notVerified = new JSONObject();
+                notVerified.put("status", "not verified");
+                response.getWriter().write(notVerified.toString());
             }
-            String saltAndBJson = gson.toJson(saltAndB);
-
-            System.out.println("Salt And B Reply");
-            response.getWriter().write(gson.toJson(saltAndBJson));
-            System.out.println("Response to Client: " + saltAndBJson.toString());
-            HttpSession session = request.getSession();
-            session.setAttribute("srp", srp);
         } else {
-            System.out.println("Sending out a bad response");
-            response.getWriter().write("{status: bad}");
+            System.out.println("No account error");
+            JSONObject fail = new JSONObject();
+            fail.put("status", "bad");
+            response.getWriter().write(fail.toString());
         }
     }
 
-    private static void storeB(String username, String b){
-        if(!bIsThere(username)){
-            try{
+
+    private static boolean checkVerified(String username) {
+        Connection conn = Db.getConnection();
+        String sql = "SELECT verified from accounts where username = ?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, username);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            int verified = 0;
+            while (rs.next()) {
+                verified = rs.getInt("verified");
+            }
+
+            System.out.println("Current Verified: " + verified);
+            if (verified == 1)
+                return true;
+            else return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    private static void storeB(String username, String b) {
+        if (!bIsThere(username)) {
+            try {
                 Connection conn = Db.getConnection();
 
                 //generating the sqls and stuff before executeUpdate
@@ -93,24 +131,24 @@ public class Challenge extends HttpServlet {
                 preparedStmt.setString(2, b);
 
                 int status = preparedStmt.executeUpdate();
-                if(status == 1)
+                if (status == 1)
                     System.out.println("Saved B");
                 else
                     System.out.println("NOT Saved B");
                 conn.close();
-            } catch(Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else{
+        } else {
             removeB(username);
             storeB(username, b);
         }
 
     }
 
-    private static boolean bIsThere(String username){
+    private static boolean bIsThere(String username) {
         String retrievedUsername = null;
-        try{
+        try {
             Connection conn = Db.getConnection();
             String query = "SELECT username FROM b_temp where username = '" + username + "';";
 
@@ -120,18 +158,18 @@ public class Challenge extends HttpServlet {
             while (rs.next()) {
                 retrievedUsername = rs.getString("username");
             }
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        if(retrievedUsername != null)
+        if (retrievedUsername != null)
             return true;
         else
             return false;
     }
 
-    private static void removeB(String username){
-        try{
+    private static void removeB(String username) {
+        try {
             Connection conn = Db.getConnection();
             String query = "delete FROM b_temp where username = ?;";
 
@@ -140,7 +178,7 @@ public class Challenge extends HttpServlet {
             pstmt.setString(1, username);
             pstmt.executeUpdate();
             System.out.println("B has been deleted.");
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -12,8 +12,13 @@ import java.util.HashMap;
 
 public class User {
     private String username, email, salt, verifier;
+    private int id;
 
     //GETTERS & SETTERS
+
+    public int getId(){return id;}
+
+
     public String getUsername() {
         return username;
     }
@@ -52,9 +57,15 @@ public class User {
         this.username = username;
         this.email = getEmailFromUsername(username);
     }
+
     public User(String username, String email){
         this.username = username;
         this.email = email;
+    }
+
+    public User(int id, String username){
+        this.id = id;
+        this.username = username;
     }
 
     public User(String username, String email, String salt, String verifier){
@@ -84,6 +95,25 @@ public class User {
         }
 
         return retrievedEmail;
+    }
+
+    public boolean createProfile(){
+        int id = this.getId();
+        String username = this.getUsername();
+
+        try{
+            Connection conn = Db.getConnection();
+            String sql = "INSERT into PROFILES(id, username) VALUES(?,?);";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            pstmt.setString(2, username);
+            System.out.println("Create sql: " + pstmt.toString());
+            pstmt.executeUpdate();
+            return true;
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public boolean register() {

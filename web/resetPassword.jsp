@@ -6,6 +6,15 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:choose>
+    <c:when test="${sessionScope.loggedIn}">
+        <% response.sendRedirect("/checkInstagram"); %>
+    </c:when>
+    <c:otherwise>
+
+    </c:otherwise>
+</c:choose>
 <html>
 <head>
     <title>Diario</title>
@@ -37,7 +46,7 @@
         <form class="cd-form" id="reset-form" method="post">
             <div id="email-sent" class="hidden alert alert-info" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <strong>Success!</strong> If the email you provided is correct, you will receive an email. Please follow the instructions.
+                If the email you provided is correct, you will receive an email. Please follow the instructions.
             </div>
             <div class="form-group has-feedback">
                 <label for="username">Username</label>

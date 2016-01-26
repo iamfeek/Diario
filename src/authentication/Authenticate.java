@@ -55,7 +55,7 @@ public class Authenticate extends HttpServlet {
                 request.getSession().setAttribute("username", request.getParameter("username"));
             } catch (Exception e) {
                 //authentication failed
-                System.out.println("AUTH FAILED");
+                System.out.println("Bad credentials");
                 response.getWriter().write("bad");
             }
         } else{

@@ -229,16 +229,6 @@
         <servlet-name>jythonTestServlet</servlet-name>
         <url-pattern>/testJ</url-pattern>
     </servlet-mapping>
-
-    <servlet>
-        <servlet-name>AccessServlet</servlet-name>
-        <servlet-class>twitter.AccessServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>AccessServlet</servlet-name>
-        <url-pattern>/twitterAccess</url-pattern>
-    </servlet-mapping>
     
     <servlet>
         <servlet-name>UserTimelineServlet</servlet-name>
@@ -299,6 +289,15 @@
     <servlet-mapping>
         <servlet-name>signinpage</servlet-name>
         <url-pattern>/signin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>mood</servlet-name>
+        <jsp-file>/mood.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>mood</servlet-name>
+        <url-pattern>/mood</url-pattern>
     </servlet-mapping>
 
     <servlet>

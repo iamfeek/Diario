@@ -45,13 +45,15 @@ public class InstagramDAO {
             preparedStmt = conn.prepareStatement(query);
             ResultSet rs = preparedStmt.executeQuery();
 
-            rs.next();
-            Token token = new Token(rs.getString("token"), rs.getString("secret"));
+            if(rs.next()) {
+                Token token = new Token(rs.getString("token"), rs.getString("secret"));
+                System.out.println("Token available.");
+                conn.close();
 
-            System.out.println(token);
+                return token;
+            }
+
             conn.close();
-
-            return token;
 
         } catch (SQLException e) {
             e.printStackTrace();

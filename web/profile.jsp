@@ -14,6 +14,7 @@
     <jsp:param name="profile" value="active"></jsp:param>
 </jsp:include>
 <div class="container" style="margin-top: 60px;">
+<<<<<<< Updated upstream
 
     <h3> ${nono.username} </h3>
     <p> Location: ${nono.location} <br>
@@ -68,6 +69,10 @@
     <div class="container ">
 
         <div class="row">
+=======
+    <div class="row">
+        <div class="row col-md-6">
+>>>>>>> Stashed changes
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <div class="well well-sm">
                     <div class="row">
@@ -89,6 +94,11 @@
                 </div>
             </div>
         </div>
+
+        <div class="row col-md-6">
+            <jsp:include page="viewPosts.jsp"></jsp:include>
+        </div>
+    </div>
         <input type="button" class="btn btn-default navbar-btn" onclick="alert(localStorage.getItem('prvKey'))"
                value="Export Key"/>
         <%--<h3><span class="h3 text">Find friends</span></h3>--%>

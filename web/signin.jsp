@@ -66,11 +66,11 @@
                     <input type="password" class="form-control" id="password" placeholder="Password">
                 </div>
             </div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox">Remember Me
-                </label>
-            </div>
+            <%--<div class="checkbox">--%>
+                <%--<label>--%>
+                    <%--<input type="checkbox">Remember Me--%>
+                <%--</label>--%>
+            <%--</div>--%>
             <button type="submit" class="btn btn-default" id="loginBtn">Log Me In</button><br><br>
             <a href="/reset-password"> Forgot Password</a><br>
             <a href="/signup"> Create An Account</a>

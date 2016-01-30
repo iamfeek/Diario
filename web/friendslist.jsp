@@ -3,6 +3,14 @@
 <%@ page import="friends.FriendsBean" %>
 <%@ page import="DAO.Friend" %>
 <%@ page import="java.util.List" %>
+<c:choose>
+    <c:when test="${sessionScope.loggedIn}">
+        <% response.sendRedirect("/checkInstagram"); %>
+    </c:when>
+    <c:otherwise>
+
+    </c:otherwise>
+</c:choose>
 
 <html>
 <head>

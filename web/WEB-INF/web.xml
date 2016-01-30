@@ -16,6 +16,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>Verify</servlet-name>
+        <servlet-class>authentication.Verify</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Verify</servlet-name>
+        <url-pattern>/verify</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>Challenge</servlet-name>
         <servlet-class>authentication.Challenge</servlet-class>
     </servlet>

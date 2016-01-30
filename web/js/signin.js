@@ -5,6 +5,7 @@ var passwordElement = $("#password");
 
 $(document).ready(function() {
     disableSubmitBtn();
+    $("#username").focus();
     loginBtn.on('click', $.proxy(function(e) {
         e.preventDefault();
         sendChallenge();
@@ -44,10 +45,15 @@ var sendChallenge = function(){
 
 function challengeResponse(response){
     //var saltAndB = JSON.parse(response.saltAndB);
-    if(response.status == "fail"){
+    var status = response.status;
+    console.log("Challenge Status: " + status);
+    if(status == "bad"){
         document.getElementById("bad-credentials").className = "alert alert-danger alert-dismissible";
-        setTimeout(function(){document.getElementById("bad-credentials").className = "hidden alert alert-danger alert-dismissible";}, 5000)
-    } else {
+        $("#password").val("");
+        $("#username").focus();
+    } else if(status == "not verified"){
+        document.getElementById("not-verified").className = "alert alert-info alert-dismissible";
+    } else{
         var username = usernameElement.val();
         var password = passwordElement.val();
         var srpClient = new SRP6JavascriptClientSessionSHA256();
@@ -93,10 +99,12 @@ function challengeResponse(response){
 }
 
 function authenticateResponse(response, srpClient){
-    console.log(response)
-    if(response.status == "fail"){
+    console.log("Authentication status: "+ response)
+    if(response == "bad"){
         document.getElementById("bad-credentials").className = "alert alert-danger alert-dismissible";
-        setTimeout(function(){document.getElementById("bad-credentials").className = "hidden alert alert-danger alert-dismissible";}, 5000)
+        $("#password").val("");
+        $("#username").focus();
+
     } else {
         window.location.replace("/checkInstagram")
     }

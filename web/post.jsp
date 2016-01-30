@@ -1,6 +1,15 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:choose>
+    <c:when test="${sessionScope.loggedIn}">
+    </c:when>
+    <c:otherwise>
+        <% response.sendRedirect("/signin"); %>
+    </c:otherwise>
+</c:choose>
 <jsp:include page="header.jsp">
     <jsp:param name="post" value="active"></jsp:param>
 </jsp:include>
+
 <script type="text/javascript" src="js/secu_slider.js"></script>
 <script type="text/javascript" src="js/security/key-handler.js"></script>
 <script type="text/javascript" src="js/security/rsa-bundle.js"></script>

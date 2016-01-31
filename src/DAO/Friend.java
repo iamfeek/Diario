@@ -1,18 +1,20 @@
 package DAO;
 
+
 /**
- * Created by lenovo on 1/3/2016.
+ * Created by NH
  */
 public class Friend {
 
     private int id;
-    private String fUNAME;
+    private String f_username;
     private String username;
     private String MF;
     private String posts;
     private String friends;
     private String search;
     private String location;
+
 
 
     public String getLocation() {
@@ -31,13 +33,14 @@ public class Friend {
         this.id = id;
     }
 
-    public String getfUNAME() {
-        return fUNAME;
+    public String getF_username() {
+        return f_username;
     }
 
-    public void setfUNAME(String fUNAME) {
-        this.fUNAME = fUNAME;
+    public void setF_username(String f_username) {
+        this.f_username = f_username;
     }
+
 
     public String getUsername() {
         return username;

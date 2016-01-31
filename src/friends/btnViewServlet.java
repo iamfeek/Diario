@@ -25,7 +25,7 @@ public class btnViewServlet extends HttpServlet {
         FriendsBean bean = new FriendsBean();
         Friend fr = bean.getFriend(id);
         request.setAttribute("nono", fr);
-        request.getRequestDispatcher("friendslist.jsp").forward(request, response);
+        request.getRequestDispatcher("view.jsp").forward(request, response);
        // response.sendRedirect("profile.jsp"); set (if else)
 
     }

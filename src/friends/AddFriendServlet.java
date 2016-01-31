@@ -13,6 +13,7 @@ import java.io.IOException;
  * Created by lenovo on 1/7/2016.
 */
 
+@WebServlet(urlPatterns = {"/addFriend"})
 public class AddFriendServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -24,7 +25,7 @@ public class AddFriendServlet extends HttpServlet {
         Friend f = new Friend();
         f.setId(Integer.parseInt(request.getParameter("id")));
 
-        f.setfUNAME(request.getParameter("fUNAME"));
+        f.setF_username(request.getParameter("fUNAME"));
         f.setLocation(request.getParameter("location"));
         f.setMF(request.getParameter("MF"));
         FriendsBean fb = new FriendsBean();

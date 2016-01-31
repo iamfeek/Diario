@@ -1,6 +1,9 @@
 package diary;
 
+import database.Db;
+
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +14,7 @@ import java.sql.*;
 /**
  * Created by lenovo on 12/6/2015.
  */
+@WebServlet(urlPatterns = {"/pageServlet"})
 
 public class pageServlet extends HttpServlet {
 
@@ -19,16 +23,13 @@ public class pageServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         PrintWriter pw =response.getWriter();
-        String connectionURL = "jdbc:mysql://localhost:3306/diario";
-        Connection connection;
+        Connection connection = Db.getConnection();
 
         //Post
         try {
             String Title = request.getParameter("title");
             String Content = request.getParameter("content");
 
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(connectionURL, "root", "root");
             PreparedStatement ps = connection.prepareStatement("INSERT INTO pages (title, content, date) VALUES (?,?, DATE_FORMAT(CURDATE(),'%W, %d %M %Y'))");
             ps.setString(1, Title);
             ps.setString(2, Content);

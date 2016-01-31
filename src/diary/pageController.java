@@ -1,6 +1,7 @@
 package diary;
 
 import DAO.pages;
+import database.Db;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,13 +15,10 @@ public class pageController {
 
     public List<pages> getPages() throws SQLException, ClassNotFoundException{
         List<pages> list = new ArrayList<pages>();
-        Connection con = null;
+        Connection con = Db.getConnection();
         Statement stmt = null;
-        String connectionURL = "jdbc:mysql://localhost:3306/diario";
 
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection(connectionURL, "root", "root");
             stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT date, title, content FROM pages;");
             while (rs.next()) {

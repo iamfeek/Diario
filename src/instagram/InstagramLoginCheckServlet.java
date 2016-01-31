@@ -33,6 +33,7 @@ public class InstagramLoginCheckServlet extends HttpServlet {
             Instagram instagram = new Instagram(token);
 
             request.getSession().setAttribute("instagram", instagram);
+            request.getSession().setAttribute("instagramUserInfo", instagram.getCurrentUserInfo().getData());
 
             response.sendRedirect("/instagramUserTimeline");
 

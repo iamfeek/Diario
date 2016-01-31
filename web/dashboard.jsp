@@ -64,8 +64,11 @@
                 <input type="button" class="btn btn-default navbar-btn" onclick="location.href='/viewFriendsPosts.jsp';"
                        value="View Friends' Posts"/>
                 <br/>
-                <input type="button" class="btn btn-default navbar-btn" onclick="location.href='/viewFriendsImages.jsp';"
+                <input type="button" class="btn btn-default navbar-btn"
+                       onclick="location.href='/viewFriendsImages.jsp';"
                        value="View Friends Images"/>
+                <br/>
+                <a href="/chart">Chart</a>
             </div>
 
             <%--Instagram--%>
@@ -95,11 +98,11 @@
                             <li role="presentation" class="${sessionScope.InstagramUserTimelineActive}"><a
                                     href="/instagramUserTimeline">My
                                 Profile</a></li>
-                            <%--<li role="presentation" class="${sessionScope.InstagramHomeTimelineActive}"><a
-                                    href="/instagramFeed">Timeline</a></li>
+                                <%--<li role="presentation" class="${sessionScope.InstagramHomeTimelineActive}"><a
+                                        href="/instagramFeed">Timeline</a></li>
 
-                            <li role="presentation" class="${sessionScope.InstagramSearch}"><a
-                                    href="/instagramSearch">Search</a></li>--%>
+                                <li role="presentation" class="${sessionScope.InstagramSearch}"><a
+                                        href="/instagramSearch">Search</a></li>--%>
 
                         </ul>
 
@@ -230,37 +233,50 @@
 
                             <c:when test="${sessionScope.homeTimelineActive == 'active'}">
                                 <c:forEach var="status" items="${twitterTimelineList}">
-                                    <div class="container-fluid">
-                                        <img src="${status.getUser().getProfileImageURL()}" style="align: left"/>
-                                        <b><c:out value="${status.getUser().getName()}"/></b><br/>
-                                        <c:out value="${status.getText()}"/>
+                                    <div class="media">
+                                        <div class="media-left media-middle">
+                                            <img src="${status.getUser().getProfileImageURL()}" class="media-object"/>
 
-                                        <p style="text-align: center">
-                                            <span class="glyphicon glyphicon-heart"></span>
-                                            <c:out value="${status.getFavoriteCount()}"/>
-                                            <span class="glyphicon glyphicon-retweet"></span>
-                                            <c:out value="${status.getRetweetCount()}"/>
-                                        </p>
 
+                                            </div>
+                                        <div class="media-body">
+
+                                            <h4 class="media-heading"><c:out value="${status.getUser().getName()}"/></h4>
+
+                                            <c:out value="${status.getText()}"/>
+
+                                            <p style="text-align: center">
+                                                <span class="glyphicon glyphicon-heart"></span>
+                                                <c:out value="${status.getFavoriteCount()}"/>
+                                                <span class="glyphicon glyphicon-retweet"></span>
+                                                <c:out value="${status.getRetweetCount()}"/>
+                                            </p>
+                                        </div>
                                     </div>
                                 </c:forEach>
                             </c:when>
 
                             <c:when test="${sessionScope.userTimelineActive == 'active'}">
                                 <c:forEach var="status" items="${userTimeline}">
-                                    <div class="container-fluid">
-                                        <img src="${status.getUser().getProfileImageURL()}" style="align: left"/>
-                                        <b><c:out value="${status.getUser().getName()}"/></b><br/>
-                                        <c:out value="${status.getText()}"/>
-                                        <br/>
-                                        <c:out value="${status.getCreatedAt()}"/>
+                                    <div class="media">
+                                        <div class="media-left media-middle">
+                                            <img src="${status.getUser().getProfileImageURL()}" class="media-object"/>
 
-                                        <p style="text-align: center">
-                                            <span class="glyphicon glyphicon-heart"></span>
-                                            <c:out value="${status.getFavoriteCount()}"/>
-                                            <span class="glyphicon glyphicon-retweet"></span>
-                                            <c:out value="${status.getRetweetCount()}"/>
-                                        </p>
+
+                                        </div>
+                                        <div class="media-body">
+
+                                            <h4 class="media-heading"><c:out value="${status.getUser().getName()}"/></h4>
+
+                                            <c:out value="${status.getText()}"/>
+
+                                            <p style="text-align: center">
+                                                <span class="glyphicon glyphicon-heart"></span>
+                                                <c:out value="${status.getFavoriteCount()}"/>
+                                                <span class="glyphicon glyphicon-retweet"></span>
+                                                <c:out value="${status.getRetweetCount()}"/>
+                                            </p>
+                                        </div>
                                     </div>
                                 </c:forEach>
                             </c:when>

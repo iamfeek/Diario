@@ -41,7 +41,7 @@ public class chartServlet extends HttpServlet {
         ArrayList<Double> compound = new ArrayList<Double>();
         ArrayList<String> dateList = new ArrayList<String>();
 
-        if (value == null || value.equals("refresh")|| request.getSession().getAttribute("dateListFull") == null || request.getSession().getAttribute("compoundFull") == null) {
+        if (value == null || value.equals("refresh") || request.getSession().getAttribute("dateListFull") == null || request.getSession().getAttribute("compoundFull") == null) {
 
             if (request.getSession().getAttribute("userTimeline") == null) {
                 Twitter twitter = (Twitter) request.getSession().getAttribute("twitter");
@@ -55,16 +55,16 @@ public class chartServlet extends HttpServlet {
                     statusList.addAll(twitter.getUserTimeline(page));
 
                 } catch (TwitterException e) {
-                    e.printStackTrace();
+                    response.sendRedirect("/twitterlogin");
                 }
 
                 request.getSession().setAttribute("userTimeline", statusList);
             }
-
             List<analyzedData> twitterresults = moodGenerator.generateMoodFromTwitter((List<Status>) request.getSession().getAttribute("userTimeline"));
 
             List<analyzedData> postresults = moodGenerator.generateMoodFromPost((ArrayList<Post>) DAOPost.getPosts((String) request.getSession().getAttribute("username")));
 
+            List<analyzedData> contentFull = new ArrayList<analyzedData>();
 
             twitterresults.addAll(postresults);
             Collections.sort(twitterresults);
@@ -72,51 +72,81 @@ public class chartServlet extends HttpServlet {
 
             SimpleDateFormat format = new SimpleDateFormat("dd MMM");
 
-            for (int i = twitterresults.size() - 1; i > 0; i--) {
-
+            for (int i = 0; i < twitterresults.size(); i++) {
                 try {
                     JSONObject json = (JSONObject) new JSONParser().parse(twitterresults.get(i).getText());
 
                     Double com = (Double) json.get("compound");
 
-                    if (dateList.contains("\'" + format.format(twitterresults.get(i).getDate()) + "\'")) {
-                        int index = dateList.indexOf("\'" + format.format(twitterresults.get(i).getDate()) + "\'");
+                    twitterresults.get(i).setFormatDate(format.format(twitterresults.get(i).getDate()));
+
+                    //Set content on same day
+                    if (dateList.contains("\'" + twitterresults.get(i).getFormatDate() + "\'")) {
+                        int index = dateList.indexOf("\'" + twitterresults.get(i).getFormatDate() + "\'");
+                        contentFull.add(twitterresults.get(i));
+                        contentFull.get(i).setContent(twitterresults.get(i).getContent() + " " + twitterresults.get(index).getContent());
                         compound.set(index, (compound.get(index) + com * 100) / 2);
                     } else {
                         compound.add(com * 100);
-                        dateList.add("\'" + format.format(twitterresults.get(i).getDate()) + "\'");
+                        contentFull.add(twitterresults.get(i));
+                        dateList.add("\'" + twitterresults.get(i).getFormatDate() + "\'");
                     }
+
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
             }
 
+            System.out.println("Content:" +contentFull.size());
+            System.out.println(compound.size());
+            System.out.println(dateList.size());
+
+
             request.getSession().setAttribute("dateListFull", dateList);
             request.getSession().setAttribute("compoundFull", compound);
+            request.getSession().setAttribute("contentFull", contentFull);
             request.getSession().setAttribute("dateList", dateList);
             request.getSession().setAttribute("compound", compound);
+            request.getSession().setAttribute("contentList",contentFull);
 
         }
 
-        if(value != null) {
+        if (value != null) {
 
             compound = (ArrayList<Double>) request.getSession().getAttribute("compoundFull");
             dateList = (ArrayList<String>) request.getSession().getAttribute("dateListFull");
+
+            ArrayList<analyzedData> contentFull = (ArrayList<analyzedData>) request.getSession().getAttribute("contentFull");
+
+
 
             if (!value.equals("refresh")) {
 
                 ArrayList<Double> compoundsub = new ArrayList<Double>();
                 ArrayList<String> dateListsub = new ArrayList<String>();
+                ArrayList<analyzedData> contentsub = new ArrayList<analyzedData>();
 
+                System.out.println(value);
                 for (int i = 0; i < dateList.size(); i++) {
                     if (dateList.get(i).contains(value)) {
                         dateListsub.add(dateList.get(i));
                         compoundsub.add(compound.get(i));
                     }
+                    if (contentFull.get(i).getFormatDate().contains(value)){
+                        contentsub.add(contentFull.get(i));
+                        System.out.println(contentFull.get(i).getFormatDate());
+                    }
                 }
 
-                request.getSession().setAttribute("dateList", dateListsub);
-                request.getSession().setAttribute("compound", compoundsub);
+                if (compoundsub.size() == 0) {
+                    request.getSession().setAttribute("listEmpty", true);
+                    request.getSession().setAttribute("contentList", null);
+                } else {
+                    request.getSession().setAttribute("dateList", dateListsub);
+                    request.getSession().setAttribute("compound", compoundsub);
+                    request.getSession().setAttribute("contentList", contentsub);
+                    request.getSession().setAttribute("listEmpty", false);
+                }
             }
         }
 

@@ -58,7 +58,7 @@
             },
             series: [{
                 /*name: 'Positive',
-                 data: <%=request.getSession().getAttribute("pos")%>
+                 data:
                  }, {
                  name: 'Negative',
                  data: [-0.2, 0.8, 5.7, 11.3, 17.0]
@@ -84,32 +84,69 @@
 
 
     </div>
-
-
     <div class="row">
+        <div class="col-md-6">
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                        data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="true">
+                    Choose Month
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="/chart?value=Jan">Jan</a></li>
+                    <li><a href="/chart?value=Feb">Feb</a></li>
+                    <li><a href="/chart?value=Mar">Mar</a></li>
+                    <li><a href="/chart?value=Apr">Apr</a></li>
+                    <li><a href="/chart?value=May">May</a></li>
+                    <li><a href="/chart?value=Jun">Jun</a></li>
+                    <li><a href="/chart?value=Jul">Jul</a></li>
+                    <li><a href="/chart?value=Aug">Aug</a></li>
+                    <li><a href="/chart?value=Sep">Sep</a></li>
+                    <li><a href="/chart?value=Oct">Oct</a></li>
+                    <li><a href="/chart?value=Nov">Nov</a></li>
+                    <li><a href="/chart?value=Dec">Dec</a></li>
+                    <li><a href="/chart?value=refresh">Refresh</a></li>
+                </ul>
+            </div>
 
-        <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                Dropdown
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="/chart?value=Jan">Jan</a></li>
-                <li><a href="/chart?value=Feb">Feb</a></li>
-                <li><a href="/chart?value=Mar">Mar</a></li>
-                <li><a href="/chart?value=Apr">Apr</a></li>
-                <li><a href="/chart?value=May">May</a></li>
-                <li><a href="/chart?value=Jun">Jun</a></li>
-                <li><a href="/chart?value=Jul">Jul</a></li>
-                <li><a href="/chart?value=Aug">Aug</a></li>
-                <li><a href="/chart?value=Sep">Sep</a></li>
-                <li><a href="/chart?value=Oct">Oct</a></li>
-                <li><a href="/chart?value=Nov">Nov</a></li>
-                <li><a href="/chart?value=Dec">Dec</a></li>
-            </ul>
+            <br/>
+
+            <c:choose>
+                <c:when test="${sessionScope.listEmpty==true}">
+
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            No entry detected! Choose Another month.
+                        </div>
+                    </div>
+
+                </c:when>
+
+
+            </c:choose>
         </div>
 
     </div>
+
+    <div class="row">
+        <div class="row">
+            <c:forEach var="content" items="${sessionScope.contentList}">
+                <div class="col-md-6 col-md-4">
+                    <div class="thumbnail">
+                        <img src="" alt="">
+                        <div class="caption">
+                            <h3>${content.getFormatDate()}</h3>
+                            <p>${content.getContent()}</p>
+                        </div>
+                    </div>
+                </div>
+
+            </c:forEach>
+
+        </div>
+    </div>
+
 </div>
 
 </html>

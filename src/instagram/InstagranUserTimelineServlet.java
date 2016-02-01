@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,6 +21,7 @@ import java.util.List;
 @WebServlet(name = "InstagranUserTimelineServlet")
 public class InstagranUserTimelineServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 
     }
 
@@ -34,12 +37,13 @@ public class InstagranUserTimelineServlet extends HttpServlet {
 
         List<MediaFeedData> listMedia = mf.getData();
 
-        /*for (int i = 0; i < listMedia.size(); i++) {
-            Date date = new Date(listMedia.get(i).getCreatedTime());
-            SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
+        for (int i = 0; i < listMedia.size(); i++) {
+
+            Date date = new Date(Long.parseLong(listMedia.get(i).getCreatedTime())*1000);
+            SimpleDateFormat df2 = new SimpleDateFormat("dd MMM");
             String dateText = df2.format(date);
             listMedia.get(i).setCreatedTime(dateText);
-        }*/
+        }
 
         request.getSession().setAttribute("userFeed", listMedia);
 

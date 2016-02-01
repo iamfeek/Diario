@@ -58,14 +58,14 @@
             },
             series: [{
                 /*name: 'Positive',
-                data: <%=request.getSession().getAttribute("pos")%>
-            }, {
-                name: 'Negative',
-                data: [-0.2, 0.8, 5.7, 11.3, 17.0]
-            }, {
-                name: 'Neutral',
-                data: [-0.9, 0.6, 3.5, 8.4, 13.5]
-            }, {*/
+                 data: <%=request.getSession().getAttribute("pos")%>
+                 }, {
+                 name: 'Negative',
+                 data: [-0.2, 0.8, 5.7, 11.3, 17.0]
+                 }, {
+                 name: 'Neutral',
+                 data: [-0.9, 0.6, 3.5, 8.4, 13.5]
+                 }, {*/
                 name: 'Average',
                 data: <%=request.getSession().getAttribute("compound")%>
             }]
@@ -75,10 +75,39 @@
 </script>
 
 <div class="container-fluid" style="margin-top: 60px;">
+
+
     <div class="row">
+
+
         <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
 
+    </div>
+
+
+    <div class="row">
+
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Dropdown
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="/chart?value=Jan">Jan</a></li>
+                <li><a href="/chart?value=Feb">Feb</a></li>
+                <li><a href="/chart?value=Mar">Mar</a></li>
+                <li><a href="/chart?value=Apr">Apr</a></li>
+                <li><a href="/chart?value=May">May</a></li>
+                <li><a href="/chart?value=Jun">Jun</a></li>
+                <li><a href="/chart?value=Jul">Jul</a></li>
+                <li><a href="/chart?value=Aug">Aug</a></li>
+                <li><a href="/chart?value=Sep">Sep</a></li>
+                <li><a href="/chart?value=Oct">Oct</a></li>
+                <li><a href="/chart?value=Nov">Nov</a></li>
+                <li><a href="/chart?value=Dec">Dec</a></li>
+            </ul>
+        </div>
 
     </div>
 </div>

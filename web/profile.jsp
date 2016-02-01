@@ -13,25 +13,53 @@
 <jsp:include page="header.jsp">
     <jsp:param name="profile" value="active"></jsp:param>
 </jsp:include>
-<div class="container" style="margin-top: 50px;">
+<div class="container" style="margin-top: 60px;">
     <div class="row">
-        <div class="col-md-1" style="border: 1px solid;">
-            <img src="img/iamfeek.jpg" alt="${nono.username}'s Profile Picture" height="80px" width="80px">
+        <div class="col-md-3">
+            <%--Profile Stuff--%>
+            <div class="row">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" style="text-align: center">
+                        <strong>${nono.username}'s</strong> Statistics
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-4" style="">
+                            <img src="img/iamfeek.jpg" alt="${nono.username}'s Profile Picture" height="80px"
+                                 width="70px">
+                        </div>
+                        <div class="col-md-8" style="">
+                            Location: ${nono.location}<br>
+                            # of Posts: ${nono.posts}<br>
+                            # of Friends: ${nono.friends}<br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%--End Profile Stuff--%>
+
+            <%--Key Management Stuff--%>
+            <div class="row">
+                <div class="panel panel-danger">
+                    <div class="panel-heading" style="text-align: center;">Encryption Key Management</div>
+                    <div class="panel-body" style="text-align: center">
+                        <input type="button" class="btn btn-default navbar-btn"
+                               onclick="alert(localStorage.getItem('prvKey'))"
+                               value="View Key"/>
+                        <br>
+                        <input type="button" class="btn btn-default navbar-btn"
+                               onclick="saveTextAsFile()"
+                               value="Download Key"/>
+                    </div>
+                </div>
+            </div>
+            <%--End Key Management Stuff--%>
         </div>
-        <div class="col-md-3" style="border: 1px solid;">
-            <strong>${nono.username}</strong> <br>
-            Location: ${nono.location}<br>
-            # of Posts: ${nono.posts}<br>
-            # of Friends: ${nono.friends}<br>
-        </div>
-        <div class="col-md-8" style="border: 1px solid; text-align: center;">
-            <jsp:include page="viewPosts.jsp"></jsp:include>
+        <div class="col-md-9" style="border: 1px solid">
+            <%--<jsp:include page="viewPosts.jsp"></jsp:include>--%>
+            List of all our posts
         </div>
     </div>
-    <input type="button" class="btn btn-default navbar-btn" onclick="alert(localStorage.getItem('prvKey'))"
-           value="Export Key"/>
 </div>
-<div class="break"></div>
 </body>
 <script type="text/javascript">
     function saveTextAsFile() {

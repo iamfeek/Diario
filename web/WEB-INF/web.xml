@@ -292,14 +292,6 @@
         <servlet-name>InstagramCallbackServlet</servlet-name>
         <url-pattern>/instagramCallback</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>signin</servlet-name>
-        <servlet-class>authentication.signin</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>signin</servlet-name>
-        <url-pattern>/signin.do</url-pattern>
-    </servlet-mapping>
 
     <servlet>
         <servlet-name>signinpage</servlet-name>

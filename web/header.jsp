@@ -25,7 +25,7 @@
             <li class="${param.profile}"><a href="/view?user=${sessionScope.username}">Profile</a></li>
             <li class="${param.post}"><a href="/post.jsp">Post</a></li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right" style="margin-right: 5px;">
             <input type="button" class="btn btn-default navbar-btn" onclick="location.href='/signout';"
                    value="Sign Out"/>
 

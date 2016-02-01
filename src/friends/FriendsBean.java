@@ -104,10 +104,11 @@ public class FriendsBean{
         Friend f = null;
         Connection conn = Db.getConnection();
         Statement stmt = null;
-        System.out.println("Friends SQL: " + "SELECT * FROM profiles WHERE username=" + username);
         try {
               stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM profiles WHERE username='" + username+"';");
+            String sql = "SELECT * FROM profiles WHERE username='" + username+"';";
+            System.out.println(sql);
+            ResultSet rs = stmt.executeQuery(sql);
 
             if (rs.next()) {
                 f = new Friend();

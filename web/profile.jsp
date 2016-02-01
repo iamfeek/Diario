@@ -9,10 +9,24 @@
         <% response.sendRedirect("/signin"); %>
     </c:otherwise>
 </c:choose>
+
 <html>
+
 <jsp:include page="header.jsp">
     <jsp:param name="profile" value="active"></jsp:param>
 </jsp:include>
+<sql:setDataSource
+        var="myDS"
+        driver="com.mysql.jdbc.Driver"
+        url="jdbc:mysql://localhost:3306/diario"
+        user="root" password="root"
+/>
+<sql:query var="srh" dataSource="${myDS}">
+    SELECT * FROM friends WHERE locate(?, f_username)>0;
+    <sql:param value="${param.s}"/>
+
+</sql:query>
+
 <div class="container" style="margin-top: 60px;">
 <<<<<<< Updated upstream
 
@@ -65,9 +79,9 @@
         <button type="submit"> Search</button>
     </form>
 </div>
-<c:forEach var="row" items="${srh.rows}">
-    <div class="container ">
 
+<c:forEach var="row" items="${nono}">
+    <div class="container">
         <div class="row">
 =======
     <div class="row">
@@ -81,20 +95,20 @@
                         </div>
                         <div class="col-sm-6 col-md-8">
                             <h4>
-                                ${nono.username}</h4>
-                            <small><cite title="San Francisco, USA">${nono.location} <i
+                                ${row.username}</h4>
+                            <small><cite title="San Francisco, USA">${row.location} <i
                                     class="glyphicon glyphicon-map-marker">
                             </i></cite></small>
                             <p>
-                                <i class="fa fa-pencil-square-o"></i> ${nono.posts} posts
+                                <i class="fa fa-pencil-square-o"></i> ${row.posts} posts
                                 <br/>
-                                <i class="fa fa-users"></i> ${nono.friends} users
+                                <i class="fa fa-users"></i> ${row.friends} users
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
+    </div>
         <div class="row col-md-6">
             <jsp:include page="viewPosts.jsp"></jsp:include>
         </div>
@@ -153,4 +167,5 @@
 </c:forEach>
 <div class="break"></div>
 </body>
+</c:forEach>
 </html>

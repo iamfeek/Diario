@@ -7,7 +7,7 @@
 <head>
     <%--all custom js/css for this page belongs here.--%>
     <link href="css/profile.css" rel="stylesheet">
-    <link rel="stylesheet" href="http://blackrockdigital.github.io/startbootstrap-sb-admin/css/bootstrap.min.css">
+        <link href="css/bs.css" rel="stylesheet">
 
 </head>
 
@@ -27,16 +27,19 @@
 </sql:query>
 
 <div class="container">
-
-    <h3><span class="h3 text">Find friends</span></h3>
-    <form id="search">
-        <input type="search" name="search" class="form-control "  />
-        <button type="submit" class="btn btn-default navbar-btn tab-down-button"> Search</button>
-    </form>
+<div class="col-md-4">
+        <h3><span class="h3 text">Find friends</span></h3>
+            <form id="search" class="input-group">
+                <input type="search" name="search" class="form-control "  />
+                <span class="input-group-btn">
+                <button type="submit" class="btn btn-default"> Search</button>
+                </span>
+            </form>
+</div>
+</div>
 
 <c:forEach var="row" items="${srh.rows}">
-
-
+<div class="container">
         <li href="#" class="list-group-item text-left">
             <div class="media-body">
                 <form method="get" action="/view">

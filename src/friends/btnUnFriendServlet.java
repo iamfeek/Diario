@@ -23,7 +23,7 @@ public class btnUnFriendServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("unfriend"));
         FriendsBean eb = new FriendsBean();
         eb.unfriend(id);
-        response.sendRedirect("friendslist.jsp");
+        response.sendRedirect("profile.jsp");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -3,14 +3,7 @@
 <%@ page import="friends.FriendsBean" %>
 <%@ page import="DAO.Friend" %>
 <%@ page import="java.util.List" %>
-<c:choose>
-    <c:when test="${sessionScope.loggedIn}">
-        <% response.sendRedirect("/checkInstagram"); %>
-    </c:when>
-    <c:otherwise>
 
-    </c:otherwise>
-</c:choose>
 
 <html>
 <head>
@@ -18,14 +11,10 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 </head>
 <body>
-<a href="profile.jsp">Back to profile... </a>
 <div id="snippetContent" style="padding-top:10px;">
-    <div class="container">
-        <div class="header">
-            <h3 class="text-muted prj-name"><span class="fa fa-users fa-2x principal-title"></span> Friend zone</h3>
-        </div>
+
         <form method="get" >
-            <div class="jumbotron list-content">
+            <div class=" list-content">
                 <ul class="list-group">
                     <li href="#" class="list-group-item title"> Your friend zone</li>
                     <sql:setDataSource
@@ -41,14 +30,15 @@
                         <sql:param value="${param.s}"/>
 
                     </sql:query>
-                    <form id="search">
-                        <input type="search" name="s" title="search" />
-                        <button type="submit" > Search</button>
+                    <li href="#" class="list-group-item text-left">
+                        <div class="media-body">
+
+                    <form id="search" >
+                        <input type="search" name="s" title="search" class="form-control" />
+                        <button type="submit" class="btn btn-default navbar-btn" > Search</button>
                     </form>
                     <c:forEach var="row" items="${srh.rows}">
 
-                    <li href="#" class="list-group-item text-left">
-                        <div class="media-body">
                             <a class="pull-left" href="#fakelink">
                                 <img class="media-object img-circle" src="http://bootdey.com/img/Content/user_2.jpg">
                             </a>
@@ -67,10 +57,7 @@
                                         <input type="hidden" name="unfriend" value="${row.id}"/>
                                         <button type="submit" class="btn btn-danger  btn-xs glyphicon glyphicon-remove"> Unfriend</button>
                                     </form>
-                                    <form method="post" action="/message">
-                                        <input type="hidden" name="message" value="${row.id}"/>
-                                        <button type="submit" class="btn btn-info  btn-xs glyphicon glyphicon glyphicon-comment"> Message</button>
-                                    </form>
+
                                 </div>
 
 
@@ -106,26 +93,19 @@
                                         <input type="hidden" id="unfriend" name="unfriend" value="${friend.id}"/>
                                         <button type="submit" class="btn btn-danger  btn-xs glyphicon glyphicon-remove"> Unfriend</button>
                                     </form>
-                                    <form method="post" >
-                                        <input type="hidden" id="message" name="message" value="${friend.id}"/>
-                                        <button type="submit" class="btn btn-info  btn-xs glyphicon glyphicon glyphicon-comment"> Message</button>
-                                    </form>
                                 </div>
 
                             </div>
 
                         </div><!-- /.row -->
-                        <div class="break"></div>
+
                     </li>
                     </c:forEach>
 
-                    <li href="#" class="list-group-item text-left">
-                        <a class="btn btn-block btn-primary"><i class="glyphicon glyphicon-refresh"></i> Load more... </a>
-                    </li>
                 </ul>
             </div>
         </form>
-    </div>
+
 </div>
 
 

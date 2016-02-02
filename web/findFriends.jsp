@@ -1,3 +1,4 @@
+
 <%--@elvariable id="nono" type="DAO.Friend"--%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -12,12 +13,12 @@
 </head>
 
 <body>
-
+<jsp:include page="date.jsp" flush="true"/>
 <sql:setDataSource
         var="myDS"
         driver="com.mysql.jdbc.Driver"
-        url="jdbc:mysql://localhost:3306/diario"
-        user="root" password="root"
+        url="jdbc:mysql://localhost:8888/diario"
+        user="root" password="narumi"
 />
 
 <sql:query var="srh" dataSource="${myDS}">

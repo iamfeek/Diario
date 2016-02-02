@@ -110,13 +110,15 @@
 
                             <c:when test="${sessionScope.InstagramUserTimelineActive=='active'}">
                                 <c:forEach var="media" items="${userFeed}">
-                                    <div style="align: middle">
-                                        <a class="thumbnail" href="${media.getLink()}">
+
+                                    <div class="thumbnail">
+                                        <a href="${media.getLink()}">
+                                            <img class="img-responsive"
+                                                 src="${media.getImages().getLowResolution().getImageUrl()}"
+                                                 alt="">
 
                                             <div class="caption" style="align: middle">
-                                                <img class="img-responsive"
-                                                     src="${media.getImages().getLowResolution().getImageUrl()}"
-                                                     alt="">
+
                                                 <span class="glyphicon glyphicon-heart"></span>
                                                 <c:out value="${media.getLikes().getCount()}"/>
                                                     ${media.getCaption().getText()}
@@ -125,6 +127,7 @@
                                             </div>
                                         </a>
                                     </div>
+
                                 </c:forEach>
                             </c:when>
 
@@ -236,10 +239,11 @@
                                             <img src="${status.getUser().getProfileImageURL()}" class="media-object"/>
 
 
-                                            </div>
+                                        </div>
                                         <div class="media-body">
 
-                                            <h4 class="media-heading"><c:out value="${status.getUser().getName()}"/></h4>
+                                            <h4 class="media-heading"><c:out
+                                                    value="${status.getUser().getName()}"/></h4>
 
                                             <c:out value="${status.getText()}"/>
 
@@ -264,7 +268,8 @@
                                         </div>
                                         <div class="media-body">
 
-                                            <h4 class="media-heading"><c:out value="${status.getUser().getName()}"/></h4>
+                                            <h4 class="media-heading"><c:out
+                                                    value="${status.getUser().getName()}"/></h4>
 
                                             <c:out value="${status.getText()}"/>
 

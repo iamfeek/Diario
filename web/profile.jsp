@@ -13,6 +13,9 @@
 <jsp:include page="header.jsp">
     <jsp:param name="profile" value="active"></jsp:param>
 </jsp:include>
+<div style="margin-top: 60px;">
+    <jsp:include page="findFriends.jsp" flush="true"/>
+</div>
 <div class="container" style="margin-top: 60px;">
     <div class="row">
         <div class="col-md-3">
@@ -34,6 +37,12 @@
                         </div>
                     </div>
                 </div>
+            </div>
+                <%--friends--%>
+            <div class="row">
+                 <div class="panel">
+                     <jsp:include page="friendslist.jsp" flush="true"/>
+                 </div>
             </div>
             <%--End Profile Stuff--%>
 
@@ -60,7 +69,6 @@
         </div>
     </div>
 </div>
-</body>
 <script type="text/javascript">
     function saveTextAsFile() {
         var textToWrite = localStorage.getItem("prvKey");

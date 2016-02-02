@@ -30,7 +30,7 @@ public class AddFriendServlet extends HttpServlet {
         f.setMF(request.getParameter("MF"));
         FriendsBean fb = new FriendsBean();
         fb.addFriend(f);
-        response.sendRedirect("friendslist.jsp");
+        response.sendRedirect("profile.jsp");
 
        //request.getRequestDispatcher("friendslist.jsp").forward(request, response);
 

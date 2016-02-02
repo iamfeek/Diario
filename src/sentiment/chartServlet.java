@@ -1,6 +1,7 @@
 package sentiment;
 
 import DAO.DAOPost;
+import org.jinstagram.entity.users.feed.MediaFeedData;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -31,125 +32,115 @@ public class chartServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         String value = request.getParameter("value");
 
-        if (request.getSession().getAttribute("twitter") == null) {
-            response.sendRedirect("/twitterlogin");
+        //check if usertimeline is retrieved
+        if (request.getSession().getAttribute("userTimeline") == null) {
+            Twitter twitter = (Twitter) request.getSession().getAttribute("twitter");
+
+            List<Status> statusList = null;
+            try {
+                statusList = twitter.getUserTimeline();
+
+                Paging page = new Paging(2, 40);
+
+                statusList.addAll(twitter.getUserTimeline(page));
+
+            } catch (TwitterException e) {
+                response.sendRedirect("/twitterlogin");
+            }
+
+            request.getSession().setAttribute("userTimeline", statusList);
         }
+
+
+
+        //Get all data
+        List<analyzedData> allResults = moodGenerator.generateMoodFromTwitter((List<Status>) request.getSession().getAttribute("userTimeline"));
+        allResults.addAll(moodGenerator.generateMoodFromPost(DAOPost.getPosts(String.valueOf(request.getSession().getAttribute("username")))));
+        allResults.addAll(moodGenerator.instagramToData((List<MediaFeedData>) request.getSession().getAttribute("userFeed")));
 
         ArrayList<Double> compound = new ArrayList<Double>();
         ArrayList<String> dateList = new ArrayList<String>();
+        ArrayList<analyzedData> data = new ArrayList<analyzedData>();
 
-        if (value == null || value.equals("refresh") || request.getSession().getAttribute("dateListFull") == null || request.getSession().getAttribute("compoundFull") == null) {
+        if (value == null || value.equals("refresh") || request.getSession().getAttribute("allData") == null) {
+            Collections.sort(allResults);
 
-            if (request.getSession().getAttribute("userTimeline") == null) {
-                Twitter twitter = (Twitter) request.getSession().getAttribute("twitter");
+            SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy");
 
-                List<Status> statusList = null;
+            for (int i = 0; i < allResults.size(); i++) {
                 try {
-                    statusList = twitter.getUserTimeline();
-
-                    Paging page = new Paging(2, 40);
-
-                    statusList.addAll(twitter.getUserTimeline(page));
-
-                } catch (TwitterException e) {
-                    response.sendRedirect("/twitterlogin");
-                }
-
-                request.getSession().setAttribute("userTimeline", statusList);
-            }
-            List<analyzedData> twitterresults = moodGenerator.generateMoodFromTwitter((List<Status>) request.getSession().getAttribute("userTimeline"));
-
-            List<analyzedData> postresults = moodGenerator.generateMoodFromPost((ArrayList<Post>) DAOPost.getPosts((String) request.getSession().getAttribute("username")));
-
-            List<analyzedData> contentFull = new ArrayList<analyzedData>();
-
-            twitterresults.addAll(postresults);
-            Collections.sort(twitterresults);
-
-
-            SimpleDateFormat format = new SimpleDateFormat("dd MMM");
-
-            for (int i = 0; i < twitterresults.size(); i++) {
-                try {
-                    JSONObject json = (JSONObject) new JSONParser().parse(twitterresults.get(i).getText());
-
+                    //get compound
+                    JSONObject json = (JSONObject) new JSONParser().parse(allResults.get(i).getText());
                     Double com = (Double) json.get("compound");
 
-                    twitterresults.get(i).setFormatDate(format.format(twitterresults.get(i).getDate()));
+                    //set format date
+                    allResults.get(i).setFormatDate(format.format(allResults.get(i).getDate()));
 
-                    //Set content on same day
-                    if (dateList.contains("\'" + twitterresults.get(i).getFormatDate() + "\'")) {
-                        int index = dateList.indexOf("\'" + twitterresults.get(i).getFormatDate() + "\'");
-                        contentFull.add(twitterresults.get(i));
-                        contentFull.get(i).setContent(twitterresults.get(i).getContent() + " " + twitterresults.get(index).getContent());
+                    //check if date already exists
+                    if (dateList.contains("\'" + allResults.get(i).getFormatDate() + "\'")) {
+                        //consolidate the compound and average it
+                        int index = dateList.indexOf("\'" + allResults.get(i).getFormatDate() + "\'");
                         compound.set(index, (compound.get(index) + com * 100) / 2);
+
+                        //consolidate content
+                        data.get(index).setContent(allResults.get(i).getContent() + "\n" + data.get(index).getContent());
+
+                        //add in url
+
                     } else {
+                        //new entry
                         compound.add(com * 100);
-                        contentFull.add(twitterresults.get(i));
-                        dateList.add("\'" + twitterresults.get(i).getFormatDate() + "\'");
+                        data.add(allResults.get(i));
+                        dateList.add("\'" + allResults.get(i).getFormatDate() + "\'");
                     }
-
                 } catch (ParseException e) {
-                    e.printStackTrace();
                 }
+
             }
 
-            System.out.println("Content:" +contentFull.size());
-            System.out.println(compound.size());
-            System.out.println(dateList.size());
-
-
-            request.getSession().setAttribute("dateListFull", dateList);
-            request.getSession().setAttribute("compoundFull", compound);
-            request.getSession().setAttribute("contentFull", contentFull);
-            request.getSession().setAttribute("dateList", dateList);
+            //set all sessions
+            request.getSession().setAttribute("allData", data);
+            request.getSession().setAttribute("allDateList", dateList);
+            request.getSession().setAttribute("allCompoundList", compound);
             request.getSession().setAttribute("compound", compound);
-            request.getSession().setAttribute("contentList",contentFull);
+            request.getSession().setAttribute("dateList", dateList);
+            request.getSession().setAttribute("contentList", data);
 
-        }
+            response.sendRedirect("/mood");
+        } else {
 
-        if (value != null) {
+            compound = (ArrayList<Double>) request.getSession().getAttribute("allCompoundList");
+            dateList = (ArrayList<String>) request.getSession().getAttribute("allDateList");
+            data = (ArrayList<analyzedData>) request.getSession().getAttribute("allData");
 
-            compound = (ArrayList<Double>) request.getSession().getAttribute("compoundFull");
-            dateList = (ArrayList<String>) request.getSession().getAttribute("dateListFull");
+            ArrayList<Double> compoundsub = new ArrayList<Double>();
+            ArrayList<String> dateListsub = new ArrayList<String>();
+            ArrayList<analyzedData> contentsub = new ArrayList<analyzedData>();
 
-            ArrayList<analyzedData> contentFull = (ArrayList<analyzedData>) request.getSession().getAttribute("contentFull");
-
-
-
-            if (!value.equals("refresh")) {
-
-                ArrayList<Double> compoundsub = new ArrayList<Double>();
-                ArrayList<String> dateListsub = new ArrayList<String>();
-                ArrayList<analyzedData> contentsub = new ArrayList<analyzedData>();
-
-                System.out.println(value);
-                for (int i = 0; i < dateList.size(); i++) {
-                    if (dateList.get(i).contains(value)) {
-                        dateListsub.add(dateList.get(i));
-                        compoundsub.add(compound.get(i));
-                    }
-                    if (contentFull.get(i).getFormatDate().contains(value)){
-                        contentsub.add(contentFull.get(i));
-                        System.out.println(contentFull.get(i).getFormatDate());
-                    }
-                }
-
-                if (compoundsub.size() == 0) {
-                    request.getSession().setAttribute("listEmpty", true);
-                    request.getSession().setAttribute("contentList", null);
-                } else {
-                    request.getSession().setAttribute("dateList", dateListsub);
-                    request.getSession().setAttribute("compound", compoundsub);
-                    request.getSession().setAttribute("contentList", contentsub);
-                    request.getSession().setAttribute("listEmpty", false);
+            for (int i = 0; i < data.size(); i++) {
+                if(dateList.get(i).contains(value)){
+                    dateListsub.add(dateList.get(i));
+                    compoundsub.add(compound.get(i));
+                    contentsub.add(data.get(i));
                 }
             }
+
+            if (compoundsub.size() == 0) {
+                request.getSession().setAttribute("listEmpty", true);
+                request.getSession().setAttribute("contentList", null);
+                request.getSession().setAttribute("dateList", null);
+                request.getSession().setAttribute("compound", null);
+            } else {
+                request.getSession().setAttribute("dateList", dateListsub);
+                request.getSession().setAttribute("compound", compoundsub);
+                request.getSession().setAttribute("contentList", contentsub);
+                request.getSession().setAttribute("listEmpty", false);
+            }
+
+            response.sendRedirect("/mood");
         }
 
-        response.sendRedirect("/mood");
     }
 }

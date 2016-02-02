@@ -139,10 +139,8 @@
                                                      alt="">
                                                 <span class="glyphicon glyphicon-heart"></span>
                                                 <c:out value="${media.getLikes().getCount()}"/>
-
                                                     ${media.getCaption().getText()}
                                                     ${media.getCreatedTime()}
-
                                             </div>
                                         </a>
                                     </div>

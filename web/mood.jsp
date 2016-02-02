@@ -84,8 +84,9 @@
 
 
     </div>
+
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 col-md-offset-3">
             <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
                         data-toggle="dropdown"
@@ -117,34 +118,29 @@
 
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            No entry detected! Choose Another month.
+                            No entry detected! Choose Another Month.
                         </div>
                     </div>
-
                 </c:when>
-
-
             </c:choose>
         </div>
-
     </div>
 
     <div class="row">
-        <div class="row">
-            <c:forEach var="content" items="${sessionScope.contentList}">
-                <div class="col-md-6 col-md-4">
+        <c:forEach var="content" items="${sessionScope.contentList}">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
                     <div class="thumbnail">
-                        <img src="" alt="">
+                        <img src="${content.getUrl()}" alt="">
+
                         <div class="caption">
                             <h3>${content.getFormatDate()}</h3>
                             <p>${content.getContent()}</p>
                         </div>
                     </div>
                 </div>
-
-            </c:forEach>
-
-        </div>
+            </div>
+        </c:forEach>
     </div>
 
 </div>

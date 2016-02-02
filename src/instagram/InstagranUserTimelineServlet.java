@@ -40,7 +40,7 @@ public class InstagranUserTimelineServlet extends HttpServlet {
         for (int i = 0; i < listMedia.size(); i++) {
 
             Date date = new Date(Long.parseLong(listMedia.get(i).getCreatedTime())*1000);
-            SimpleDateFormat df2 = new SimpleDateFormat("dd MMM");
+            SimpleDateFormat df2 = new SimpleDateFormat("dd MMM yyyy");
             String dateText = df2.format(date);
             listMedia.get(i).setCreatedTime(dateText);
         }

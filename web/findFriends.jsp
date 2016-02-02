@@ -7,7 +7,7 @@
 <head>
     <%--all custom js/css for this page belongs here.--%>
     <link href="css/profile.css" rel="stylesheet">
-        <link href="css/bs.css" rel="stylesheet">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 
 </head>
 

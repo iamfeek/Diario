@@ -24,16 +24,13 @@ public class AddFriendServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Friend f = new Friend();
         f.setId(Integer.parseInt(request.getParameter("id")));
-
         f.setF_username(request.getParameter("fUNAME"));
         f.setLocation(request.getParameter("location"));
         f.setMF(request.getParameter("MF"));
         FriendsBean fb = new FriendsBean();
-        fb.addFriend(f);
+        fb.addFriend(f, request.getParameter("username"));
         response.sendRedirect("profile.jsp");
 
        //request.getRequestDispatcher("friendslist.jsp").forward(request, response);
-
-
     }
 }

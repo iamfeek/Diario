@@ -65,7 +65,7 @@ public class chartServlet extends HttpServlet {
         ArrayList<analyzedData> data = new ArrayList<analyzedData>();
 
         if (value == null || value.equals("refresh") || request.getSession().getAttribute("allData") == null) {
-            Collections.sort(allResults);
+            Collections.sort(allResults,Collections.<analyzedData>reverseOrder());
 
             SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy");
 

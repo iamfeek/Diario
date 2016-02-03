@@ -37,6 +37,8 @@
                         </div>
                     </div>
                 </div>
+                <input type="button" class="btn btn-default navbar-btn"
+                       value="Edit"/>
             </div>
                 <%--friends--%>
             <div class="row">

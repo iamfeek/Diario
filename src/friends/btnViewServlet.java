@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 
@@ -24,10 +25,22 @@ public class btnViewServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String username = request.getParameter("user");
-        System.out.println("View ID: " + username);
+        String viewParams = request.getParameter("view");
+        System.out.println(viewParams);
+
+        if (request.getParameter("view") != null) {
+            forwardRequest(request, response, Integer.parseInt(request.getParameter("view").toString()));
+        }else{
+            int userid = Integer.parseInt(request.getSession().getAttribute("userid").toString());
+            forwardRequest(request, response, userid);
+        }
+    }
+
+    protected void forwardRequest(HttpServletRequest request, HttpServletResponse response, int userid)
+            throws ServletException, IOException{
+        System.out.println("View ID: " + userid);
         FriendsBean bean = new FriendsBean();
-        Friend fr = bean.getFriend(username);
+        Friend fr = bean.getFriend(userid);
         request.setAttribute("nono", fr);
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/profile.jsp");
         rd.forward(request, response);
@@ -35,7 +48,6 @@ public class btnViewServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
 
     }
 

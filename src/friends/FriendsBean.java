@@ -100,13 +100,13 @@ public class FriendsBean{
     }
 
 
-    public Friend getFriend (String username) {
+    public Friend getFriend (int userid) {
         Friend f = null;
         Connection conn = Db.getConnection();
         Statement stmt = null;
         try {
               stmt = conn.createStatement();
-            String sql = "SELECT * FROM profiles WHERE username='" + username+"';";
+            String sql = "SELECT * FROM profiles WHERE id='" + userid+"';";
             System.out.println(sql);
             ResultSet rs = stmt.executeQuery(sql);
 

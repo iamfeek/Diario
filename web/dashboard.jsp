@@ -49,9 +49,6 @@
                 -->
                 <h3 style="text-align: center">Diario</h3>
                 <h4 style="color: grey; text-align: center;"><a href="/profile">${sessionScope.username}</a></h4>
-                <input type="button" class="btn btn-default navbar-btn" onclick="location.href='/post';"
-                       value="Post New Entry"/>
-                <br/>
                 <input type="button" class="btn btn-default navbar-btn" onclick="location.href='/viewPosts.jsp';"
                        value="View Diary"/>
                 <br/>

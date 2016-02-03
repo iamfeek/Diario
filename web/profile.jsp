@@ -71,7 +71,6 @@
         </div>
         <div class="col-md-9" style="border: 1px solid">
             <%--<jsp:include page="viewPosts.jsp"></jsp:include>--%>
-            List of all our posts
         </div>
     </div>
 </div>

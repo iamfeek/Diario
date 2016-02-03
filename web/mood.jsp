@@ -17,7 +17,7 @@
 </c:choose>
 <html>
 <jsp:include page="header.jsp">
-    <jsp:param name="dashboard" value="active"></jsp:param>
+    <jsp:param name="mood" value="active"></jsp:param>
 </jsp:include>
 
 <script src="https://code.highcharts.com/highcharts.js"></script>

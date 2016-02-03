@@ -1,5 +1,6 @@
 <jsp:include page="header.jsp">
     <jsp:param name="post" value="active"></jsp:param>
+    <jsp:param name="postViewFriendPosts" value="active"></jsp:param>
 </jsp:include>
     <script type="text/javascript" src="js/security/rsa-bundle.js"></script>
     <script type="text/javascript" src="js/security/key-handler.js"></script>

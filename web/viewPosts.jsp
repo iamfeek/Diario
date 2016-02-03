@@ -6,6 +6,10 @@
 <script type="text/javascript" src="js/security/aes-handler.js"></script>
 <script type="text/javascript" src="js/security/aes.js"></script>
 <script type="text/javascript" src="js/security/mode-ecb-min.js"></script>
+<jsp:include page="header.jsp">
+    <jsp:param name="post" value="active"></jsp:param>
+    <jsp:param name="postView" value="active"></jsp:param>
+</jsp:include>
 <div style="padding: 30px; margin-left: 100px; margin-top: 50px">
     <h1 style="font-size: 30px;">Your Diary</h1>
     <%@ page import="DAO.DAOPost" %>

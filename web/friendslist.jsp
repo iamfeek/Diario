@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="friends.FriendsBean" %>
 <%@ page import="DAO.Friend" %>
 <%@ page import="java.util.List" %>
@@ -33,35 +34,49 @@
                     <li href="#" class="list-group-item text-left">
                         <div class="media-body">
 
-                    <form id="search" >
-                        <input type="search" name="s" title="search" class="form-control" />
-                        <button type="submit" class="btn btn-default navbar-btn" > Search</button>
+                    <form id="search" class="input-group" >
+                        <input type="search" name="s" title="search" class="form-control" placeholder="Search & press 'Enter'" />
                     </form>
-                    <c:forEach var="row" items="${srh.rows}">
-
-                            <a class="pull-left" href="#fakelink">
-                                <img class="media-object img-circle" src="http://bootdey.com/img/Content/user_2.jpg">
-                            </a>
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <h2 class="media-heading"><a href="#fakelink" >${row.f_username}</a></h2>
-                                    <p><i class="fa fa-map-marker"></i>${row.location}
-                                        <br><small class="text-danger">${row.MF} Mutual Friends</small></p>
-                                </div>
-
-                                <div style="float: right; padding-right: 15px; width: 50%;">
-
-                                    <a type="submit" class="btn btn-success btn-xs glyphicon glyphicon-ok" href="profile.jsp?friend=${row.fUNAME}"> View</a>
-
-                                    <form method="post" action="/unfriend">
-                                        <input type="hidden" name="unfriend" value="${row.id}"/>
-                                        <button type="submit" class="btn btn-danger  btn-xs glyphicon glyphicon-remove"> Unfriend</button>
-                                    </form>
-
-                                </div>
-
 
                             </div>
+                        </li>
+                    <c:forEach var="row" items="${srh.rows}">
+                        <li href="#" class="list-group-item text-left">
+                            <div class="media-body">
+                                <form method="get" action="/view">
+                                    <input type="hidden" name="view" value="${fn:escapeXml(row.id)}"/>
+                                    <button class="pull-left img-thumbnail img-circle" style="overflow: hidden; width: 50px; height: 50px;" >
+                                        <img class="media-object img-circle pull-left" style="margin-left: -5px; margin-top: -4px;width: 50px; height: 50px;" src="http://bootdey.com/img/Content/user_2.jpg" >
+                                    </button>
+                                </form>
+                                <div class="row">
+                                        <form method="get" action="/view">
+                                        <input type="hidden" name="view" value="${fn:escapeXml(row.id)}"/>
+                                    <div class="col-sm-5">
+                                            <p class="media-heading h3"><button class="btn-link"  >${row.f_username}</button></p>
+                                        <p class="text-info" style="font-size: 12px;"><i class="fa fa-map-marker"></i>${row.location}
+                                            <br><small class="text-danger">&nbsp;${row.MF} Mutual Friends</small></p>
+                                    </div>
+                                        </form>
+
+
+                                    <div style="float: right; margin-right: 15px;">
+
+                                        <form method="get" action="/view">
+                                            <input type="hidden" name="view" value="${row.id}"/>
+                                            <button type="submit" class="btn btn-success btn-xs glyphicon glyphicon-ok" href="profile.jsp/view=${row.username}" > View</button>
+                                        </form>
+                                        <form method="post" action="/unfriend">
+                                            <input type="hidden" name="unfriend" value="${row.id}"/>
+                                            <button type="submit" class="btn btn-danger  btn-xs glyphicon glyphicon-remove"> Unfriend</button>
+                                        </form>
+                                    </div>
+
+                                </div>
+
+                            </div><!-- /.row -->
+
+                        </li>
                             </c:forEach>
 
                                 <%
@@ -71,35 +86,42 @@
 %>
                             <%--@elvariable id="f" type="java.util.List"--%>
                             <c:forEach var="friend" items ="${f}">
-                    <li href="#" class="list-group-item text-left">
-                        <div class="media-body">
-                            <a class="pull-left" href="#fakelink">
-                                <img class="media-object img-circle" src="http://bootdey.com/img/Content/user_2.jpg">
-                            </a>
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <h2 class="media-heading"><a href="#fakelink" >${friend.f_username}</a></h2>
-                                    <p><i class="fa fa-map-marker"></i>${friend.location}
-                                        <br><small class="text-danger">${friend.MF} Mutual Friends</small></p>
-                                </div>
+                                <li href="#" class="list-group-item text-left">
+                                    <div class="media-body">
+                                        <form method="get" action="/view">
+                                            <input type="hidden" name="view" value="${fn:escapeXml(friend.id)}"/>
+                                            <button class="pull-left img-thumbnail img-circle" style="overflow: hidden; width: 50px; height: 50px;" >
+                                                <img class="media-object img-circle pull-left" style="margin-left: -5px; margin-top: -4px;width: 50px; height: 50px;" src="http://bootdey.com/img/Content/user_2.jpg" >
+                                            </button>
+                                        </form>
+                                        <div class="row">
+                                            <form method="get" action="/view">
+                                                <input type="hidden" name="view" value="${fn:escapeXml(friend.id)}"/>
+                                                <div class="col-sm-5">
+                                                    <p class="media-heading h3"><button class="btn-link"  >${friend.f_username}</button></p>
+                                                    <p class="text-info" style="font-size: 12px;"><i class="fa fa-map-marker"></i>${friend.location}
+                                                        <br><small class="text-danger">&nbsp;${friend.MF} Mutual Friends</small></p>
+                                                </div>
+                                            </form>
 
-                                <div style="float: right; padding-right: 15px;">
 
-                                    <form method="get" action="/view">
-                                        <input type="hidden" id="view" name="view" value="${friend.id}"/>
-                                        <button type="submit" class="btn btn-success btn-xs glyphicon glyphicon-ok" href="profile.jsp/view=${friend.username}" > View</button>
-                                    </form>
-                                    <form method="post" action="/unfriend">
-                                        <input type="hidden" id="unfriend" name="unfriend" value="${friend.id}"/>
-                                        <button type="submit" class="btn btn-danger  btn-xs glyphicon glyphicon-remove"> Unfriend</button>
-                                    </form>
-                                </div>
+                                            <div style="float: right; margin-right: 15px;">
 
-                            </div>
+                                                <form method="get" action="/view">
+                                                    <input type="hidden" name="view" value="${friend.id}"/>
+                                                    <button type="submit" class="btn btn-success btn-xs glyphicon glyphicon-ok" href="profile.jsp/view=${friend.username}" > View</button>
+                                                </form>
+                                                <form method="post" action="/unfriend">
+                                                    <input type="hidden" name="unfriend" value="${friend.id}"/>
+                                                    <button type="submit" class="btn btn-danger  btn-xs glyphicon glyphicon-remove"> Unfriend</button>
+                                                </form>
+                                            </div>
 
-                        </div><!-- /.row -->
+                                        </div>
 
-                    </li>
+                                    </div><!-- /.row -->
+
+                                </li>
                     </c:forEach>
 
                 </ul>

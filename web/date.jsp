@@ -14,7 +14,9 @@
         rs = stmt.executeQuery("Select DATE_FORMAT(CURDATE(),'%W, %d %M %Y') AS today;"); %>
 
      <%   while(rs.next()) { %>
-         <% out.println("<div style=\"margin: auto; width: 37%; border: 3px solid #2f889a; padding: 10px;\"><h3 style=\"font-size: 30px; font-family: 'Andy';\">"+rs.getString("today")+"</h3>"); %>
+<div class="container"><h2 class="special-text">
+         <% out.println(rs.getString("today")); %>
+    </h2></div>
        <% }
 
     }

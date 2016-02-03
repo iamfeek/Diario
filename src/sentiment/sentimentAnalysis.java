@@ -10,6 +10,8 @@ import org.python.util.PythonInterpreter;
 /**
  * Created by glenice on 24 Jan 2016.
  */
+
+
 public class sentimentAnalysis {
 
     public static boolean analysis(String username, String text, int postid) {
@@ -47,6 +49,7 @@ public class sentimentAnalysis {
 
         return jsonResult;
     }
+
 
 }
 

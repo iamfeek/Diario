@@ -50,7 +50,7 @@
         </a>
     </div>
     <script>
-        var username = "${sessionScope.username}"
+        var username = "${sessionScope.username}";
         var profile = document.getElementById("profile_name");
         profile.innerHTML += "Hey, <u>"+username+"</u>!";
     </script>

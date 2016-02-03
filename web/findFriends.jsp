@@ -22,7 +22,7 @@
 />
 
 <sql:query var="srh" dataSource="${myDS}">
-    SELECT * FROM profiles WHERE locate(?, username)>0;
+    SELECT * FROM profiles WHERE (locate(?, username)>0 and username != '${sessionScope.username}') ;
     <sql:param value="${param.search}"/>
 
 </sql:query>
@@ -67,6 +67,7 @@
                         </form>
 
                         <form name="lol" method="get" action="/addFriend" >
+                            <input type="hidden" name="username" value="${sessionScope.username}" />
                             <input type="hidden" name="id" value="${fn:escapeXml(row.id)}" />
                             <input type="hidden" name="fUNAME" value="${fn:escapeXml(row.username)}" />
                             <input type="hidden" name="location" value="${fn:escapeXml(row.location)}"/>

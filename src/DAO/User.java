@@ -56,6 +56,7 @@ public class User {
     public User(String username) throws SQLException {
         this.username = username;
         this.email = getEmailFromUsername(username);
+        this.id = getIdFromUsername(username);
     }
 
     public User(String username, String email){
@@ -95,6 +96,22 @@ public class User {
         }
 
         return retrievedEmail;
+    }
+
+    private int getIdFromUsername(String username) throws SQLException {
+        Connection conn = Db.getConnection();
+        String sql = "select userid from accounts where username = ?";
+        PreparedStatement pstmt = null;
+        pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, username);
+        ResultSet rs = pstmt.executeQuery();
+
+        int retrievedUserid = 0;
+        while(rs.next()){
+            retrievedUserid = rs.getInt("userid");
+        }
+
+        return retrievedUserid;
     }
 
     public boolean createProfile(){
@@ -171,13 +188,9 @@ public class User {
         }
 
 //        System.out.println("Retrieved username: " + retrievedUsername);
-        if (retrievedUsername == null) {
-//            System.out.println(username + " PASS");
-            return true;
-        } else {
+        //            System.out.println(username + " PASS");
 //            System.out.println(username + " FAIL");
-            return false;
-        }
+        return retrievedUsername == null;
     }
 
     public boolean checkifEmailExists(String email) throws SQLException {

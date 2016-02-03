@@ -1818,8 +1818,8 @@ function blitBuffer (src, dst, offset, length) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"base64-js":4,"ieee754":5,"isarray":6}],4:[function(require,module,exports){
-;(function (exports) {
-  'use strict'
+  (function (exports) {
+    'use strict'
 
   var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
 
@@ -12959,14 +12959,14 @@ function sum64_hi(ah, al, bh, bl) {
   var lo = (al + bl) >>> 0;
   var hi = (lo < al ? 1 : 0) + ah + bh;
   return hi >>> 0;
-};
-exports.sum64_hi = sum64_hi;
+}
+  exports.sum64_hi = sum64_hi;
 
 function sum64_lo(ah, al, bh, bl) {
   var lo = al + bl;
   return lo >>> 0;
-};
-exports.sum64_lo = sum64_lo;
+}
+  exports.sum64_lo = sum64_lo;
 
 function sum64_4_hi(ah, al, bh, bl, ch, cl, dh, dl) {
   var carry = 0;
@@ -12980,14 +12980,14 @@ function sum64_4_hi(ah, al, bh, bl, ch, cl, dh, dl) {
 
   var hi = ah + bh + ch + dh + carry;
   return hi >>> 0;
-};
-exports.sum64_4_hi = sum64_4_hi;
+}
+  exports.sum64_4_hi = sum64_4_hi;
 
 function sum64_4_lo(ah, al, bh, bl, ch, cl, dh, dl) {
   var lo = al + bl + cl + dl;
   return lo >>> 0;
-};
-exports.sum64_4_lo = sum64_4_lo;
+}
+  exports.sum64_4_lo = sum64_4_lo;
 
 function sum64_5_hi(ah, al, bh, bl, ch, cl, dh, dl, eh, el) {
   var carry = 0;
@@ -13003,38 +13003,38 @@ function sum64_5_hi(ah, al, bh, bl, ch, cl, dh, dl, eh, el) {
 
   var hi = ah + bh + ch + dh + eh + carry;
   return hi >>> 0;
-};
-exports.sum64_5_hi = sum64_5_hi;
+}
+  exports.sum64_5_hi = sum64_5_hi;
 
 function sum64_5_lo(ah, al, bh, bl, ch, cl, dh, dl, eh, el) {
   var lo = al + bl + cl + dl + el;
 
   return lo >>> 0;
-};
-exports.sum64_5_lo = sum64_5_lo;
+}
+  exports.sum64_5_lo = sum64_5_lo;
 
 function rotr64_hi(ah, al, num) {
   var r = (al << (32 - num)) | (ah >>> num);
   return r >>> 0;
-};
-exports.rotr64_hi = rotr64_hi;
+}
+  exports.rotr64_hi = rotr64_hi;
 
 function rotr64_lo(ah, al, num) {
   var r = (ah << (32 - num)) | (al >>> num);
   return r >>> 0;
-};
-exports.rotr64_lo = rotr64_lo;
+}
+  exports.rotr64_lo = rotr64_lo;
 
 function shr64_hi(ah, al, num) {
   return ah >>> num;
-};
-exports.shr64_hi = shr64_hi;
+}
+  exports.shr64_hi = shr64_hi;
 
 function shr64_lo(ah, al, num) {
   var r = (ah << (32 - num)) | (al >>> num);
   return r >>> 0;
-};
-exports.shr64_lo = shr64_lo;
+}
+  exports.shr64_lo = shr64_lo;
 
 },{"inherits":201}],66:[function(require,module,exports){
 module.exports={
@@ -13406,9 +13406,8 @@ function Entity(name, body) {
 
   this.decoders = {};
   this.encoders = {};
-};
-
-Entity.prototype._createNamed = function createNamed(base) {
+}
+  Entity.prototype._createNamed = function createNamed(base) {
   var named;
   try {
     named = require('vm').runInThisContext(
@@ -14283,8 +14282,8 @@ Reporter.prototype.wrapResult = function wrapResult(result) {
 function ReporterError(path, msg) {
   this.path = path;
   this.rethrow(msg);
-};
-inherits(ReporterError, Error);
+}
+  inherits(ReporterError, Error);
 
 ReporterError.prototype.rethrow = function rethrow(msg) {
   this.message = msg + ' at: ' + (this.path || '(shallow)');
@@ -14376,8 +14375,8 @@ function DERDecoder(entity) {
   // Construct base tree
   this.tree = new DERNode();
   this.tree._init(entity.body);
-};
-module.exports = DERDecoder;
+}
+  module.exports = DERDecoder;
 
 DERDecoder.prototype.decode = function decode(data, options) {
   if (!(data instanceof base.DecoderBuffer))
@@ -14698,8 +14697,8 @@ var DERDecoder = require('./der');
 function PEMDecoder(entity) {
   DERDecoder.call(this, entity);
   this.enc = 'pem';
-};
-inherits(PEMDecoder, DERDecoder);
+}
+  inherits(PEMDecoder, DERDecoder);
 module.exports = PEMDecoder;
 
 PEMDecoder.prototype.decode = function decode(data, options) {
@@ -14759,8 +14758,8 @@ function DEREncoder(entity) {
   // Construct base tree
   this.tree = new DERNode();
   this.tree._init(entity.body);
-};
-module.exports = DEREncoder;
+}
+  module.exports = DEREncoder;
 
 DEREncoder.prototype.encode = function encode(data, reporter) {
   return this.tree._encode(data, reporter).join();
@@ -15056,8 +15055,8 @@ var DEREncoder = require('./der');
 function PEMEncoder(entity) {
   DEREncoder.call(this, entity);
   this.enc = 'pem';
-};
-inherits(PEMEncoder, DEREncoder);
+}
+  inherits(PEMEncoder, DEREncoder);
 module.exports = PEMEncoder;
 
 PEMEncoder.prototype.encode = function encode(data, options) {
@@ -22168,18 +22167,8 @@ module.exports = {
 
 },{"./ber/index":225}],230:[function(require,module,exports){
 (function (global){
-/**
- * @license
- * lodash 3.3.0 (Custom Build) <https://lodash.com/>
- * Build: `lodash modern -d -o ./index.js`
- * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.7.0 <http://underscorejs.org/LICENSE>
- * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <https://lodash.com/license>
- */
-;(function() {
-
-  /** Used as a safe reference for `undefined` in pre-ES5 environments. */
+  (function () {
+    /** Used as a safe reference for `undefined` in pre-ES5 environments. */
   var undefined;
 
   /** Used as the semantic version number. */
@@ -23931,7 +23920,7 @@ module.exports = {
       return function(prototype) {
         if (isObject(prototype)) {
           Object.prototype = prototype;
-          var result = new Object;
+          var result = {};
           Object.prototype = null;
         }
         return result || context.Object();
@@ -34695,7 +34684,7 @@ BigInteger.prototype.F2 = 2 * dbits - BI_FP;
 
 // Digit conversions
 var BI_RM = "0123456789abcdefghijklmnopqrstuvwxyz";
-var BI_RC = new Array();
+var BI_RC = [];
 var rr, vv;
 rr = "0".charCodeAt(0);
 for (vv = 0; vv <= 9; ++vv) BI_RC[rr++] = vv;
@@ -35353,7 +35342,7 @@ function bnpFromNumber(a, b) {
 
 //(public) convert to bigendian byte array
 function bnToByteArray() {
-    var i = this.t, r = new Array();
+    var i = this.t, r = [];
     r[0] = this.s;
     var p = this.DB - (i * this.DB) % 8, d, k = 0;
     if (i-- > 0) {
@@ -35654,7 +35643,7 @@ function bnRemainder(a) {
 function bnDivideAndRemainder(a) {
     var q = nbi(), r = nbi();
     this.divRemTo(a, q, r);
-    return new Array(q, r);
+    return [q, r];
 }
 
 //(protected) this *= n, this >= 0, 1 < n < DV
@@ -35799,7 +35788,7 @@ function bnModPow(e, m) {
         z = new Montgomery(m);
 
 // precomputation
-    var g = new Array(), n = 3, k1 = k - 1, km = (1 << k) - 1;
+    var g = [], n = 3, k1 = k - 1, km = (1 << k) - 1;
     g[1] = z.convert(this);
     if (k > 1) {
         var g2 = nbi();

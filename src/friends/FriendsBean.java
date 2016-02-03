@@ -14,15 +14,16 @@ public class FriendsBean{
 
 
     //Add friends together, username and friends_username. Remember to check for existing friend (a,b) and (b,a)
-    public void addFriend(Friend f) {
+    public void addFriend(Friend f, String username) {
         Connection con = Db.getConnection();
         PreparedStatement pstmt = null;
         try {
-            pstmt = con.prepareStatement("INSERT INTO friends (id, f_username, Location, MF) VALUES (?, ?, ?, ?);");
+            pstmt = con.prepareStatement("INSERT INTO friends (id, username, f_username, Location, MF) VALUES (?, ?, ?, ?, ?);");
             pstmt.setInt(1, f.getId());
-            pstmt.setString(2, f.getF_username());
-            pstmt.setString(3, f.getLocation());
-            pstmt.setString(4, f.getMF());
+            pstmt.setString(2, username);
+            pstmt.setString(3, f.getF_username());
+            pstmt.setString(4, f.getLocation());
+            pstmt.setString(5, f.getMF());
             pstmt.executeUpdate();
 
         } catch (Exception e){
@@ -100,13 +101,13 @@ public class FriendsBean{
     }
 
 
-    public Friend getFriend (String username) {
+    public Friend getFriend (int userid) {
         Friend f = null;
         Connection conn = Db.getConnection();
         Statement stmt = null;
         try {
-              stmt = conn.createStatement();
-            String sql = "SELECT * FROM profiles WHERE username='" + username+"';";
+            stmt = conn.createStatement();
+            String sql = "SELECT * FROM profiles WHERE id='" + userid+"';";
             System.out.println(sql);
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -122,14 +123,14 @@ public class FriendsBean{
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-                try {
-                    if (stmt != null) stmt.close();
-                    if (conn != null) conn.close();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
+            try {
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
-            return f;
+        }
+        return f;
     }
 
     public List<Friend> getFriends(){

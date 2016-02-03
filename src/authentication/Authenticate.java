@@ -1,5 +1,6 @@
 package authentication;
 
+import DAO.User;
 import com.bitbucket.thinbus.srp6.js.SRP6JavascriptServerSession;
 import com.nimbusds.srp6.BigIntegerUtils;
 import com.nimbusds.srp6.SRP6Exception;
@@ -53,6 +54,7 @@ public class Authenticate extends HttpServlet {
 
                 request.getSession().setAttribute("loggedIn", true);
                 request.getSession().setAttribute("username", request.getParameter("username"));
+                request.getSession().setAttribute("userid", new User(request.getParameter("username")).getId());
             } catch (Exception e) {
                 //authentication failed
                 System.out.println("Bad credentials");

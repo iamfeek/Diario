@@ -3,6 +3,7 @@ package diary;
 import database.Db;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +14,7 @@ import java.sql.*;
 /**
  * Created by lenovo on 12/6/2015.
  */
-
+@WebServlet(urlPatterns = {"/pageServlet"})
 public class pageServlet extends HttpServlet {
 
 // PreparedStatement ps = connection.prepareStatement("Select DATE_FORMAT(CURDATE(),'%d %M %Y') AS today");

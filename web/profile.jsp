@@ -1,12 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--@elvariable id="nono" type="DAO.Friend"--%>
-<c:choose>
+<%--<c:choose>
     <c:when test="${sessionScope.loggedIn}">
     </c:when>
     <c:otherwise>
         <% response.sendRedirect("/signin"); %>
     </c:otherwise>
-</c:choose>
+</c:choose>--%>
 
 <html>
 
@@ -37,6 +37,8 @@
                         </div>
                     </div>
                 </div>
+                <input type="button" class="btn btn-default navbar-btn"
+                       value="Edit"/>
             </div>
                 <%--friends--%>
             <div class="row">

@@ -1,4 +1,4 @@
-package sentiment;
+package Sentiment;
 
 import DAO.DAOPost;
 import org.jinstagram.entity.users.feed.MediaFeedData;

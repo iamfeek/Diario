@@ -67,6 +67,7 @@
                         </form>
 
                         <form name="lol" method="get" action="/addFriend" >
+                            <input type="hidden" name="username" value="${sessionScope.username}" />
                             <input type="hidden" name="id" value="${fn:escapeXml(row.id)}" />
                             <input type="hidden" name="fUNAME" value="${fn:escapeXml(row.username)}" />
                             <input type="hidden" name="location" value="${fn:escapeXml(row.location)}"/>

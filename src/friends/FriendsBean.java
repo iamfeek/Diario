@@ -14,15 +14,16 @@ public class FriendsBean{
 
 
     //Add friends together, username and friends_username. Remember to check for existing friend (a,b) and (b,a)
-    public void addFriend(Friend f) {
+    public void addFriend(Friend f, String username) {
         Connection con = Db.getConnection();
         PreparedStatement pstmt = null;
         try {
-            pstmt = con.prepareStatement("INSERT INTO friends (id, f_username, Location, MF) VALUES (?, ?, ?, ?);");
+            pstmt = con.prepareStatement("INSERT INTO friends (id, username, f_username, Location, MF) VALUES (?, ?, ?, ?, ?);");
             pstmt.setInt(1, f.getId());
-            pstmt.setString(2, f.getF_username());
-            pstmt.setString(3, f.getLocation());
-            pstmt.setString(4, f.getMF());
+            pstmt.setString(2, username);
+            pstmt.setString(3, f.getF_username());
+            pstmt.setString(4, f.getLocation());
+            pstmt.setString(5, f.getMF());
             pstmt.executeUpdate();
 
         } catch (Exception e){

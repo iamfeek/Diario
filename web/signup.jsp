@@ -44,6 +44,11 @@
         <div class="page-header">
             <h1>Create A New Account</h1>
         </div>
+        <div id="key-warning" class="hidden alert alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            YOUR MESSAGE HERE
+        </div>
+
         <div id="create-success" class="hidden alert alert-success" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <strong>Success!</strong> Welcome! We have sent you a verification email. Please check your email.</a>.

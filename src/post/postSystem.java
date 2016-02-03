@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import DAO.DAOPost;
-import sentiment.sentimentAnalysis;
-import sentiment.sentimentDAO;
+import Sentiment.sentimentAnalysis;
+import Sentiment.sentimentDAO;
 
 /**
  * Created by Jy on 10-Dec-15.

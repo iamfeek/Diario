@@ -7,13 +7,13 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:choose>
+<%--<c:choose>
     <c:when test="${sessionScope.loggedIn}">
     </c:when>
     <c:otherwise>
         <% response.sendRedirect("/signin"); %>
     </c:otherwise>
-</c:choose>
+</c:choose>--%>
 <html>
 <jsp:include page="header.jsp">
     <jsp:param name="dashboard" value="active"></jsp:param>

@@ -1,11 +1,8 @@
-package sentiment;
+package Sentiment;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.python.core.PyObject;
+/*import org.python.core.PyObject;
 import org.python.netty.util.internal.SystemPropertyUtil;
-import org.python.util.PythonInterpreter;
+import org.python.util.PythonInterpreter;*/
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

@@ -21,27 +21,27 @@ passwordElement.on('keyup', $.proxy(function(event){
     $(event.currentTarget).val().length ? enableSubmitBtn() : disableSubmitBtn();
 
     random16byteHex.advance(Math.floor(event.keyCode / 4));
-}, this))
+}, this));
 
 var disableSubmitBtn = function () {
     loginBtn.attr("disabled", true);
-}
+};
 
 var enableSubmitBtn = function () {
     loginBtn.removeAttr("disabled");
-}
+};
 
 var sendChallenge = function(){
     var username = usernameElement.val();
 
     var postValues = {
         username: username
-    }
+    };
 
     $.post("/challenge", postValues, function(response){
         challengeResponse(response);
     });
-}
+};
 
 function challengeResponse(response){
     //var saltAndB = JSON.parse(response.saltAndB);
@@ -72,9 +72,9 @@ function challengeResponse(response){
         var salt = saltAndB.salt;
         var b = saltAndB.b;
         try {
-            console.log("Step 2 Values")
-            console.log("Salt: " + salt)
-            console.log("B: " + b)
+            console.log("Step 2 Values");
+            console.log("Salt: " + salt);
+            console.log("B: " + b);
             credentials = srpClient.step2(salt, b);
             console.log("Step 2: COMPLETED")
 
@@ -88,8 +88,8 @@ function challengeResponse(response){
             A: credentials.A
         };
 
-        console.log("A: " + values.A)
-        console.log("M1: " + values.M1)
+        console.log("A: " + values.A);
+        console.log("M1: " + values.M1);
 
 
         $.post("/authenticate", values, function (response) {
@@ -99,7 +99,7 @@ function challengeResponse(response){
 }
 
 function authenticateResponse(response, srpClient){
-    console.log("Authentication status: "+ response)
+    console.log("Authentication status: "+ response);
     if(response == "bad"){
         document.getElementById("bad-credentials").className = "alert alert-danger alert-dismissible";
         $("#password").val("");

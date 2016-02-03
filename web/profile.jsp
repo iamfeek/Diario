@@ -75,7 +75,7 @@
     function saveTextAsFile() {
         var textToWrite = localStorage.getItem("prvKey");
         var textFileAsBlob = new Blob([textToWrite], {type: 'text/plain'});
-        var fileNameToSaveAs = "key.txt"
+        var fileNameToSaveAs = "key.txt";
 
         var downloadLink = document.createElement("a");
         downloadLink.download = fileNameToSaveAs;

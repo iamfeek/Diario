@@ -146,7 +146,7 @@
     
     <servlet>
         <servlet-name>chart</servlet-name>
-        <servlet-class>Sentiment.chartServlet</servlet-class>
+        <servlet-class>sentiment.chartServlet</servlet-class>
     </servlet>
     
     <servlet-mapping>
@@ -241,7 +241,7 @@
     </servlet>
     <servlet>
         <servlet-name>jythonTestServlet</servlet-name>
-        <servlet-class>Sentiment.jythonTestServlet</servlet-class>
+        <servlet-class>sentiment.jythonTestServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>

@@ -136,7 +136,7 @@ BigInteger.prototype.F2 = 2 * dbits - BI_FP;
 
 // Digit conversions
 var BI_RM = "0123456789abcdefghijklmnopqrstuvwxyz";
-var BI_RC = new Array();
+var BI_RC = [];
 var rr, vv;
 rr = "0".charCodeAt(0);
 for (vv = 0; vv <= 9; ++vv) {
@@ -983,7 +983,7 @@ function bnpFromNumber(a, b, c) {
   }
   else {
     // new BigInteger(int,RNG)
-    var x = new Array(), t = a & 7;
+    var x = [], t = a & 7;
     x.length = (a >> 3) + 1;
     b.nextBytes(x);
     if (t > 0) {
@@ -997,7 +997,7 @@ function bnpFromNumber(a, b, c) {
 
 // (public) convert to bigendian byte array
 function bnToByteArray() {
-  var i = this.t, r = new Array();
+  var i = this.t, r = [];
   r[0] = this.s;
   var p = this.DB - (i * this.DB) % 8, d, k = 0;
   if (i-- > 0) {
@@ -1310,7 +1310,7 @@ function bnRemainder(a) {
 function bnDivideAndRemainder(a) {
   var q = nbi(), r = nbi();
   this.divRemTo(a, q, r);
-  return new Array(q, r);
+  return [q, r];
 }
 
 // (protected) this *= n, this >= 0, 1 < n < DV
@@ -1493,7 +1493,7 @@ function bnModPow(e, m) {
   }
 
   // precomputation
-  var g = new Array(), n = 3, k1 = k - 1, km = (1 << k) - 1;
+  var g = [], n = 3, k1 = k - 1, km = (1 << k) - 1;
   g[1] = z.convert(this);
   if (k > 1) {
     var g2 = nbi();

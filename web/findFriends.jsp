@@ -22,7 +22,7 @@
 />
 
 <sql:query var="srh" dataSource="${myDS}">
-    SELECT * FROM profiles WHERE locate(?, username)>0;
+    SELECT * FROM profiles WHERE (locate(?, username)>0 and username != '${sessionScope.username}') ;
     <sql:param value="${param.search}"/>
 
 </sql:query>

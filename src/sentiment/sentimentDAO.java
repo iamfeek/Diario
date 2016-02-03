@@ -1,4 +1,4 @@
-package Sentiment;
+package sentiment;
 
 import DAO.SentimentResult;
 import database.Db;

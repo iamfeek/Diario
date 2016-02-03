@@ -188,13 +188,9 @@ public class User {
         }
 
 //        System.out.println("Retrieved username: " + retrievedUsername);
-        if (retrievedUsername == null) {
-//            System.out.println(username + " PASS");
-            return true;
-        } else {
+        //            System.out.println(username + " PASS");
 //            System.out.println(username + " FAIL");
-            return false;
-        }
+        return retrievedUsername == null;
     }
 
     public boolean checkifEmailExists(String email) throws SQLException {

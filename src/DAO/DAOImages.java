@@ -54,9 +54,7 @@ public class DAOImages {
         if (retrieved.equals(username))
             return true;
         ArrayList<String> friends = Friends.getFriendsList(username);
-        if (friends.contains(retrieved))
-            return true;
-        return false;
+        return friends.contains(retrieved);
     }
 
     public static ArrayList<Integer> getImageIds(String username)    {

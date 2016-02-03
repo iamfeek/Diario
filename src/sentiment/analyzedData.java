@@ -1,4 +1,4 @@
-package Sentiment;
+package sentiment;
 
 import java.text.DateFormat;
 import java.text.ParseException;

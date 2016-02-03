@@ -20,11 +20,11 @@ $(document).ready(function(e) {
 
 var disableSubmitBtn = function () {
     registerBtn.attr("disabled", true);
-}
+};
 
 var enableSubmitBtn = function () {
     registerBtn.removeAttr("disabled");
-}
+};
 
 var postSaltAndVerifier = function(){
     var email = signUpEmailElement.val();
@@ -50,7 +50,7 @@ var postSaltAndVerifier = function(){
         salt: salt,
         verifier: verifier,
         pubkey: pubkey
-    }
+    };
 
     $.post("/register", postValues, function(response){
         if(response === "done"){
@@ -71,4 +71,4 @@ var postSaltAndVerifier = function(){
             enableSubmitBtn();
         }
     })
-}
+};

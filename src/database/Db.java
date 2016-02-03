@@ -12,7 +12,7 @@ public class Db {
         try{
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = null;
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:8888/diario","root", "narumi");
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/diario","root", "root");
             return conn;
         }catch (SQLException e){
             e.printStackTrace();

@@ -119,7 +119,8 @@ public class DAOPost {
             preparedStmt = conn.prepareStatement(query);
             ResultSet rs = preparedStmt.executeQuery();
             while (rs.next())   {
-                posts.add(new Post(rs.getInt("postid"), rs.getString("username"), rs.getString("text"), rs.getBoolean("encrypted"), rs.getBoolean("shared"), rs.getDate("timestamp")));
+                Timestamp timestamp = rs.getTimestamp("timestamp");
+                posts.add(new Post(rs.getInt("postid"), rs.getString("username"), rs.getString("text"), rs.getBoolean("encrypted"), rs.getBoolean("shared"), new java.util.Date(timestamp.getTime())));
             }
             conn.close();
         } catch (SQLException e) {
@@ -138,7 +139,8 @@ public class DAOPost {
             preparedStmt = conn.prepareStatement(query);
             ResultSet rs = preparedStmt.executeQuery();
             while (rs.next())   {
-                posts.add(new Post(rs.getInt("postid"), rs.getString("username"), rs.getString("text"), rs.getBoolean("encrypted"), rs.getBoolean("shared"), rs.getDate("timestamp")));
+                Timestamp timestamp = rs.getTimestamp("timestamp");
+                posts.add(new Post(rs.getInt("postid"), rs.getString("username"), rs.getString("text"), rs.getBoolean("encrypted"), rs.getBoolean("shared"), new java.util.Date(timestamp.getTime())));
             }
             conn.close();
         } catch (SQLException e) {
@@ -152,16 +154,17 @@ public class DAOPost {
         String query = "SELECT timestamp FROM diario.posts WHERE postid='" + postid + "'";
 
         PreparedStatement preparedStmt = null;
-        Date timestamp = null;
+        Date date = null;
         try {
             preparedStmt = conn.prepareStatement(query);
             ResultSet rs = preparedStmt.executeQuery();
             rs.next();
-            timestamp = rs.getDate("timestamp");
+            Timestamp timestamp = rs.getTimestamp("timestamp");
+            date = new java.util.Date(timestamp.getTime());
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return timestamp;
+        return date;
     }
 }

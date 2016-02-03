@@ -1,11 +1,12 @@
 package post;
 
+import java.util.Comparator;
 import java.util.Date;
 
 /**
  * Created by Jy on 17-Jan-16.
  */
-public class Post {
+public class Post implements Comparable<Post>{
     int postid;
     String username;
     String text;
@@ -44,5 +45,10 @@ public class Post {
 
     public Date getDate() {
         return date;
+    }
+
+    @Override
+    public int compareTo(Post o) {
+        return o.getDate().compareTo(getDate());
     }
 }

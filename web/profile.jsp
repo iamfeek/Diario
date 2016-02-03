@@ -38,11 +38,11 @@
                     </div>
                 </div>
             </div>
-                <%--friends--%>
+            <%--friends--%>
             <div class="row">
-                 <div class="panel">
-                     <jsp:include page="friendslist.jsp" flush="true"/>
-                 </div>
+                <div class="panel">
+                    <jsp:include page="friendslist.jsp" flush="true"/>
+                </div>
             </div>
             <%--End Profile Stuff--%>
 
@@ -51,13 +51,17 @@
                 <div class="panel panel-danger">
                     <div class="panel-heading" style="text-align: center;">Encryption Key Management</div>
                     <div class="panel-body" style="text-align: center">
-                        <input type="button" class="btn btn-default navbar-btn"
-                               onclick="alert(localStorage.getItem('prvKey'))"
-                               value="View Key"/>
+                        <div style="line-height: 30px; border: 1px solid #CCCCCC; padding: 5px; border-radius: 5px">
+                            Import Key<br>
+                            <input type="file" id="fileinput"/>
+                            <div>
+                                <input id="passphrase" type="password"style="display:none; margin: 5px; line-height: 20px" placeholder="Password" onkeypress="testImport(event)"/>
+                            </div>
+                        </div>
                         <br>
                         <input type="button" class="btn btn-default navbar-btn"
-                               onclick="saveTextAsFile()"
-                               value="Download Key"/>
+                               onclick="downloadKey()"
+                               value="Save Key"/>
                     </div>
                 </div>
             </div>
@@ -70,33 +74,57 @@
     </div>
 </div>
 <script type="text/javascript">
-    function saveTextAsFile() {
-        var textToWrite = localStorage.getItem("prvKey");
-        var textFileAsBlob = new Blob([textToWrite], {type: 'text/plain'});
-        var fileNameToSaveAs = "key.txt"
+    var keycontents = "";
+    function readKeyFile(evt) {
+        var f = evt.target.files[0];
 
-        var downloadLink = document.createElement("a");
-        downloadLink.download = fileNameToSaveAs;
-        downloadLink.innerHTML = "Download File";
-        if (window.webkitURL != null) {
-            // Chrome allows the link to be clicked
-            // without actually adding it to the DOM.
-            downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+        if (f) {
+            var r = new FileReader();
+            r.onload = function(e) {
+                keycontents = e.target.result;
+                document.getElementById("passphrase").style.display = "";
+                document.getElementById("passphrase").focus();
+            }
+            r.readAsText(f);
+        } else {
+            alert("Failed to load file");
         }
-        else {
-            // Firefox requires the link to be added to the DOM
-            // before it can be clicked.
-            downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-            downloadLink.onclick = destroyClickedElement;
-            downloadLink.style.display = "none";
-            document.body.appendChild(downloadLink);
-        }
-
-        downloadLink.click();
     }
 
-    function destroyClickedElement(event) {
-        document.body.removeChild(event.target);
+    document.getElementById('fileinput').addEventListener('change', readKeyFile, false);
+
+    function testImport(e) {
+        if (e.keyCode == 13) {
+            var keys = keycontents.split("          ");
+            var success = false;
+            try {
+                var decryptedKey = decryptKey(keys[0], document.getElementById("passphrase").value);
+                success = true;
+            }
+            catch(error)    {
+                alert("Wrong password, import failed");
+                document.getElementById("fileinput").value = "";
+                document.getElementById("passphrase").value = "";
+                document.getElementById("passphrase").style.display = "none";
+            }
+            if (success)
+                importKey(keys[0], decryptedKey, keys[1]);
+        }
+    }
+
+    function importKey(encryptedPrv, prvKey, pubKey)    {
+        localStorage.setItem(sessionStorage.getItem("username") + "_prvKey", encryptedPrv);
+        localStorage.setItem(sessionStorage.getItem("username") + "_pubKey", pubKey);
+        sessionStorage.setItem("prvKey", prvKey);
+        sessionStorage.setItem("pubKey", pubKey);
+        alert("Key Successfully Imported!");
+        document.getElementById("fileinput").value = "";
+        document.getElementById("passphrase").value = "";
+        document.getElementById("passphrase").style.display = "none";
     }
 </script>
+<script type="text/javascript" src="js/security/key-handler.js"></script>
+<script type="text/javascript" src="js/security/aes.js"></script>
+<script type="text/javascript" src="js/security/aes-handler.js"></script>
+<script type="text/javascript" src="js/security/mode-ecb-min.js"></script>
 </html>

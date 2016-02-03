@@ -83,6 +83,9 @@
 <script src="js/rfc5054-safe-prime-config.js"></script>
 <script src="js/thinbus-srpclient-sha256.js"></script>
 <script src="js/signin.js"></script>
+<script src="js/security/key-handler.js"></script>
+<script src="js/security/aes.js"></script>
+<script src="js/security/aes-handler.js"></script>
 </html>
 
 <%--Sign up Form--%>

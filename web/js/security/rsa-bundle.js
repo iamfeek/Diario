@@ -36414,26 +36414,24 @@ module.exports.Key = (function () {
 
 }).call(this,require("buffer").Buffer)
 },{"../encryptEngines/encryptEngines.js":232,"../schemes/schemes.js":245,"../utils.js":246,"./jsbn.js":239,"buffer":3,"crypto":8,"lodash":230}],241:[function(require,module,exports){
-window.generateRSAKeyAndStore = function ()	{
+window.generateRSAKey = function ()	{
 	var NodeRSA = require('node-rsa');
 	var key = new NodeRSA({b: 1024});
-    localStorage.setItem("prvKey", key.exportKey("pkcs8-private"));
-    localStorage.setItem("pubKey", key.exportKey("pkcs8-public-pem"));
 	return key;
 };
 
-window.retrieveRSAKeyFromStore = function () {
+window.retrieveRSAKeyFromSession = function () {
     var NodeRSA = require('node-rsa');
     var key = new NodeRSA();
-    key.importKey(localStorage.getItem("prvKey"),"pkcs8-private");
-    key.importKey(localStorage.getItem("pubKey"),"pkcs8-public-pem");
+    key.importKey(sessionStorage.getItem("prvKey"),"pkcs8-private");
+    key.importKey(sessionStorage.getItem("pubKey"),"pkcs8-public-pem");
     return key;
 }
 
 window.checkForExistingKey = function () {
-    if (localStorage.getItem("prvKey") === null)
+    if (sessionStorage.getItem("prvKey") === null)
         return false;
-    else if (localStorage.getItem("pubKey") === null)
+    else if (sessionStorage.getItem("pubKey") === null)
         return false;
     else
         return true;

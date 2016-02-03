@@ -106,6 +106,8 @@ function authenticateResponse(response, srpClient){
         $("#username").focus();
 
     } else {
+        retrieveRSAKeyFromStore(usernameElement.val(), passwordElement.val());
+        sessionStorage.setItem("username", usernameElement.val());
         window.location.replace("/checkInstagram")
     }
 }

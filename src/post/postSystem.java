@@ -27,7 +27,7 @@ public class postSystem extends HttpServlet {
         int seculvl = Integer.parseInt(request.getParameter("text_secu_level"));
         if (seculvl == 0) {
             System.out.println("User " + username + " posting unencrypted message");
-            int postid = DAOPost.storeMessage(username, text, false);
+            int postid = DAOPost.storeMessage(username, text, false, true);
             sentimentAnalysis.analysis((String)request.getSession().getAttribute("username"), text, postid);
             request.getSession().setAttribute("sentResults", sentimentDAO.getSentiment(postid));
         }

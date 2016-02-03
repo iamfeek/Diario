@@ -44,6 +44,10 @@
         <div class="page-header">
             <h1>Create A New Account</h1>
         </div>
+        <div id="key-warning" class="hidden alert alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            Your keys have been generated. They are used to submit and view your posts. Please keep the key file safe and import them to other browsers you want to use.
+        </div>
         <div id="create-success" class="hidden alert alert-success" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <strong>Success!</strong> Welcome! We have sent you a verification email. Please check your email.</a>.
@@ -104,6 +108,8 @@
 <script src="js/validator.js"></script>
 <script type="text/javascript" src="js/security/key-handler.js"></script>
 <script type="text/javascript" src="js/security/rsa-bundle.js"></script>
+<script type="text/javascript" src="js/security/aes-handler.js"></script>
+<script type="text/javascript" src="js/security/aes.js"></script>
 </html>
 
 <%--Sign up Form--%>

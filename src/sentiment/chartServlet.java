@@ -5,7 +5,6 @@ import org.jinstagram.entity.users.feed.MediaFeedData;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import post.Post;
 import twitter4j.Paging;
 import twitter4j.Status;
 import twitter4j.Twitter;
@@ -54,7 +53,6 @@ public class chartServlet extends HttpServlet {
         }
 
 
-
         //Get all data
 
         List<analyzedData> allResults = moodGenerator.generateMoodFromTwitter((List<Status>) request.getSession().getAttribute("userTimeline"));
@@ -62,11 +60,13 @@ public class chartServlet extends HttpServlet {
         allResults.addAll(moodGenerator.instagramToData((List<MediaFeedData>) request.getSession().getAttribute("userFeed")));
 
         ArrayList<Double> compound = new ArrayList<Double>();
+        ArrayList<Double> positive = new ArrayList<Double>();
+        ArrayList<Double> negative = new ArrayList<Double>();
         ArrayList<String> dateList = new ArrayList<String>();
         ArrayList<analyzedData> data = new ArrayList<analyzedData>();
 
         if (value == null || value.equals("refresh") || request.getSession().getAttribute("allData") == null) {
-            Collections.sort(allResults,Collections.<analyzedData>reverseOrder());
+            Collections.sort(allResults, Collections.<analyzedData>reverseOrder());
 
             SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy");
 
@@ -75,6 +75,8 @@ public class chartServlet extends HttpServlet {
                     //get compound
                     JSONObject json = (JSONObject) new JSONParser().parse(allResults.get(i).getText());
                     Double com = (Double) json.get("compound");
+                    Double pos = (Double) json.get("pos");
+                    Double neg = (Double) json.get("neg");
 
                     //set format date
                     allResults.get(i).setFormatDate(format.format(allResults.get(i).getDate()));
@@ -84,6 +86,12 @@ public class chartServlet extends HttpServlet {
                         //consolidate the compound and average it
                         int index = dateList.indexOf("\'" + allResults.get(i).getFormatDate() + "\'");
                         compound.set(index, (compound.get(index) + com * 100) / 2);
+                        positive.set(index, (positive.get(index) + pos * 100) / 2);
+                        negative.set(index, (negative.get(index) + neg * 100) / 2);
+
+                        if(negative.get(index)>0){
+                            negative.set(index, negative.get(index) * -1);
+                        }
 
                         //consolidate content
                         data.get(index).setContent(allResults.get(i).getContent() + "\n" + data.get(index).getContent());
@@ -93,6 +101,8 @@ public class chartServlet extends HttpServlet {
                     } else {
                         //new entry
                         compound.add(com * 100);
+                        positive.add(pos * 100);
+                        negative.add(neg * 100);
                         data.add(allResults.get(i));
                         dateList.add("\'" + allResults.get(i).getFormatDate() + "\'");
                     }
@@ -105,6 +115,10 @@ public class chartServlet extends HttpServlet {
             request.getSession().setAttribute("allData", data);
             request.getSession().setAttribute("allDateList", dateList);
             request.getSession().setAttribute("allCompoundList", compound);
+            request.getSession().setAttribute("allPositiveList", positive);
+            request.getSession().setAttribute("allNegativeList", negative);
+            request.getSession().setAttribute("positiveList", positive);
+            request.getSession().setAttribute("negativeList", negative);
             request.getSession().setAttribute("compound", compound);
             request.getSession().setAttribute("dateList", dateList);
             request.getSession().setAttribute("contentList", data);
@@ -115,15 +129,21 @@ public class chartServlet extends HttpServlet {
             compound = (ArrayList<Double>) request.getSession().getAttribute("allCompoundList");
             dateList = (ArrayList<String>) request.getSession().getAttribute("allDateList");
             data = (ArrayList<analyzedData>) request.getSession().getAttribute("allData");
+            positive = (ArrayList<Double>) request.getSession().getAttribute("allPositiveList");
+            negative = (ArrayList<Double>) request.getSession().getAttribute("allNegativeList");
 
             ArrayList<Double> compoundsub = new ArrayList<Double>();
             ArrayList<String> dateListsub = new ArrayList<String>();
             ArrayList<analyzedData> contentsub = new ArrayList<analyzedData>();
+            ArrayList<Double> negsub = new ArrayList<Double>();
+            ArrayList<Double> possub = new ArrayList<Double>();
 
             for (int i = 0; i < data.size(); i++) {
-                if(dateList.get(i).contains(value)){
+                if (dateList.get(i).contains(value)) {
                     dateListsub.add(dateList.get(i));
                     compoundsub.add(compound.get(i));
+                    negsub.add(negative.get(i));
+                    possub.add(positive.get(i));
                     contentsub.add(data.get(i));
                 }
             }
@@ -131,6 +151,8 @@ public class chartServlet extends HttpServlet {
             if (compoundsub.size() == 0) {
                 request.getSession().setAttribute("listEmpty", true);
                 request.getSession().setAttribute("contentList", null);
+                request.getSession().setAttribute("positiveList", null);
+                request.getSession().setAttribute("negativeList", null);
                 request.getSession().setAttribute("dateList", null);
                 request.getSession().setAttribute("compound", null);
             } else {
@@ -138,6 +160,8 @@ public class chartServlet extends HttpServlet {
                 request.getSession().setAttribute("compound", compoundsub);
                 request.getSession().setAttribute("contentList", contentsub);
                 request.getSession().setAttribute("listEmpty", false);
+                request.getSession().setAttribute("positiveList", possub);
+                request.getSession().setAttribute("negativeList", negsub);
             }
 
             response.sendRedirect("/mood");

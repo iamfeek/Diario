@@ -37,7 +37,7 @@ CREATE TABLE `accounts` (
   UNIQUE KEY `email_address_UNIQUE` (`email_address`),
   UNIQUE KEY `verifier_UNIQUE` (`verifier`),
   UNIQUE KEY `salt_UNIQUE` (`salt`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,7 +68,7 @@ CREATE TABLE `friends` (
   `Location` varchar(45) DEFAULT NULL,
   `MF` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`,`username`,`f_username`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -84,7 +84,7 @@ CREATE TABLE `images` (
   `img` mediumblob NOT NULL,
   `secu` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`imgid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -115,7 +115,7 @@ CREATE TABLE `instagramkey` (
   `iv` tinyblob NOT NULL,
   `username` varchar(45) NOT NULL,
   PRIMARY KEY (`idinstagramkey`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -163,7 +163,7 @@ CREATE TABLE `posts` (
   `shared` tinyint(1) NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`postid`)
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -210,7 +210,7 @@ DROP TABLE IF EXISTS `reset`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `reset` (
   `username` varchar(45) NOT NULL,
-  `rand` varchar(32) NOT NULL,
+  `rand` varchar(128) NOT NULL,
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -231,7 +231,7 @@ CREATE TABLE `sentimentanalysis` (
   `compound` float NOT NULL,
   `username` varchar(45) NOT NULL,
   PRIMARY KEY (`idsentimentAnalysis`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -271,4 +271,4 @@ CREATE TABLE `verify` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-02-04  5:53:18
+-- Dump completed on 2016-02-04 19:32:05

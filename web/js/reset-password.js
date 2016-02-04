@@ -22,9 +22,9 @@ function sendResetRequest(){
         stage: 1,
         username: username,
         email: email
-    }
+    };
 
-    var posting = $.post("/reset", postValues)
+    var posting = $.post("/reset", postValues);
     posting.done(function(data){
         document.getElementById("email-sent").className = "alert alert-info";
         setTimeout(function(){

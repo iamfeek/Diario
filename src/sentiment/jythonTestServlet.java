@@ -1,4 +1,4 @@
-package Sentiment;
+package sentiment;
 
 /*import org.python.core.PyObject;
 import org.python.netty.util.internal.SystemPropertyUtil;

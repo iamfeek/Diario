@@ -12,7 +12,7 @@ $(document).ready(function(e) {
     $("#username").focus();
     $('#register-form').on('submit', function(e){
         e.preventDefault();
-        registerNewKeyPair();
+        registerNewKeyPair(signUpUsernameElement.val(), signUpPasswordElement.val());
         disableSubmitBtn();
         postSaltAndVerifier();
     });
@@ -20,11 +20,11 @@ $(document).ready(function(e) {
 
 var disableSubmitBtn = function () {
     registerBtn.attr("disabled", true);
-}
+};
 
 var enableSubmitBtn = function () {
     registerBtn.removeAttr("disabled");
-}
+};
 
 var postSaltAndVerifier = function(){
     var email = signUpEmailElement.val();
@@ -50,14 +50,15 @@ var postSaltAndVerifier = function(){
         salt: salt,
         verifier: verifier,
         pubkey: pubkey
-    }
+    };
 
     $.post("/register", postValues, function(response){
         if(response === "done"){
             document.getElementById("create-success").className = "alert alert-success";
+            document.getElementById("key-warning").className = "alert alert-danger";
             setTimeout(function(){
                 window.location.replace("/checkInstagram")
-            },3000)
+            },10000)
 
         } else {
             document.getElementById("create-failed").className = "alert alert-danger";
@@ -71,4 +72,4 @@ var postSaltAndVerifier = function(){
             enableSubmitBtn();
         }
     })
-}
+};

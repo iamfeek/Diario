@@ -16,10 +16,7 @@ public class Friends {
             preparedStmt.setString(2, friends_username);
             int status = preparedStmt.executeUpdate();
             conn.close();
-            if (status == 1)
-                return true;
-            else
-                return false;
+            return status == 1;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -64,10 +61,7 @@ public class Friends {
             preparedStmt.setString(2, friends_username);
             int status = preparedStmt.executeUpdate();
             conn.close();
-            if (status == 1)
-                return true;
-            else
-                return false;
+            return status == 1;
         } catch (SQLException e) {
             e.printStackTrace();
             tryOther = true;
@@ -83,10 +77,7 @@ public class Friends {
                 preparedStmt.setString(2, username);
                 int status = preparedStmt.executeUpdate();
                 conn.close();
-                if (status == 1)
-                    return true;
-                else
-                    return false;
+                return status == 1;
             } catch (SQLException e) {
                 e.printStackTrace();
             }

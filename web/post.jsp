@@ -8,6 +8,7 @@
 </c:choose>
 <jsp:include page="header.jsp">
     <jsp:param name="post" value="active"></jsp:param>
+    <jsp:param name="postNew" value="active"></jsp:param>
 </jsp:include>
 
 <script type="text/javascript" src="js/secu_slider.js"></script>

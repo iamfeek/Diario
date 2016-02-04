@@ -10,3 +10,14 @@ function decryptAES(encryptedText, base64Key) {
     var decryptedText = decryptedData.toString( CryptoJS.enc.Utf8 );
     return decryptedText;
 }
+
+function encryptKey(originalKey, passphrase)  {
+    var encryptedKey = CryptoJS.AES.encrypt( originalKey, passphrase );
+    return encryptedKey.toString();
+}
+
+function decryptKey(encryptedKey, passphrase)   {
+    var decryptedData = CryptoJS.AES.decrypt( encryptedKey, passphrase );
+    var decryptedKey = decryptedData.toString( CryptoJS.enc.Utf8 );
+    return decryptedKey;
+}

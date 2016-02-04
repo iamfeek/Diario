@@ -43,17 +43,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>pageServlet</servlet-name>
-        <servlet-class>diary.pageServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>pageServlet</servlet-name>
-        <url-pattern>/pageServlet</url-pattern>
-    </servlet-mapping>
-
-
-
-    <servlet>
         <servlet-name>home</servlet-name>
         <jsp-file>/home.jsp</jsp-file>
     </servlet>
@@ -146,7 +135,7 @@
     
     <servlet>
         <servlet-name>chart</servlet-name>
-        <servlet-class>Sentiment.chartServlet</servlet-class>
+        <servlet-class>sentiment.chartServlet</servlet-class>
     </servlet>
     
     <servlet-mapping>
@@ -241,7 +230,7 @@
     </servlet>
     <servlet>
         <servlet-name>jythonTestServlet</servlet-name>
-        <servlet-class>Sentiment.jythonTestServlet</servlet-class>
+        <servlet-class>sentiment.jythonTestServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -366,20 +355,12 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>tester</servlet-name>
-        <servlet-class>tester</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>postImage</servlet-name>
         <servlet-class>post.postImage</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>postImage</servlet-name>
         <url-pattern>/postImage</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>tester</servlet-name>
-        <url-pattern>/test</url-pattern>
     </servlet-mapping>
 
     <servlet>

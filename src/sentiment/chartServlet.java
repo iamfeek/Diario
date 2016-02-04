@@ -1,4 +1,4 @@
-package Sentiment;
+package sentiment;
 
 import DAO.DAOPost;
 import org.jinstagram.entity.users.feed.MediaFeedData;
@@ -56,6 +56,7 @@ public class chartServlet extends HttpServlet {
 
 
         //Get all data
+
         List<analyzedData> allResults = moodGenerator.generateMoodFromTwitter((List<Status>) request.getSession().getAttribute("userTimeline"));
         allResults.addAll(moodGenerator.generateMoodFromPost(DAOPost.getPosts(String.valueOf(request.getSession().getAttribute("username")))));
         allResults.addAll(moodGenerator.instagramToData((List<MediaFeedData>) request.getSession().getAttribute("userFeed")));

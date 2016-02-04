@@ -109,9 +109,7 @@ public class Challenge extends HttpServlet {
             }
 
             System.out.println("Current Verified: " + verified);
-            if (verified == 1)
-                return true;
-            else return false;
+            return verified == 1;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -162,10 +160,7 @@ public class Challenge extends HttpServlet {
             e.printStackTrace();
         }
 
-        if (retrievedUsername != null)
-            return true;
-        else
-            return false;
+        return retrievedUsername != null;
     }
 
     private static void removeB(String username) {

@@ -74,9 +74,7 @@ public class ResetPasswordNow extends HttpServlet {
 
         System.out.println("KEY: " + key);
         System.out.println("RAND: " + rand);
-        if(key.equals(rand))
-            return true;
-        else return false;
+        return key.equals(rand);
 
     }
 

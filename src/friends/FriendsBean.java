@@ -106,7 +106,7 @@ public class FriendsBean{
         Connection conn = Db.getConnection();
         Statement stmt = null;
         try {
-              stmt = conn.createStatement();
+            stmt = conn.createStatement();
             String sql = "SELECT * FROM profiles WHERE id='" + userid+"';";
             System.out.println(sql);
             ResultSet rs = stmt.executeQuery(sql);
@@ -123,14 +123,14 @@ public class FriendsBean{
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-                try {
-                    if (stmt != null) stmt.close();
-                    if (conn != null) conn.close();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
+            try {
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
-            return f;
+        }
+        return f;
     }
 
     public List<Friend> getFriends(){

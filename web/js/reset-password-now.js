@@ -29,9 +29,9 @@ function doReset(){
         salt: salt,
         verifier: verifier,
         key: key
-    }
+    };
 
-    console.log(postValues)
+    console.log(postValues);
 
     $.post("/reset-now", postValues, function(response){
         if(response === "done"){

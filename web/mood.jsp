@@ -24,63 +24,45 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
 <script>
+
     $(function () {
         $('#container').highcharts({
-            title: {
-                text: 'Average Mood',
-                x: -20 //center
+            chart: {
+                type: 'column'
             },
-            subtitle: {
-                text: 'Based on Diario',
-                x: -20
+            title: {
+                text: 'Mood chart'
             },
             xAxis: {
                 categories: <%=request.getSession().getAttribute("dateList")%>
             },
-            yAxis: {
-                title: {
-                    text: 'Percentage (%)'
-                },
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
-            },
-            tooltip: {
-                valueSuffix: '%'
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle',
-                borderWidth: 0
+            credits: {
+                enabled: false
             },
             series: [{
-                /*name: 'Positive',
-                 data:
-                 }, {
-                 name: 'Negative',
-                 data: [-0.2, 0.8, 5.7, 11.3, 17.0]
-                 }, {
-                 name: 'Neutral',
-                 data: [-0.9, 0.6, 3.5, 8.4, 13.5]
-                 }, {*/
+                name: 'Positive',
+                data: <%=request.getSession().getAttribute("positiveList")%>,
+                color: Highcharts.getOptions().colors[3],
+            },{
+                name: 'Negative',
+                data: <%=request.getSession().getAttribute("negativeList")%>,
+                color: Highcharts.getOptions().colors[1],
+            },{
+                type: 'spline',
                 name: 'Average',
-                data: <%=request.getSession().getAttribute("compound")%>
+                data: <%=request.getSession().getAttribute("compound")%>,
+                color: Highcharts.getOptions().colors[0],
+
             }]
         });
     });
-
 </script>
 
 <div class="container-fluid" style="margin-top: 60px;">
 
 
     <div class="row">
-
-
-        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        <div id="container" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
 
 
     </div>

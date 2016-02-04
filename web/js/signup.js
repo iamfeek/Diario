@@ -56,8 +56,9 @@ var postSaltAndVerifier = function(){
         if(response === "done"){
             document.getElementById("create-success").className = "alert alert-success";
             document.getElementById("key-warning").className = "alert alert-danger";
+            downloadKey();
             setTimeout(function(){
-                window.location.replace("/checkInstagram")
+                window.location.replace("/signin")
             },10000)
 
         } else {

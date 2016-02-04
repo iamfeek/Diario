@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 </head>
 <body>
-<div id="snippetContent" style="padding-top:10px;">
+<div id="snippetContent">
 
         <form method="get" >
             <div class=" list-content">
@@ -21,7 +21,7 @@
                     <sql:setDataSource
                             var="myDS"
                             driver="com.mysql.jdbc.Driver"
-                            url="jdbc:mysql://localhost:3306/diario"
+                            url="jdbc:mysql://127.0.0.1:3306/diario"
                             user="root" password="root"
                     />
 

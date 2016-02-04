@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `accounts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `accounts` (
-  `userid` int(11) NOT NULL,
+  `userid` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(45) NOT NULL,
   `email_address` varchar(45) NOT NULL,
   `salt` varchar(64) NOT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE `accounts` (
   UNIQUE KEY `email_address_UNIQUE` (`email_address`),
   UNIQUE KEY `verifier_UNIQUE` (`verifier`),
   UNIQUE KEY `salt_UNIQUE` (`salt`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -163,7 +163,7 @@ CREATE TABLE `posts` (
   `shared` tinyint(1) NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`postid`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -231,7 +231,7 @@ CREATE TABLE `sentimentanalysis` (
   `compound` float NOT NULL,
   `username` varchar(45) NOT NULL,
   PRIMARY KEY (`idsentimentAnalysis`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -257,7 +257,7 @@ DROP TABLE IF EXISTS `verify`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `verify` (
   `email_address` varchar(45) NOT NULL,
-  `token` varchar(32) NOT NULL,
+  `token` varchar(128) NOT NULL,
   PRIMARY KEY (`email_address`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -271,4 +271,4 @@ CREATE TABLE `verify` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-02-03 22:49:18
+-- Dump completed on 2016-02-04  5:53:18

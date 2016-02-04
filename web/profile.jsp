@@ -13,15 +13,24 @@
 <jsp:include page="header.jsp">
     <jsp:param name="profile" value="active"></jsp:param>
 </jsp:include>
-<div style="margin-top: 60px;">
-    <jsp:include page="findFriends.jsp" flush="true"/>
-</div>
-<div class="container" style="margin-top: 60px;">
+
+
+<div class="container" style="margin-top: 85px;">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
+            <%--friends--%>
+
+            <div class="row"  style="width: 300px; margin-left:25px;">
+                <div class="panel">
+                    <jsp:include page="friendslist.jsp" flush="true"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
             <%--Profile Stuff--%>
             <div class="row">
-                <div class="panel panel-primary">
+                <div class="panel panel-primary" style="width: 300px; margin-left:25px;">
                     <div class="panel-heading" style="text-align: center">
                         <strong>${nono.username}'s</strong> Statistics
                     </div>
@@ -37,27 +46,23 @@
                         </div>
                     </div>
                 </div>
-                <input type="button" class="btn btn-default navbar-btn"
-                       value="Edit"/>
-            </div>
-            <%--friends--%>
-            <div class="row">
-                <div class="panel">
-                    <jsp:include page="friendslist.jsp" flush="true"/>
-                </div>
             </div>
             <%--End Profile Stuff--%>
+        </div>
 
+        <div class="col-md-4">
             <%--Key Management Stuff--%>
             <div class="row">
-                <div class="panel panel-danger">
+                <div class="panel panel-danger" style="width: 300px; margin-left:25px;">
                     <div class="panel-heading" style="text-align: center;">Encryption Key Management</div>
                     <div class="panel-body" style="text-align: center">
                         <div style="line-height: 30px; border: 1px solid #CCCCCC; padding: 5px; border-radius: 5px">
                             Import Key<br>
                             <input type="file" id="fileinput"/>
                             <div>
-                                <input id="passphrase" type="password"style="display:none; margin: 5px; line-height: 20px" placeholder="Password" onkeypress="testImport(event)"/>
+                                <input id="passphrase" type="password"
+                                       style="display:none; margin: 5px; line-height: 20px" placeholder="Password"
+                                       onkeypress="testImport(event)"/>
                             </div>
                         </div>
                         <br>
@@ -69,8 +74,11 @@
             </div>
             <%--End Key Management Stuff--%>
         </div>
-        <div class="col-md-9" style="border: 1px solid">
-            <%--<jsp:include page="viewPosts.jsp"></jsp:include>--%>
+    </div>
+
+    <div class="row" style="text-align: center;">
+        <div>
+            <jsp:include page="findFriends.jsp" flush="true"/>
         </div>
     </div>
 </div>
@@ -81,7 +89,7 @@
 
         if (f) {
             var r = new FileReader();
-            r.onload = function(e) {
+            r.onload = function (e) {
                 keycontents = e.target.result;
                 document.getElementById("passphrase").style.display = "";
                 document.getElementById("passphrase").focus();
@@ -102,7 +110,7 @@
                 var decryptedKey = decryptKey(keys[0], document.getElementById("passphrase").value);
                 success = true;
             }
-            catch(error)    {
+            catch (error) {
                 alert("Wrong password, import failed");
                 document.getElementById("fileinput").value = "";
                 document.getElementById("passphrase").value = "";
@@ -113,7 +121,7 @@
         }
     }
 
-    function importKey(encryptedPrv, prvKey, pubKey)    {
+    function importKey(encryptedPrv, prvKey, pubKey) {
         localStorage.setItem(sessionStorage.getItem("username") + "_prvKey", encryptedPrv);
         localStorage.setItem(sessionStorage.getItem("username") + "_pubKey", pubKey);
         sessionStorage.setItem("prvKey", prvKey);

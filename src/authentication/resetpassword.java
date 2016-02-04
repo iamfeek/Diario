@@ -86,7 +86,7 @@ public class ResetPassword extends HttpServlet {
             SessionIdentifierGenerator sig = new SessionIdentifierGenerator();
 
             String rand = sig.nextSessionId();
-            message.setText("Please enter this digits: " + rand + ". Or you can follow this link. https://localhost:8443/reset-password-now?username="+username+"&email="+email+"&key=" + rand);
+            message.setText("Please enter this digits: " + rand + ". Or you can follow this link. https://diario.com:8443/reset-password-now?username="+username+"&email="+email+"&key=" + rand);
             Transport transport = session.getTransport("smtp");
             transport.connect(host, from, pass);
             transport.sendMessage(message, message.getAllRecipients());

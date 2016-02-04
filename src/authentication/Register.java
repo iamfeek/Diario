@@ -103,7 +103,7 @@ public class Register extends HttpServlet {
                         "<br><table cellspacing='0' cellpadding='0'>\n" +
                         "<tr>\n" +
                         "<td align='center' width='300' height='40' bgcolor='#000091' style='-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; color: #ffffff; display: block;'>\n" +
-                        "<a href='https://localhost:8443/verify?email="+email+"&token="+token+"' style='font-size:16px; font-weight: bold; font-family: Helvetica, Arial, sans-serif; text-decoration: none; line-height:40px; width:100%; display:inline-block'><span style='color: #FFFFFF'>Verify Your Account</span></a>\n" +
+                        "<a href='https://diario.com:8443/verify?email="+email+"&token="+token+"' style='font-size:16px; font-weight: bold; font-family: Helvetica, Arial, sans-serif; text-decoration: none; line-height:40px; width:100%; display:inline-block'><span style='color: #FFFFFF'>Verify Your Account</span></a>\n" +
                         "</td>\n" +
                         "</tr>\n" +
                         "</table>",

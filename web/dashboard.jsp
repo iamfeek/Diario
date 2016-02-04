@@ -7,14 +7,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--<c:choose>
-    <c:when test="${sessionScope.loggedIn}">
-    </c:when>
-    <c:otherwise>
-        <% response.sendRedirect("/signin"); %>
-    </c:otherwise>
-</c:choose>--%>
 <html>
+<script type="text/javascript" src="js/security/rsa-bundle.js"></script>
+<script type="text/javascript" src="js/security/key-handler.js"></script>
+<script type="text/javascript" src="js/security/aes-handler.js"></script>
+<script type="text/javascript" src="js/security/aes.js"></script>
+<script type="text/javascript" src="js/security/mode-ecb-min.js"></script>
 <jsp:include page="header.jsp">
     <jsp:param name="dashboard" value="active"></jsp:param>
 </jsp:include>
@@ -50,7 +48,7 @@
                 <h3 style="text-align: center">Diario</h3>
                 <h4 style="color: grey; text-align: center;"><a href="/profile">${sessionScope.username}</a></h4>
 
-                <div style="text-align: left">
+                <div>
                     <div>
                         <%@ page import="DAO.DAOPost" %>
                         <%@ page import="java.util.ArrayList" %>

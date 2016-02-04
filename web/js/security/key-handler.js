@@ -10,7 +10,6 @@ function registerNewKeyPair(username, passphrase)   {
     localStorage.setItem(username + "_pubKey", pubKey);
     localStorage.setItem(username + "_prvKey", encryptKey(prvKey, passphrase));
     sessionStorage.setItem("username", username);
-    downloadKey();
 }
 
 //decrypts keys and store into sessionStorage

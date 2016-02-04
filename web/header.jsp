@@ -40,7 +40,7 @@
                     <li class="${param.postViewFriendImages}"><a href="viewFriendsImages.jsp">View Their Images</a></li>
                 </ul>
             </li>
-            <li class="${param.mood}"><a href="/mood.jsp">How was my mood?</a></li>
+            <li class="${param.mood}"><a href="/chart?value=Feb">How was my mood?</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right" style="margin-right: 5px;">
             <li class="dropdown">

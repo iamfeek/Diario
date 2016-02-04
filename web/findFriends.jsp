@@ -13,11 +13,10 @@
 </head>
 
 <body>
-<jsp:include page="date.jsp" flush="true"/>
 <sql:setDataSource
         var="myDS"
         driver="com.mysql.jdbc.Driver"
-        url="jdbc:mysql://localhost:3306/diario"
+        url="jdbc:mysql://127.0.0.1:3306/diario"
         user="root" password="root"
 />
 
